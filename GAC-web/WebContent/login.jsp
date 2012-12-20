@@ -30,7 +30,13 @@
 </table>
 </form>
 <f:view>
-
+	<h:form id="myForm"> 
+		<h:outputLabel for="username">Email</h:outputLabel>
+		<h:inputText id="username" />
+		<h:outputLabel for="password">Password</h:outputLabel>
+		<h:inputText id="password" />
+		<h:commandButton value="Do" action="#{Login.doPost}" />  
+	</h:form>  
 </f:view>
 </body>
 </html>
