@@ -22,7 +22,7 @@ public class ActivityService implements ActivityServiceLocal {
         em.persist(i);
     }
 
-    public Activity findItem(long id) {
+    public Activity findItem(Integer id) {
         return em.find(Activity.class, id);
     }
 

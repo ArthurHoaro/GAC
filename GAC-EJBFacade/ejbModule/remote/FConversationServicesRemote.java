@@ -8,7 +8,7 @@ import model.Conversation;
 public interface FConversationServicesRemote {
 	 public void addItem(Conversation i);
 
-	    public Conversation findItem(long id) ;
+	    public Conversation findItem(Integer id) ;
 
 	    public void deleteItem(Conversation i) ;
 

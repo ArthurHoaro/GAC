@@ -9,7 +9,7 @@ public interface ProjectServiceLocal {
 
 	  public void addItem(Project i);
 
-	    public Project findItem(long id);
+	    public Project findItem(Integer id);
 
 	    public void deleteItem(Project i);
 
