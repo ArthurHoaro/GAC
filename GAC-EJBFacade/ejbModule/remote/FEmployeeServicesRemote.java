@@ -9,6 +9,8 @@ public interface FEmployeeServicesRemote {
 	 public void addItem(Employee i);
 
 	    public Employee findItem(Integer id) ;
+	    
+	    public Employee findItem(String email) ;
 
 	    public void deleteItem(Employee i) ;
 

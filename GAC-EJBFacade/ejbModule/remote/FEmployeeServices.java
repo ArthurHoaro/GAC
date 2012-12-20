@@ -32,5 +32,10 @@ public class FEmployeeServices implements FEmployeeServicesRemote {
     public void updateItem(Employee i) {
     	employeeService.updateItem(i);
     }
+
+	@Override
+	public Employee findItem(String email) {
+		return employeeService.findItem(email);
+	}
  
 }

@@ -33,4 +33,10 @@ public class EmployeeService implements EmployeeServiceLocal {
         em.merge(i);
     }
 
+	@Override
+	public Employee findItem(String email) {
+		String str = "SELECT * FROM Employee WHERE email = :email";
+		return (Employee) em.createQuery(str).setParameter("email", email).getSingleResult();
+	}
+
 }

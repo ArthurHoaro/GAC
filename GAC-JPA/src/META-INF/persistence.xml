@@ -7,9 +7,6 @@
 		<class>model.Employee</class>
 		<class>model.Message</class>
 		<class>model.Project</class>
-		<class>model.RealmRoles</class>
-		<class>model.RealmRolesId</class>
-		<class>model.RealmUser</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 			<property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver"/>
