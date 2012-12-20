@@ -1,6 +1,6 @@
 package model;
 
-// Generated Dec 19, 2012 8:13:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated 20 déc. 2012 10:08:00 by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -17,12 +17,18 @@ import javax.persistence.Table;
 public class RealmRoles implements java.io.Serializable {
 
 	private RealmRolesId id;
+	private String roleGroup;
 
 	public RealmRoles() {
 	}
 
 	public RealmRoles(RealmRolesId id) {
 		this.id = id;
+	}
+
+	public RealmRoles(RealmRolesId id, String roleGroup) {
+		this.id = id;
+		this.roleGroup = roleGroup;
 	}
 
 	@EmbeddedId
@@ -35,6 +41,15 @@ public class RealmRoles implements java.io.Serializable {
 
 	public void setId(RealmRolesId id) {
 		this.id = id;
+	}
+
+	@Column(name = "role_group", length = 45)
+	public String getRoleGroup() {
+		return this.roleGroup;
+	}
+
+	public void setRoleGroup(String roleGroup) {
+		this.roleGroup = roleGroup;
 	}
 
 }

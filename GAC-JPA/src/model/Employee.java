@@ -1,6 +1,6 @@
 package model;
 
-// Generated Dec 19, 2012 8:13:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated 20 déc. 2012 10:08:00 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -24,10 +24,10 @@ import javax.persistence.TemporalType;
 public class Employee implements java.io.Serializable {
 
 	private Integer idemployee;
-	private String email;
-	private String username;
+	private int iduser;
 	private String firstname;
 	private String lastname;
+	private String email;
 	private Integer age;
 	private Date indate;
 	private byte[] picture;
@@ -41,16 +41,20 @@ public class Employee implements java.io.Serializable {
 	public Employee() {
 	}
 
-	public Employee(String email, String username, String firstname,
-			String lastname, Integer age, Date indate, byte[] picture,
+	public Employee(int iduser) {
+		this.iduser = iduser;
+	}
+
+	public Employee(int iduser, String firstname, String lastname,
+			String email, Integer age, Date indate, byte[] picture,
 			Set<Activity> activities,
 			Set<Conversation> conversationsForCalledIdemployee,
 			Set<Project> projects,
 			Set<Conversation> conversationsForCallerIdemployee) {
-		this.email = email;
-		this.username = username;
+		this.iduser = iduser;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.email = email;
 		this.age = age;
 		this.indate = indate;
 		this.picture = picture;
@@ -71,22 +75,13 @@ public class Employee implements java.io.Serializable {
 		this.idemployee = idemployee;
 	}
 
-	@Column(name = "email", length = 45)
-	public String getEmail() {
-		return this.email;
+	@Column(name = "iduser", nullable = false)
+	public int getIduser() {
+		return this.iduser;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name = "username", length = 45)
-	public String getUsername() {
-		return this.username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setIduser(int iduser) {
+		this.iduser = iduser;
 	}
 
 	@Column(name = "firstname", length = 45)
@@ -105,6 +100,15 @@ public class Employee implements java.io.Serializable {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
+	}
+
+	@Column(name = "email", length = 45)
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Column(name = "age")

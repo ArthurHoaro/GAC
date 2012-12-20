@@ -2,14 +2,14 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="GAC-JPA" transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/jdbc_2</jta-data-source>
-		<class>model.Employee</class>
-		<class>model.RealmRolesId</class>
-		<class>model.Project</class>
-		<class>model.Message</class>
 		<class>model.Activity</class>
-		<class>model.RealmRoles</class>
 		<class>model.Conversation</class>
-		<class>model.RealmUsers</class>
+		<class>model.Employee</class>
+		<class>model.Message</class>
+		<class>model.Project</class>
+		<class>model.RealmRoles</class>
+		<class>model.RealmRolesId</class>
+		<class>model.RealmUser</class>
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
 			<property name="hibernate.connection.driver_class" value="org.gjt.mm.mysql.Driver"/>
