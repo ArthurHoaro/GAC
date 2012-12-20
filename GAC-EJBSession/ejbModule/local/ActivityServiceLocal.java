@@ -9,7 +9,7 @@ public interface ActivityServiceLocal {
 
 	  public void addItem(Activity i);
 
-	    public Activity findItem(long id);
+	    public Activity findItem(Integer id);
 
 	    public void deleteItem(Activity i);
 

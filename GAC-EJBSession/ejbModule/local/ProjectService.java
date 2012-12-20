@@ -21,7 +21,7 @@ public class ProjectService implements ProjectServiceLocal {
         em.persist(i);
     }
 
-    public Project findItem(long id) {
+    public Project findItem(Integer id) {
         return em.find(Project.class, id);
     }
 

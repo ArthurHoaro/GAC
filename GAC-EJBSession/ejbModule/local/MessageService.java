@@ -21,7 +21,7 @@ public class MessageService implements MessageServiceLocal {
         em.persist(i);
     }
 
-    public Message findItem(long id) {
+    public Message findItem(Integer id) {
         return em.find(Message.class, id);
     }
 

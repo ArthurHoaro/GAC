@@ -21,7 +21,7 @@ public class FActivityServices implements FActivityServicesRemote {
     	activityService.addItem(i);
     }
 
-    public Activity findItem(long id) {
+    public Activity findItem(Integer id) {
         return activityService.findItem(id);
     }
 

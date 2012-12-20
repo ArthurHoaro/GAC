@@ -21,7 +21,7 @@ public class ConversationService implements ConversationServiceLocal {
         em.persist(i);
     }
 
-    public Conversation findItem(long id) {
+    public Conversation findItem(Integer id) {
         return em.find(Conversation.class, id);
     }
 

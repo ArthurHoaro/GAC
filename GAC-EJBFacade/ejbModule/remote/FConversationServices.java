@@ -21,7 +21,7 @@ public class FConversationServices implements FConversationServicesRemote {
     	conversationService.addItem(i);
     }
 
-    public Conversation findItem(long id) {
+    public Conversation findItem(Integer id) {
         return conversationService.findItem(id);
     }
 

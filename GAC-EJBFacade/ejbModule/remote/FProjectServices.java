@@ -21,7 +21,7 @@ public class FProjectServices implements FProjectServicesRemote {
     	projectService.addItem(i);
     }
 
-    public Project findItem(long id) {
+    public Project findItem(Integer id) {
         return projectService.findItem(id);
     }
 

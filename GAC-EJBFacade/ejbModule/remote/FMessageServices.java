@@ -21,7 +21,7 @@ public class FMessageServices implements FMessageServicesRemote {
     	messageService.addItem(i);
     }
 
-    public Message findItem(long id) {
+    public Message findItem(Integer id) {
         return messageService.findItem(id);
     }
 

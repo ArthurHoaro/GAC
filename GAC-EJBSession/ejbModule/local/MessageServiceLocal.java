@@ -9,7 +9,7 @@ public interface MessageServiceLocal {
 
 	  public void addItem(Message i);
 
-	    public Message findItem(long id);
+	    public Message findItem(Integer id);
 
 	    public void deleteItem(Message i);
 
