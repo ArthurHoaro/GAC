@@ -35,8 +35,16 @@ public class EmployeeService implements EmployeeServiceLocal {
 
 	@Override
 	public Employee findItem(String email) {
-		String str = "SELECT * FROM Employee WHERE email = :email";
-		return (Employee) em.createQuery(str).setParameter("email", email).getSingleResult();
+		String str = "SELECT e FROM Employee e WHERE email = :email";
+		Employee out;
+		try {
+			out = (Employee) em.createQuery(str).setParameter("email", email).getSingleResult();
+		}
+		catch (Exception ex) {
+			out = null;
+		}
+		
+		return out;
 	}
 
 }
