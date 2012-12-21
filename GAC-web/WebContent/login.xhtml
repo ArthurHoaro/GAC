@@ -9,18 +9,46 @@
    	 		<ui:define name="title">Login</ui:define> 
     		<ui:define name="content">
     			<div class="container">
+    				<div class="alert alert-error">
+    					<h:messages id="messages" globalOnly="true" layout="table" />
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+					</div>
 	    			<h:form id="form">
-		                <h:outputLabel for="username" value="Input 1" />
-		                <h:inputText id="username" value="#{login.username}" required="true" />
-		                <h:message id="input1message" for="username" />
-		
-		                <h:outputLabel for="password" value="Input 2" />
-		                <h:inputText id="password" value="#{login.password}" required="true" />
-		                <h:message id="input2message" for="password" />
-		
-		                <h:panelGroup />
-		                <h:commandButton value="Submit" action="#{login.submit}" />
-		                <h:messages id="messages" globalOnly="true" layout="table" />
+	    				<fieldset class="login">
+                    		<legend>Se connecter</legend>
+                   			<div class="form-horizontal">
+
+		                        <div class="control-group">
+		                            <h:outputLabel for="username" value="Email" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputText id="username" value="#{login.username}" required="true" styleClass="textEntry" />
+		                            	<div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="input1message" for="username" />
+	                					</div>
+		                            </div>
+		                        </div>
+		                        
+		                        <div class="control-group">
+		                            <h:outputLabel for="password" value="Mot de passe" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputText id="password" value="#{login.password}" required="true" styleClass="textEntry" />
+		                            	<div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="input2message" for="password" />
+	                					</div>
+		                            </div>
+		                        </div>
+         
+                        
+		                        <div class="control-group">
+		                            <div class="controls">
+		                                <h:commandButton value="Submit" action="#{login.submit}" styleClass="btn btn-large btn-info" />
+		                            </div>
+		                        </div>
+		                    </div>
+		                </fieldset>
+		                
 	        		</h:form>
         		</div>
     		</ui:define>

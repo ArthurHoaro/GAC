@@ -8,12 +8,14 @@
 	<title>		
 		<ui:insert name="title">Login</ui:insert>
 	</title>
-<!-- 	<h:outputStylesheet name="bootstrap/css/bootstrap.min.css"></h:outputStylesheet> -->
-<!-- 	<h:outputScript name="bootstrap/js/bootstrap.min.js"></h:outputScript> -->	
+<!-- 	<h:outputScript name="bootstrap/js/bootstrap.min.js"></h:outputScript>	 -->
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/jquery.min.js" />
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap/js/bootstrap.min.js" />
-	<link href="#{facesContext.externalContext.requestContextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
+		
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css"></h:outputStylesheet>		
+		<h:outputStylesheet name="css/style.css"></h:outputStylesheet>
+<!-- 	<link href="#{facesContext.externalContext.requestContextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
+<!-- 	<link href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" rel="stylesheet" type="text/css" /> -->
 </h:head> 
 <h:body>
     <div id="page">
