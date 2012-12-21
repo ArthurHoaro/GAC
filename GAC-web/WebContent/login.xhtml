@@ -6,21 +6,23 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
     	<ui:composition template="/templates/layout.xhtml">
-   	 		<ui:define name="title">City Setup</ui:define> 
+   	 		<ui:define name="title">Login</ui:define> 
     		<ui:define name="content">
-    			<h:form id="form">
-	                <h:outputLabel for="username" value="Input 1" />
-	                <h:inputText id="username" value="#{login.username}" required="true" />
-	                <h:message id="input1message" for="username" />
-	
-	                <h:outputLabel for="password" value="Input 2" />
-	                <h:inputText id="password" value="#{login.password}" required="true" />
-	                <h:message id="input2message" for="password" />
-	
-	                <h:panelGroup />
-	                <h:commandButton value="Submit" action="#{login.submit}" />
-	                <h:messages id="messages" globalOnly="true" layout="table" />
-        		</h:form>
+    			<div class="container">
+	    			<h:form id="form">
+		                <h:outputLabel for="username" value="Input 1" />
+		                <h:inputText id="username" value="#{login.username}" required="true" />
+		                <h:message id="input1message" for="username" />
+		
+		                <h:outputLabel for="password" value="Input 2" />
+		                <h:inputText id="password" value="#{login.password}" required="true" />
+		                <h:message id="input2message" for="password" />
+		
+		                <h:panelGroup />
+		                <h:commandButton value="Submit" action="#{login.submit}" />
+		                <h:messages id="messages" globalOnly="true" layout="table" />
+	        		</h:form>
+        		</div>
     		</ui:define>
  
 		
