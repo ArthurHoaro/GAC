@@ -32,5 +32,9 @@ public class FActivityServices implements FActivityServicesRemote {
     public void updateItem(Activity i) {
     	activityService.updateItem(i);
     }
+    public void ajouterCharge(Integer id, Integer chargeAAjouter)
+    {
+    	activityService.ajouterCharge(id,chargeAAjouter);
+    }
  
 }
