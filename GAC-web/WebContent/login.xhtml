@@ -10,7 +10,7 @@
     		<ui:define name="content">
     			<div class="container">
     				<div class="alert alert-error">
-    					<h:messages id="messages" globalOnly="true" layout="table" />
+    					<h:messages id="messages" globalOnly="true" layout="table" styleClass="errorMessage" />
     					<button type="button" class="close" data-dismiss="alert">x</button>
 					</div>
 	    			<h:form id="form">
@@ -18,25 +18,28 @@
                     		<legend>Se connecter</legend>
                    			<div class="form-horizontal">
 
+								<div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="usernamemessage" for="username" styleClass="errorMessage" />
+	                					</div>
 		                        <div class="control-group">
 		                            <h:outputLabel for="username" value="Email" styleClass="control-label" />
 		                            <div class="controls">
 		                            	<h:inputText id="username" value="#{login.username}" required="true" styleClass="textEntry" />
-		                            	<div class="alert alert-error">
-		                            		<button type="button" class="close" data-dismiss="alert">x</button>
-		                					<h:message id="input1message" for="username" />
-	                					</div>
+		                            	
 		                            </div>
 		                        </div>
 		                        
+		                        <div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="passwordmessage" for="password" errorClass="errorMessage" />
+                					</div>
 		                        <div class="control-group">
+		                        	
 		                            <h:outputLabel for="password" value="Mot de passe" styleClass="control-label" />
 		                            <div class="controls">
 		                            	<h:inputText id="password" value="#{login.password}" required="true" styleClass="textEntry" />
-		                            	<div class="alert alert-error">
-		                            		<button type="button" class="close" data-dismiss="alert">x</button>
-		                					<h:message id="input2message" for="password" />
-	                					</div>
+		                            	
 		                            </div>
 		                        </div>
          
@@ -51,6 +54,15 @@
 		                
 	        		</h:form>
         		</div>
+        		
+        		<script>
+       		 		$(document).ready(function () {
+						$('.alert').each(function() {
+							if( $(this).find('.errorMessage').size() == 0)
+								$(this).hide();
+						});
+       		 		});
+        		</script>
     		</ui:define>
  
 		
