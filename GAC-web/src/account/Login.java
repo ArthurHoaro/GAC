@@ -6,6 +6,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 
@@ -27,9 +28,6 @@ public class Login {
     // Actions ------------------------------------------------------------------------------------
 
     public void submit() {
-        String message = String.format("Submitted: input1=%s, input2=%s", username, password);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
-        
         // Fields filled
         if( this.username != "" && this.password != "") {
 			Employee emp = fes.findItem(this.username);
@@ -41,7 +39,7 @@ public class Login {
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 						.put("username", this.username);
 					try {
-						FacesContext.getCurrentInstance().getExternalContext().redirect("logged-in.jsp");
+						FacesContext.getCurrentInstance().getExternalContext().redirect("logged-in.xhtml");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -70,7 +68,7 @@ public class Login {
         }
         // Fields missing
         else
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message + " | empty"));
+        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("empty"));
     }
 
 	// Getters/setters ----------------------------------------------------------------------------
