@@ -13,8 +13,10 @@
     			<div class="container">
 					Project: <h:outputText value="#{projectActivityMB.projectName}" /> 
 					<br /> Charge de travail actuelle <h:outputText value="#{projectActivityMB.activityCharge}" />
-					<br /> Ajouter <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> H a cette activité. 
-					<h:commandButton value="Ajouter" action="#{projectActivityMB.ajouterCharge}" />
+					<h:form id="form">
+						<br /> Ajouter <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> H a cette activité. 
+						<h:commandButton value="Ajouter" action="#{projectActivityMB.ajouterCharge}" />
+					</h:form>
         		</div>
     		</ui:define>
     	</ui:composition>
