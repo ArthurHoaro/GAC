@@ -11,10 +11,10 @@
 			</ui:define> 
     		<ui:define name="content">
     			<div class="container">
-					Project: <h:outputText value="#{projectActivityMB.projectName}" /> 
-					<br /> Charge de travail actuelle <h:outputText value="#{projectActivityMB.activityCharge}" />
+					Project de l'activité : <h:outputText value="#{projectActivityMB.projectName}" /> 
+					<br /> Charge de travail actuelle <h:outputText value="#{projectActivityMB.activityCharge}" />H
 					<h:form id="form">
-						<br /> Ajouter <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> H a cette activité. 
+						<br /> Ajouter des heures<h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> 
 						<h:commandButton value="Ajouter" action="#{projectActivityMB.ajouterCharge}" />
 					</h:form>
         		</div>
