@@ -15,4 +15,6 @@ public interface FActivityServicesRemote {
 	    public void updateItem(Activity i) ;
 	    
 	    public void ajouterCharge(Integer id, Integer chargeAAjouter);
+	    
+	    public String findItemProjectName(Integer id);
 }

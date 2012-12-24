@@ -15,7 +15,6 @@ import javax.persistence.NoResultException;
 import remote.FActivityServicesRemote;
 import remote.FProjectServicesRemote;
 
-import javax.servlet.http.HttpServletRequest;
 
 
 @ManagedBean
@@ -26,6 +25,7 @@ public class ProjectActivityMB {
 	
 	 @EJB
 	 private FActivityServicesRemote fas;
+	 private FProjectServicesRemote fps;
  
 	private int idActivity;
 	private int idEmployee;
@@ -38,6 +38,7 @@ public class ProjectActivityMB {
 		//on recupere l' id de l'activité passé par l url 
 		String 	idActivityString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idActivity");
 	
+		//on vérifie l id récupéré
 		if(idActivityString!= null && idActivityString!="") {
 			idActivity=Integer.parseInt(idActivityString);
 		} else {
@@ -46,14 +47,12 @@ public class ProjectActivityMB {
 		
 		//on recupere l'id de l'employe connecté
 		idEmployee=1;
-
 	}
 	public void ajouterCharge(){
-		
 		fas.ajouterCharge(this.idActivity, this.chargeAAjouter);
 	}
 	public String getProjectName(){
-		return "pas encore implémenté";
+		return fas.findItemProjectName(this.idActivity);
 	}
 	public int getActivityCharge(){
 		return fas.findItem(this.idActivity).getCharge();
@@ -65,11 +64,6 @@ public class ProjectActivityMB {
 	
 	public void setChargeAAjouter(int chargeAAjouter){
 		 this.chargeAAjouter= chargeAAjouter;
-	}
-	
-	
-	
-	
-	
+	}	
 	
 }
