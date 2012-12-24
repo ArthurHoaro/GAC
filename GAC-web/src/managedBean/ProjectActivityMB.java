@@ -36,10 +36,12 @@ public class ProjectActivityMB {
 	public ProjectActivityMB() {
 		
 		//on recupere l' id de l'activité passé par l url 
-		if(true) {
-			idActivity=10;
+		String 	idActivityString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idActivity");
+	
+		if(idActivityString!= null && idActivityString!="") {
+			idActivity=Integer.parseInt(idActivityString);
 		} else {
-			idActivity=0;
+			idActivity=1;
 		}
 		
 		//on recupere l'id de l'employe connecté
