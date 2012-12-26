@@ -8,6 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+
+import com.sun.net.httpserver.HttpContext;
 
 import remote.FEmployeeServicesRemote;
 
@@ -27,9 +30,6 @@ public class Login {
     // Actions ------------------------------------------------------------------------------------
 
     public void submit() {
-        String message = String.format("Submitted: input1=%s, input2=%s", username, password);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message));
-        
         // Fields filled
         if( this.username != "" && this.password != "") {
 			Employee emp = fes.findItem(this.username);
@@ -41,36 +41,28 @@ public class Login {
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 						.put("username", this.username);
 					try {
-						FacesContext.getCurrentInstance().getExternalContext().redirect("logged-in.jsp");
+						FacesContext.getCurrentInstance().getExternalContext().redirect(
+								FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+								"/logged-in.xhtml"
+							);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 				// Wrong password
-				else {
-					try {
-						FacesContext.getCurrentInstance().getExternalContext().redirect("/GAC-web/login.xhtml?error=EPWD");
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				else {					
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nom d'utilisateur ou mot de passe incorrect."));
 				}
 			}
 			// User doesn't exist
-			else {
-				// User doesnt exist
-				try {
-					FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=UNOF");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			else {				
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nom d'utilisateur ou mot de passe incorrect."));				
 			}
         }
         // Fields missing
         else
-        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(message + " | empty"));
+        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("empty"));
     }
 
 	// Getters/setters ----------------------------------------------------------------------------

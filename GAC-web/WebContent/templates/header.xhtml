@@ -18,15 +18,19 @@
 		                    ** LINKS - NAVBAR
 		                    **************************************************************-->
 	                        <!-- COMMON -->
-	                        <li><a href="/index.xhtml" title="Home">Home</a></li>
+	                        <li><a href="#{request.contextPath}/index.xhtml" title="Home">Home</a></li>
 	                        <!--  END COMMON  -->
 	                        
-	                        <!--  REGISTERED  TODO  -->
-	                        <li><a href="#" title="Relations">Logged In Links</a></li>
+	                        <!--  REGISTERED   -->
+	                        <ui:fragment rendered="#{userProfile.loggedIn}">
+	                        	<li><a href="#" title="Relations">Logged In Links</a></li>
+	                        </ui:fragment>
 	                        <!--  END REGISTERED  --> 
 	                                               
-	                        <!--  ANONYMOUS  TODO  -->
-	                        <li><a href="#" title="Relations">Anonymous Links</a></li>
+	                        <!--  ANONYMOUS   -->
+	                        <ui:fragment rendered="#{!userProfile.loggedIn}">
+	                        	<li><a href="#" title="Relations">Anonymous Links</a></li>
+                        	</ui:fragment>
 	                        <!--  END ANONYMOUS  -->                        
 	                        <!--*********************************************************
 		                    ** END LINKS - NAVBAR
@@ -37,13 +41,30 @@
 	                    <!--*************************************************************
 		                  ** LOGIN FROM - NAVBAR
 		                  *************************************************************** -->
-                     	<div class="btn-group">
-							<a id="ButLoginDD" class="btn btn-small btn-primary" href="#"><i class="icon-user icon-white"></i> Se connecter</a>
+                     	<div class="btn-group pull-right">
+                     		<ui:fragment rendered="#{userProfile.loggedIn}">
+								<a id="ButLoginDD" class="btn btn-small btn-primary" href="#">
+									<i class="icon-user icon-white"></i>
+									#{userProfile.firstname} #{userProfile.lastname} 
+								</a>    								
+							</ui:fragment>
+							<ui:fragment rendered="#{!userProfile.loggedIn}">
+								<a id="ButLoginDD" class="btn btn-small btn-primary" href="#{request.contextPath}/login.xhtml">
+   									Se connecter
+   								</a>
+							</ui:fragment>
+								
+							
                                 
                             <button class="btn btn-small btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"/></button>
                             <ul class="dropdown-menu">
                                 <li class="login-form-dd">
-                                	Login Form
+                                	<ui:fragment rendered="#{!userProfile.loggedIn}">
+    									Login Form
+									</ui:fragment>
+                                	<ui:fragment rendered="#{userProfile.loggedIn}">
+    									Logout button, my account, etc.
+									</ui:fragment>
                                 </li>
 							</ul>
 						</div>

@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import remote.FEmployeeServicesRemote;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class UserProfile {
 	
 	@EJB
@@ -23,18 +23,24 @@ public class UserProfile {
 	private boolean isLoggedIn;
 	private String username;
 	private String test;
-	
+	private String firstname;
+	private String lastname;	
+
 	public void init() {		
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		
 		if( ! userSession.isEmpty() ) {
 			this.username = (String) userSession.get("username");
-			this.isLoggedIn = true;			
+			this.isLoggedIn = true;
+			this.firstname = fes.findItem(username).getFirstname();
+			this.lastname = fes.findItem(username).getLastname();
 		}
+		else 
+			this.isLoggedIn = false;
 	}
 
 	public String getTest() {
-		return test;
+		return "1. " + this.test;
 	}
 
 	public void setTest(String test) {
@@ -57,6 +63,20 @@ public class UserProfile {
 		this.username = username;
 	}
 	
-	
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
 }
