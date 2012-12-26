@@ -33,5 +33,12 @@ public class ActivityService implements ActivityServiceLocal {
     public void updateItem(Activity i) {
         em.merge(i);
     }
+    
+    public void ajouterCharge(Integer id, Integer chargeAAjouter)
+    {
+    	Activity a=this.findItem(id);
+    	a.setCharge(a.getCharge()+chargeAAjouter);
+    	this.updateItem(a);
+    }
 
 }

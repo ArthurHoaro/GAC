@@ -6,21 +6,63 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
     	<ui:composition template="/templates/layout.xhtml">
-   	 		<ui:define name="title">City Setup</ui:define> 
+   	 		<ui:define name="title">Login</ui:define> 
     		<ui:define name="content">
-    			<h:form id="form">
-	                <h:outputLabel for="username" value="Input 1" />
-	                <h:inputText id="username" value="#{login.username}" required="true" />
-	                <h:message id="input1message" for="username" />
-	
-	                <h:outputLabel for="password" value="Input 2" />
-	                <h:inputText id="password" value="#{login.password}" required="true" />
-	                <h:message id="input2message" for="password" />
-	
-	                <h:panelGroup />
-	                <h:commandButton value="Submit" action="#{login.submit}" />
-	                <h:messages id="messages" globalOnly="true" layout="table" />
-        		</h:form>
+    			<div class="container">
+    				<div class="alert alert-error">
+    					<h:messages id="messages" globalOnly="true" layout="table" styleClass="errorMessage" />
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+					</div>
+	    			<h:form id="form">
+	    				<fieldset class="login">
+                    		<legend>Se connecter</legend>
+                   			<div class="form-horizontal">
+
+								<div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="usernamemessage" for="username" styleClass="errorMessage" />
+	                					</div>
+		                        <div class="control-group">
+		                            <h:outputLabel for="username" value="Email" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputText id="username" value="#{login.username}" required="true" styleClass="textEntry" />
+		                            	
+		                            </div>
+		                        </div>
+		                        
+		                        <div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="passwordmessage" for="password" errorClass="errorMessage" />
+                					</div>
+		                        <div class="control-group">
+		                        	
+		                            <h:outputLabel for="password" value="Mot de passe" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputText id="password" value="#{login.password}" required="true" styleClass="textEntry" />
+		                            	
+		                            </div>
+		                        </div>
+         
+                        
+		                        <div class="control-group">
+		                            <div class="controls">
+		                                <h:commandButton value="Submit" action="#{login.submit}" styleClass="btn btn-large btn-info" />
+		                            </div>
+		                        </div>
+		                    </div>
+		                </fieldset>
+		                
+	        		</h:form>
+        		</div>
+        		
+        		<script>
+       		 		$(document).ready(function () {
+						$('.alert').each(function() {
+							if( $(this).find('.errorMessage').size() == 0)
+								$(this).hide();
+						});
+       		 		});
+        		</script>
     		</ui:define>
     	</ui:composition>
     </h:body>

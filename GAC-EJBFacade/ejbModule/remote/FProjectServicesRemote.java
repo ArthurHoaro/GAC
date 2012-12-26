@@ -1,5 +1,7 @@
 package remote;
 
+import java.util.Collection;
+
 import javax.ejb.Remote;
 
 import model.Project;
@@ -13,4 +15,6 @@ public interface FProjectServicesRemote {
 	    public void deleteItem(Project i) ;
 
 	    public void updateItem(Project i) ;
+	    
+	    public Collection<Project> findAllProject();
 }

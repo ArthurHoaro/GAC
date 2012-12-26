@@ -5,8 +5,23 @@
       >
     <body>
 	    <ui:composition>
- 
-		<h1>This is default footer</h1>
+			<div class="footer">
+		        <div class="container">
+		            <p>
+		                GAC <i class="icon-chevron-right"></i> Gestion des Activités et Communication <i class="icon-chevron-right"></i> 2012
+		            </p>
+		        </div>
+	    	</div>
+	    <script type="text/javascript">
+	        $(document).ready(function () {
+	            $('.dropdown-toggle').dropdown();
+	        });
+	
+	        // Fix input element click problem @ http://mifsud.me/adding-dropdown-login-form-bootstraps-navbar/
+	        $('.dropdown-menu input, .dropdown-menu label').click(function (e) {
+	            e.stopPropagation();
+	        });
+	    </script>
  
 	    </ui:composition>
     </body>

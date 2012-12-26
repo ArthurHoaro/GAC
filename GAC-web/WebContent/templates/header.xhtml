@@ -6,8 +6,55 @@
     <body>
 	    <ui:composition>
  
-		<h1>This is default header</h1>
- 
+		    
+		    <div class="navbar navbar-inverse navbar-fixed-top">
+        		<div class="navbar-inner">
+		            <div class="container">
+		                <a class="brand" href="#">GAC</a>
+		                
+		                
+		                <ul class="nav">		                
+			                <!--**********************************************************
+		                    ** LINKS - NAVBAR
+		                    **************************************************************-->
+	                        <!-- COMMON -->
+	                        <li><a href="/index.xhtml" title="Home">Home</a></li>
+	                        <!--  END COMMON  -->
+	                        
+	                        <!--  REGISTERED  TODO  -->
+	                        <li><a href="#" title="Relations">Logged In Links</a></li>
+	                        <!--  END REGISTERED  --> 
+	                                               
+	                        <!--  ANONYMOUS  TODO  -->
+	                        <li><a href="#" title="Relations">Anonymous Links</a></li>
+	                        <!--  END ANONYMOUS  -->                        
+	                        <!--*********************************************************
+		                    ** END LINKS - NAVBAR
+		                    ************************************************************* -->
+	                    </ul>
+	                    
+	                    
+	                    <!--*************************************************************
+		                  ** LOGIN FROM - NAVBAR
+		                  *************************************************************** -->
+                     	<div class="btn-group">
+							<a id="ButLoginDD" class="btn btn-small btn-primary" href="#"><i class="icon-user icon-white"></i> Se connecter</a>
+                                
+                            <button class="btn btn-small btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"/></button>
+                            <ul class="dropdown-menu">
+                                <li class="login-form-dd">
+                                	Login Form
+                                </li>
+							</ul>
+						</div>
+                       <!--**************************************************************
+                        ** END LOGIN FROM - NAVBAR
+                        ***************************************************************** -->
+                        
+                        
+ 					 </div>
+            	</div>
+        	</div>
 	    </ui:composition>
     </body>
 </html>

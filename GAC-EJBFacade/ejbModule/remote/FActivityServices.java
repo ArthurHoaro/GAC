@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 
 import local.ActivityServiceLocal;
 import model.Activity;
+import model.Project;
 
 /**
  * Session Bean implementation class FActivityServices
@@ -31,6 +32,15 @@ public class FActivityServices implements FActivityServicesRemote {
 
     public void updateItem(Activity i) {
     	activityService.updateItem(i);
+    }
+    public void ajouterCharge(Integer id, Integer chargeAAjouter)
+    {
+    	activityService.ajouterCharge(id,chargeAAjouter);
+    }
+    public String findItemProjectName(Integer id)
+    {
+    	Project p =activityService.findItem(id).getProject();
+    	return p.getName();
     }
  
 }

@@ -1,5 +1,7 @@
 package remote;
 
+import java.util.Collection;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -31,6 +33,11 @@ public class FProjectServices implements FProjectServicesRemote {
 
     public void updateItem(Project i) {
     	projectService.updateItem(i);
+    }
+    
+    public Collection<Project> findAllProject()
+    {
+    	return projectService.findAllProject();
     }
  
 }
