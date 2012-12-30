@@ -66,7 +66,14 @@
     									Logout button, my account, etc.
 									</ui:fragment>
                                 </li>
-							</ul>
+							</ul>						
+						</div>
+						<div class="pull-right">
+							<ui:fragment rendered="#{!userProfile.loggedIn}">
+								<a id="ButRegisterDD" class="btn btn-small btn-success" href="#{request.contextPath}/register.xhtml">
+									S'enregistrer
+								</a>    	
+							</ui:fragment>
 						</div>
                        <!--**************************************************************
                         ** END LOGIN FROM - NAVBAR

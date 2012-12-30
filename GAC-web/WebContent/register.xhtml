@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				GAC - S'enregistrer
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<h2>
+                        Rejoignez GAC
+                    </h2>                    
+    				<div class="alert alert-error">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    					<h:messages id="messages" globalOnly="true" layout="table" styleClass="errorMessage" />    					
+					</div>
+                    <div class="accountInfo">
+	                   	<h:form id="form">
+					    	<fieldset class="register">
+						        <legend>Vos informations</legend>                           
+						        <div class="form-horizontal">
+						        	<div class="alert alert-error">
+						        		<button type="button" class="close" data-dismiss="alert">x</button>
+										<h:message id="lastnamemessage" for="lastname" styleClass="errorMessage" />
+									</div>
+						        	<div class="control-group">
+						                <h:outputLabel value="Nom" id="lastnameLabel" for="lastname" styleClass="control-label"  /> 
+						                <div class="controls">
+						                    <h:inputText value="#{register.lastname}" id="lastname" required="true" styleClass="textEntry" /> 
+						                </div>
+						        	</div>
+						            <div class="alert alert-error">
+						                <button type="button" class="close" data-dismiss="alert">x</button>
+						                <h:message id="firstnamemessage" for="firstname" styleClass="errorMessage" />
+						            </div>
+						            <div class="control-group">
+						                <h:outputLabel value="Prénom" id="firstnameLabel" for="firstname" styleClass="control-label"  /> 
+						                <div class="controls">
+						                    <h:inputText value="#{register.firstname}" id="firstname" required="true" styleClass="textEntry" /> 
+						                </div>
+						            </div>
+						            <div class="alert alert-error">
+						                <button type="button" class="close" data-dismiss="alert">x</button>
+						                <h:message id="emailmessage" for="email" styleClass="errorMessage" />
+						            </div>
+						            <div class="control-group">
+						                <h:outputLabel value="Email" id="emailLabel" for="email" styleClass="control-label"  /> 
+						                <div class="controls">
+						                    <h:inputText value="#{register.email}" id="email" required="true" styleClass="textEntry" /> 
+						                </div>
+						            </div>
+						            <div class="alert alert-error">
+						                <button type="button" class="close" data-dismiss="alert">x</button>
+						                <h:message id="passwordmessage" for="password" styleClass="errorMessage" />
+						            </div>
+						            <div class="control-group">
+						                <h:outputLabel value="Mot de passe" id="passwordLabel" for="password" styleClass="control-label"  /> 
+						                <div class="controls">
+						                    <h:inputSecret value="#{register.password}" id="password" required="true" styleClass="textEntry" /> 
+						                </div>
+						            </div>
+						
+						            <div class="control-group">
+						                <div class="controls">
+						                    <h:commandButton value="S'enregistrer" action="#{register.submit}" styleClass="btn btn-large btn-info" />
+						                </div>
+						            </div>
+						        </div>
+						    </fieldset>
+						</h:form>                       
+                    </div>
+        		</div>
+        		<script>
+       		 		$(document).ready(function () {
+						$('.alert').each(function() {
+							if( $(this).find('.errorMessage').size() == 0)
+								$(this).hide();
+						});
+       		 		});
+        		</script>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

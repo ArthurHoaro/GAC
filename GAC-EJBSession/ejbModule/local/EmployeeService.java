@@ -1,5 +1,7 @@
 package local;
 
+import java.util.Date;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,7 +23,14 @@ public class EmployeeService implements EmployeeServiceLocal {
         em.persist(i);
     }
 
-    public Employee findItem(Integer id) {
+    @Override
+	public void addItem(String email, String lastname, String firstname,
+			String password) {
+		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null);
+		this.addItem(emp);
+	}
+
+	public Employee findItem(Integer id) {
         return em.find(Employee.class, id);
     }
 

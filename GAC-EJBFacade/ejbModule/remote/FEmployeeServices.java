@@ -21,6 +21,11 @@ public class FEmployeeServices implements FEmployeeServicesRemote {
     	employeeService.addItem(i);
     }
 
+    @Override
+	public void addItem(String email, String lastname, String firstname, String password) {
+    	employeeService.addItem(email, lastname, firstname, password);
+	}
+    
     public Employee findItem(Integer id) {
         return employeeService.findItem(id);
     }
@@ -37,5 +42,7 @@ public class FEmployeeServices implements FEmployeeServicesRemote {
 	public Employee findItem(String email) {
 		return employeeService.findItem(email);
 	}
+	
+	
  
 }
