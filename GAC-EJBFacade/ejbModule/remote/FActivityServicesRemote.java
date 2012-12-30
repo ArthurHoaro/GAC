@@ -17,4 +17,6 @@ public interface FActivityServicesRemote {
 	    public void ajouterCharge(Integer id, Integer chargeAAjouter);
 	    
 	    public String findItemProjectName(Integer id);
+	    
+	    public String findItemEmployeeName(Integer id);
 }

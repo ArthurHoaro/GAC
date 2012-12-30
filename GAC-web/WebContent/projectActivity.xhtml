@@ -12,6 +12,7 @@
     		<ui:define name="content">
     			<div class="container">
 					Project de l'activité : <h:outputText value="#{projectActivityMB.projectName}" /> 
+					<br /> Activité attribué à: <h:outputText id="employeeNameOutputText"  value="#{projectActivityMB.employeeName}" />H
 					<br /> Charge de travail actuelle <h:outputText value="#{projectActivityMB.activityCharge}" />H
 					<h:form id="form">
 						<br /> Ajouter des heures<h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> 

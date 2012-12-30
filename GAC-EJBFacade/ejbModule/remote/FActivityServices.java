@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 
 import local.ActivityServiceLocal;
 import model.Activity;
+import model.Employee;
 import model.Project;
 
 /**
@@ -41,6 +42,11 @@ public class FActivityServices implements FActivityServicesRemote {
     {
     	Project p =activityService.findItem(id).getProject();
     	return p.getName();
+    }
+    public String findItemEmployeeName(Integer id)
+    {
+    	Employee e =activityService.findItem(id).getEmployee();
+    	return e.getFirstname()+" "+e.getLastname();
     }
  
 }
