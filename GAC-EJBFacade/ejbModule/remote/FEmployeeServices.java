@@ -1,10 +1,13 @@
 package remote;
 
+import java.util.Collection;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import local.EmployeeServiceLocal;
 import model.Employee;
+import model.Project;
 
 /**
  * Session Bean implementation class FEmployeeServices
@@ -36,6 +39,11 @@ public class FEmployeeServices implements FEmployeeServicesRemote {
 
     public void updateItem(Employee i) {
     	employeeService.updateItem(i);
+    }
+    
+    public Collection<Employee> findAllEmployee()
+    {
+    	return employeeService.findAllEmployee();
     }
 
 	@Override

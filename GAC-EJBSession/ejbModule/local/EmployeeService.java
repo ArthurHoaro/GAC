@@ -1,12 +1,15 @@
 package local;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import model.Employee;
+import model.Project;
 
 /**
  * Session Bean implementation class EmployeeService
@@ -55,5 +58,10 @@ public class EmployeeService implements EmployeeServiceLocal {
 		
 		return out;
 	}
+	
+    public Collection<Employee> findAllEmployee() {
+        Query query = em.createQuery("SELECT e FROM Employee e");
+        return (Collection<Employee>) query.getResultList();
+    }
 
 }

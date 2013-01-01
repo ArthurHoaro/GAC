@@ -1,5 +1,7 @@
 package local;
 
+import java.util.Collection;
+
 import javax.ejb.Local;
 
 import model.Employee;
@@ -17,5 +19,7 @@ public interface EmployeeServiceLocal {
 	    public void deleteItem(Employee i);
 
 	    public void updateItem(Employee i);
+	    
+	    public Collection<Employee> findAllEmployee();
 	
 }

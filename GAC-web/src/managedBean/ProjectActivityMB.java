@@ -2,15 +2,21 @@
 
 package managedBean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.html.HtmlOutputLabel;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
-
+import javax.faces.FacesException;
+import javax.faces.model.SelectItem;
 
 import remote.FActivityServicesRemote;
 import remote.FProjectServicesRemote;
@@ -31,11 +37,20 @@ public class ProjectActivityMB {
 	private int idEmployee;
 	private int chargeAAjouter=0;
 	private int modif=0;
-
+	private String modifMode="false";
+	private String readMode="true";
+	private HtmlOutputText employeeNameOutputText=new HtmlOutputText();
+	private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
+	
+	
 	// Actions ------------------------------------------------------------------------------------
 	
 	public ProjectActivityMB() {
-		
+		this.init();
+
+	}
+
+	public void init() {
 		//on recupere l' id de l'activité passé par l url 
 		String 	idActivityString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idActivity");
 	
@@ -56,16 +71,20 @@ public class ProjectActivityMB {
 		String 	modifString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("modif");
 		
 		//on vérifie l id récupéré
-		/*if(Integer.parseInt(modifString)==1) {
-	
-		} else {
+		if(modifString!= null && modifString!="") {
 			
-		}*/
-		
-
-		
-		
+			if(Integer.parseInt(modifString)==1)
+			{
+				this.modifMode="true";
+				this.readMode="false";
+			} else { 
+				this.modifMode="false";
+				this.readMode="true";
+			}
+		} 
 	}
+		
+	
 	public void ajouterCharge(){
 		fas.ajouterCharge(this.idActivity, this.chargeAAjouter);
 	}
@@ -86,5 +105,21 @@ public class ProjectActivityMB {
 	public void setChargeAAjouter(int chargeAAjouter){
 		 this.chargeAAjouter= chargeAAjouter;
 	}	
+	
+	public void setEmployeeNameOutputText(HtmlOutputText employeeNameOutputText){
+		 this.employeeNameOutputText= employeeNameOutputText;
+	}	
+	public HtmlOutputText getEmployeeNameOutputText() {
+		return this.employeeNameOutputText;
+	}
+	public String getModifMode() {
+		return this.modifMode;
+	}
+	public String getReadMode() {
+		return this.readMode;
+	}
+    public List<SelectItem> getEmployeeOptions() {
+        return employeeOptions;
+    }
 	
 }
