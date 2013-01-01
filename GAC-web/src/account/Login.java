@@ -6,11 +6,11 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.sun.net.httpserver.HttpContext;
 
 import remote.FEmployeeServicesRemote;
 
@@ -26,6 +26,8 @@ public class Login {
 	
     private String username;
     private String password;
+    
+    private HtmlOutputText messageSuccess;
     
     // Actions ------------------------------------------------------------------------------------
 
@@ -65,6 +67,20 @@ public class Login {
         	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("empty"));
     }
 
+    public void displayMessage() {
+    	try {
+    		String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("msg");
+    		switch( GET ) {
+    			case "register":
+    				this.messageSuccess.setValue("ça roule, poulet !");    				
+    			break;
+    		}    			
+    	}
+    	catch( NullPointerException e ) {
+    		;
+    	}
+    }
+    
 	// Getters/setters ----------------------------------------------------------------------------
     
     public String getUsername() {
@@ -82,5 +98,12 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-    
+
+	public HtmlOutputText getMessageSuccess() {
+		return messageSuccess;
+	}
+
+	public void setMessageSuccess(HtmlOutputText messageSuccess) {
+		this.messageSuccess = messageSuccess;
+	}
 }

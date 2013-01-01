@@ -8,12 +8,16 @@
     	<ui:composition template="/templates/layout.xhtml">
    	 		<ui:define name="title">Login</ui:define> 
     		<ui:define name="content">
-    			<f:event type="preRenderView" listener="#{register.init}" />
     			<div class="container">
     				<div class="alert alert-error">
     					<button type="button" class="close" data-dismiss="alert">x</button>
     					<h:messages id="messages" globalOnly="true" layout="table" styleClass="errorMessage" />
 					</div>
+					<div class="alert alert-success">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    					<h:outputText binding="#{login.messageSuccess}" id="messageSuccess" styleClass="errorMessage" />
+					</div>
+					<f:event type="preRenderView" listener="#{login.displayMessage}" />
 	    			<h:form id="form">
 	    				<fieldset class="login">
                     		<legend>Se connecter</legend>
@@ -58,8 +62,8 @@
         		<script>
        		 		$(document).ready(function () {
 						$('.alert').each(function() {
-							if( $(this).find('.errorMessage').size() == 0)
-								$(this).hide();
+							if( $(this).find('.errorMessage').size() == 0 || $(this).find('.errorMessage').val() == "" )
+								$(this).hide(); //MOuhhahahahahaahah intervention du geranium de l'apocalypse !! 
 						});
        		 		});
         		</script>

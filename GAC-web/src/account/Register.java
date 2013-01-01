@@ -6,6 +6,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,14 +29,6 @@ public class Register {
     private String lastname;
     
     // Actions ------------------------------------------------------------------------------------
-
-    public void init() {
-    	if( ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("msg") 
-    			.equals("register") )
-    		FacesContext.getCurrentInstance().addMessage(null, 
-    				new FacesMessage("L'utilisateur a bien été créé."));
-    	
-    }
     
     public void submit() {
     	if( email != null ) {
@@ -97,6 +91,4 @@ public class Register {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-    
-    
 }

@@ -41,6 +41,13 @@
 	                    <!--*************************************************************
 		                  ** LOGIN FROM - NAVBAR
 		                  *************************************************************** -->
+		                <ui:fragment rendered="#{!userProfile.loggedIn}">
+							<div class="pull-right">							
+								<a id="ButRegisterDD" class="btn btn-small btn-success" href="#{request.contextPath}/register.xhtml">
+									S'enregistrer
+								</a>  						
+							</div>
+						</ui:fragment>
                      	<div class="btn-group pull-right">
                      		<ui:fragment rendered="#{userProfile.loggedIn}">
 								<a id="ButLoginDD" class="btn btn-small btn-primary" href="#">
@@ -68,13 +75,7 @@
                                 </li>
 							</ul>						
 						</div>
-						<div class="pull-right">
-							<ui:fragment rendered="#{!userProfile.loggedIn}">
-								<a id="ButRegisterDD" class="btn btn-small btn-success" href="#{request.contextPath}/register.xhtml">
-									S'enregistrer
-								</a>    	
-							</ui:fragment>
-						</div>
+						
                        <!--**************************************************************
                         ** END LOGIN FROM - NAVBAR
                         ***************************************************************** -->
