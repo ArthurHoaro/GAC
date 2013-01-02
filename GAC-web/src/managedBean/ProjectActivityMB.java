@@ -3,6 +3,7 @@
 package managedBean;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -18,7 +19,10 @@ import javax.persistence.NoResultException;
 import javax.faces.FacesException;
 import javax.faces.model.SelectItem;
 
+import model.Employee;
+
 import remote.FActivityServicesRemote;
+import remote.FEmployeeServicesRemote;
 import remote.FProjectServicesRemote;
 
 
@@ -32,6 +36,7 @@ public class ProjectActivityMB {
 	 @EJB
 	 private FActivityServicesRemote fas;
 	 private FProjectServicesRemote fps;
+	 private FEmployeeServicesRemote fes;
  
 	private int idActivity;
 	private int idEmployee;
@@ -63,28 +68,23 @@ public class ProjectActivityMB {
 		} else {
 			idActivity=1;
 		}
-		
-		//on verifie si l'activité est en mode modification
+
 	   //TO DO verifier si l'utilisateur est chef de projet pour pouvoir modifier
 		
-		//on recupere le parametre "modif" passé par l url 
-		String 	modifString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("modif");
-		
-		//on vérifie l id récupéré
-		if(modifString!= null && modifString!="") {
-			
-			if(Integer.parseInt(modifString)==1)
-			{
-				this.modifMode="true";
-				this.readMode="false";
-			} else { 
-				this.modifMode="false";
-				this.readMode="true";
-			}
-		} 
 	}
 		
-	
+	public void modifierEmployee(){
+		this.modifMode="true";
+		this.readMode="false";
+		
+	}
+	public void validerModificationEmployee(){
+		
+	}
+	public void annulerModificationEmployee(){
+		this.modifMode="false";
+		this.readMode="true";
+	}
 	public void ajouterCharge(){
 		fas.ajouterCharge(this.idActivity, this.chargeAAjouter);
 	}
@@ -118,7 +118,18 @@ public class ProjectActivityMB {
 	public String getReadMode() {
 		return this.readMode;
 	}
+	
+	//construit une list de "select items" a partir de la liste des employés
     public List<SelectItem> getEmployeeOptions() {
+    	SelectItem s;
+    	//Iterator i=fes.findAllEmployee().iterator();
+    	
+		/*while(i.hasNext()) {
+			
+			s=new SelectItem(fes.findAllEmployee()[],e.getFirstname()+ " "+e.getLastname());
+			employeeOptions.add(s);
+		}*/
+		
         return employeeOptions;
     }
 	

@@ -17,12 +17,32 @@
     		<ui:define name="content">
     			<div class="container">
 					Project de l'activité : <h:outputText value="#{projectActivityMB.projectName}" /> 
-					<br /> Activité attribué à: <h:outputText binding="#{projectActivityMB.employeeNameOutputText}" value="#{projectActivityMB.employeeName}" rendered="#{projectActivityMB.readMode}" />
-					<h:commandButton value="Modifier" rendered="#{projectActivityMB.readMode}" />
+
+					
+					<h:form id="modificationEmployeeFormulaire">
+						<br /> Activité attribué à: 
+						
+						<!-- Read Mode -->
+						<h:outputText binding="#{projectActivityMB.employeeNameOutputText}" value="#{projectActivityMB.employeeName}" rendered="#{projectActivityMB.readMode}" />
+						<h:commandButton value="Modifier" action="#{projectActivityMB.modifierEmployee}" rendered="#{projectActivityMB.readMode}" />
+						
+						<!-- Modif Mode -->
+						
+						<rich:select rendered="#{projectActivityMB.modifMode}">
+								<f:selectItems value="#{projectActivityMB.employeeOptions}" />
+           			 	</rich:select>
+						<h:commandButton value="Valider"  action="#{projectActivityMB.validerModificationEmployee}"  rendered="#{projectActivityMB.modifMode}" />
+						<h:commandButton value="Annuler"  action="#{projectActivityMB.annulerModificationEmployee}"  rendered="#{projectActivityMB.modifMode}" />
+					
+					</h:form>
+					
 					<br /> Charge de travail actuelle <h:outputText value="#{projectActivityMB.activityCharge}" /> H
-					<h:form id="form">
+					
+					<h:form id="ajoutHeureFormulaire">
+						
 						<br /> Ajouter des heures<h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> 
 						<h:commandButton value="Ajouter" action="#{projectActivityMB.ajouterCharge}" />
+					
 					</h:form>
         		</div>
     		</ui:define>
