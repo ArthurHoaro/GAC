@@ -83,11 +83,10 @@ public class Login {
     }
     
     public void logout() {
-    	UserProfile user = new UserProfile();
-    	user.init();
-    	if( user.isLoggedIn() ) {
-    		Map<String, Object> session = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
-    		session.clear();
+    	Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		
+		if( ! userSession.isEmpty() ) {
+    		userSession.clear();
     	}
     	
     	try {
