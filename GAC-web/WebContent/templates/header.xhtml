@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <body>
@@ -71,6 +72,20 @@
 									</ui:fragment>
                                 	<ui:fragment rendered="#{userProfile.loggedIn}">
     									Logout button, my account, etc.
+    									<div>
+    									<button class="btn btn-danger" id="logoutButtonNav">
+											<i class="icon-user icon-white"></i>
+											Déconnexion
+										</button>
+										</div>
+										<h:commandButton action="#{login.logout}" id="logoutCButtonNav" style="display: none;" />
+										<script type="text/javascript">
+									        $(document).ready(function () {
+									            $('#logoutButtonNav').click(function(){
+													$('#logoutCButtonNav').click();
+									            });;
+									        });
+								        </script>
 									</ui:fragment>
                                 </li>
 							</ul>						
