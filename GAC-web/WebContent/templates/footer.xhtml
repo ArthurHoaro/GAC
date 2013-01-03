@@ -22,7 +22,15 @@
 	            e.stopPropagation();
 	        });
 	    </script>
- 
+ 		
+ 		<script>
+	 		$(document).ready(function () {
+				$('.alert').each(function() {
+					if( $(this).find('.errorMessage').size() == 0 || $(this).find('.errorMessage').val() == "" )
+						$(this).hide(); //MOuhhahahahahaahah intervention du geranium de l'apocalypse !! 
+				});
+	 		});
+		</script>
 	    </ui:composition>
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"   
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:h="http://java.sun.com/jsf/html"  
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <body>
@@ -67,10 +68,55 @@
                             <ul class="dropdown-menu">
                                 <li class="login-form-dd">
                                 	<ui:fragment rendered="#{!userProfile.loggedIn}">
-    									Login Form
+    									<h:form id="form_login_nav">
+						    				<fieldset class="login">
+					                   			<div class="form-horizontal">
+					
+													<div class="alert alert-error">
+					                            		<button type="button" class="close" data-dismiss="alert">x</button>
+					                					<h:message id="usernamemessage" for="username" styleClass="errorMessage" />
+					               					</div>
+							                        <div class="control-group">
+							                            <h:outputLabel for="username" value="Email" styleClass="control-label" />
+							                            <div class="controls">
+							                            	<h:inputText id="username" value="#{login.username}" required="true" styleClass="textEntry" />
+							                            	
+							                            </div>
+							                        </div>
+							                        
+							                        <div class="alert alert-error">
+							                            		<button type="button" class="close" data-dismiss="alert">x</button>
+							                					<h:message id="passwordmessage" for="password" errorClass="errorMessage" />
+					                					</div>
+							                        <div class="control-group">
+							                        	
+							                            <h:outputLabel for="password" value="Mot de passe" styleClass="control-label" />
+							                            <div class="controls">
+							                            	<h:inputSecret id="password" value="#{login.password}" required="true" styleClass="textEntry" />		                            	
+							                            </div>
+							                        </div>
+					         
+					                        
+							                        <div class="control-group">
+							                            <div class="controls">
+							                                <h:commandButton value="Connexion" action="#{login.submit}" styleClass="btn btn-large btn-info" />
+							                            </div>
+							                        </div>
+							                    </div>
+							                </fieldset>
+							                
+						        		</h:form>
 									</ui:fragment>
                                 	<ui:fragment rendered="#{userProfile.loggedIn}">
     									Logout button, my account, etc.
+    									<div>
+	    									<h:form>
+												<h:commandLink action="#{login.logout}" styleClass="btn btn-danger" value="">
+													<i class="icon-user icon-white"></i>
+													Déconnexion
+												</h:commandLink>
+											</h:form>
+										</div>   
 									</ui:fragment>
                                 </li>
 							</ul>						

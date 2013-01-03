@@ -1,6 +1,7 @@
 package account;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -72,13 +73,31 @@ public class Login {
     		String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("msg");
     		switch( GET ) {
     			case "register":
-    				this.messageSuccess.setValue("ça roule, poulet !");    				
+    				this.messageSuccess.setValue("Votre utilisateur a bien été créé. Vous pouvez vous connecter.");    				
     			break;
     		}    			
     	}
     	catch( NullPointerException e ) {
     		;
     	}
+    }
+    
+    public void logout() {
+    	Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		
+		if( ! userSession.isEmpty() ) {
+    		userSession.clear();
+    	}
+    	
+    	try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect(
+					FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+					"/login.xhtml"
+				);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
 	// Getters/setters ----------------------------------------------------------------------------
