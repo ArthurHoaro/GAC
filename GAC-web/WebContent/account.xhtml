@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				Mon Compte
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<!-- YOUR CODE STARTS HERE -->
+   					<div class="alert alert-error">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    					<h:outputText binding="#{accountMB.messageError}" id="messageError" styleClass="errorMessage" />
+					</div>
+					<div class="alert alert-success">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    					<h:outputText binding="#{accountMB.messageSuccess}" id="messageSuccess" styleClass="errorMessage" />
+					</div>
+	    			<h:form id="form">
+	    				<fieldset class="login">
+                    		<legend>Changer de mot de passe</legend>
+                   			<div class="form-horizontal">
+								<div class="alert alert-error">
+                            		<button type="button" class="close" data-dismiss="alert">x</button>
+                					<h:message id="oldpwdmessage" for="oldpwd" styleClass="errorMessage" />
+               					</div>
+		                        <div class="control-group">
+		                            <h:outputLabel for="oldpwd" value="Mot de passe actuel" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputSecret id="oldpwd" value="#{accountMB.oldpwd}" required="true" styleClass="textEntry" />		                            	
+		                            </div>
+		                        </div>
+		                        
+		                        <div class="alert alert-error">
+		                            		<button type="button" class="close" data-dismiss="alert">x</button>
+		                					<h:message id="newpwdmessage" for="newpwd" errorClass="errorMessage" />
+                					</div>
+		                        <div class="control-group">		                        	
+		                            <h:outputLabel for="newpwd" value="Nouveau mot de passe" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputSecret id="newpwd" value="#{accountMB.newpwd}" required="true" styleClass="textEntry" />		                            	
+		                            </div>
+		                        </div>
+         
+         						<div class="alert alert-error">
+                            		<button type="button" class="close" data-dismiss="alert">x</button>
+                					<h:message id="newpwdbismessage" for="newpwdbis" errorClass="errorMessage" />
+               					</div>
+		                        <div class="control-group">		                        	
+		                            <h:outputLabel for="newpwdbis" value="Vérification" styleClass="control-label" />
+		                            <div class="controls">
+		                            	<h:inputSecret id="newpwdbis" value="#{accountMB.newpwdbis}" required="true" styleClass="textEntry" />		                            	
+		                            </div>
+		                        </div>
+		                        
+                       
+		                        <div class="control-group">
+		                            <div class="controls">
+		                                <h:commandButton value="Connexion" action="#{accountMB.changepwd}" styleClass="btn btn-large btn-info" />
+		                            </div>
+		                        </div>
+		                    </div>
+		                </fieldset>
+		                
+	        		</h:form>	    			
+	    			<!-- AND ENDS HERE  -->
+        		</div>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

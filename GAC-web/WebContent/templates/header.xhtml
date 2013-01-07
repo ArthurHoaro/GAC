@@ -66,9 +66,10 @@
                                 
                             <button class="btn btn-small btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"/></button>
                             <ul class="dropdown-menu">
-                                <li class="login-form-dd">
-                                	<ui:fragment rendered="#{!userProfile.loggedIn}">
-    									<h:form id="form_login_nav">
+                                
+                               	<ui:fragment rendered="#{!userProfile.loggedIn}">
+                               		<li class="login-form-dd">
+	   									<h:form id="form_login_nav">
 						    				<fieldset class="login">
 					                   			<div class="form-horizontal">
 					
@@ -106,19 +107,21 @@
 							                </fieldset>
 							                
 						        		</h:form>
-									</ui:fragment>
-                                	<ui:fragment rendered="#{userProfile.loggedIn}">
-    									Logout button, my account, etc.
-    									<div>
-	    									<h:form>
-												<h:commandLink action="#{login.logout}" styleClass="btn btn-danger" value="">
-													<i class="icon-user icon-white"></i>
-													Déconnexion
-												</h:commandLink>
-											</h:form>
-										</div>   
-									</ui:fragment>
-                                </li>
+					        		</li>
+								</ui:fragment>
+                               	<ui:fragment rendered="#{userProfile.loggedIn}">	
+   									<h:form>
+   										<li>
+   											<a href="#{request.contextPath}/account.xhtml">Mon compte</a>
+  											</li>
+										<li>
+											<h:commandLink action="#{login.logout}">												
+												Déconnexion
+											</h:commandLink>
+										</li> 
+									</h:form>
+								</ui:fragment>
+                                
 							</ul>						
 						</div>
 						
