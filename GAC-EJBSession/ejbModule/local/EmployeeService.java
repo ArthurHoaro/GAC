@@ -1,7 +1,10 @@
 package local;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -64,4 +67,5 @@ public class EmployeeService implements EmployeeServiceLocal {
         return (Collection<Employee>) query.getResultList();
     }
 
+    
 }

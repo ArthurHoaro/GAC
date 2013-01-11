@@ -4,6 +4,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import local.ActivityServiceLocal;
+import local.EmployeeServiceLocal;
 import model.Activity;
 import model.Employee;
 import model.Project;
@@ -19,6 +20,9 @@ public class FActivityServices implements FActivityServicesRemote {
      */
 	@EJB
     private ActivityServiceLocal activityService;
+	@EJB
+	private EmployeeServiceLocal employeeService;
+	
     public void addItem(Activity i) {
     	activityService.addItem(i);
     }
@@ -47,6 +51,14 @@ public class FActivityServices implements FActivityServicesRemote {
     {
     	Employee e =activityService.findItem(id).getEmployee();
     	return e.getFirstname()+" "+e.getLastname();
+    }
+    
+    public void modifierEmployee(Integer id, Integer idEmployee)
+    {
+    	Activity a=activityService.findItem(id);
+    	Employee e=employeeService.findItem(idEmployee);
+    	a.setEmployee(e);
+    	activityService.updateItem(a);
     }
  
 }

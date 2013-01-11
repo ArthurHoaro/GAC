@@ -28,7 +28,7 @@
 						
 						<!-- Modif Mode -->
 						
-						<rich:select rendered="#{projectActivityMB.modifMode}">
+						<rich:select value="#{projectActivityMB.newIdEmployee}" rendered="#{projectActivityMB.modifMode}">
 								<f:selectItems value="#{projectActivityMB.employeeOptions}" />
            			 	</rich:select>
 						<h:commandButton value="Valider"  action="#{projectActivityMB.validerModificationEmployee}"  rendered="#{projectActivityMB.modifMode}" />
