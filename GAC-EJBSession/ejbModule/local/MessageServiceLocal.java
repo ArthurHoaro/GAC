@@ -1,5 +1,7 @@
 package local;
 
+import java.util.ArrayList;
+
 import javax.ejb.Local;
 
 import model.Message;
@@ -15,4 +17,5 @@ public interface MessageServiceLocal {
 
 	    public void updateItem(Message i);
 	
+	    public ArrayList<Message> getMessagesByIdConversation(Integer id);
 }

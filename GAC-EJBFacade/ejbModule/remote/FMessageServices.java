@@ -1,5 +1,7 @@
 package remote;
 
+import java.util.ArrayList;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -31,6 +33,10 @@ public class FMessageServices implements FMessageServicesRemote {
 
     public void updateItem(Message i) {
     	messageService.updateItem(i);
+    }
+    
+    public ArrayList<Message> getMessagesByIdConversation(Integer id) {
+    	return messageService.getMessagesByIdConversation(id);
     }
  
 }

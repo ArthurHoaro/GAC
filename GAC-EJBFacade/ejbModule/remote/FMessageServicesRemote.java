@@ -1,5 +1,7 @@
 package remote;
 
+import java.util.ArrayList;
+
 import javax.ejb.Remote;
 
 import model.Message;
@@ -13,4 +15,6 @@ public interface FMessageServicesRemote {
 	    public void deleteItem(Message i) ;
 
 	    public void updateItem(Message i) ;
+	    
+	    public ArrayList<Message> getMessagesByIdConversation(Integer id);
 }
