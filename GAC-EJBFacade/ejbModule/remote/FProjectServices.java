@@ -5,7 +5,9 @@ import java.util.Collection;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import local.EmployeeService;
 import local.ProjectServiceLocal;
+import model.Employee;
 import model.Project;
 
 /**
@@ -19,6 +21,8 @@ public class FProjectServices implements FProjectServicesRemote {
      */
 	@EJB
     private ProjectServiceLocal projectService;
+	@EJB
+	private EmployeeService employeeService;
     public void addItem(Project i) {
     	projectService.addItem(i);
     }
@@ -39,5 +43,16 @@ public class FProjectServices implements FProjectServicesRemote {
     {
     	return projectService.findAllProject();
     }
- 
+    
+    public Collection<Project> findAllProject(String username)
+    {
+    	Employee emp=employeeService.findItem(username);
+    	Collection<Project> collec=  projectService.findAllProject();
+    	for (Project project : collec) {
+			if(!project.getEmployee().equals(emp))
+				collec.remove(project);
+		}
+    	return collec;
+    }
+    
 }
