@@ -2,7 +2,9 @@
 
 package managedBean;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import java.util.List;
 
@@ -34,17 +36,18 @@ public class ProjectActivityMB {
 	 private FEmployeeServicesRemote fes;
 
 	 
- 
+	
 	private int idActivity;
 	private int idEmployee;
 	private int newIdEmployee;
 	private int chargeAAjouter=0;
 	private int modif=0;
+	private String activityDescription;
 	private String modifMode="false";
 	private String readMode="true";
 	private HtmlOutputText employeeNameOutputText=new HtmlOutputText();
 	private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
-	
+	private Employee curentEmp;
 	
 	// Actions ------------------------------------------------------------------------------------
 	
@@ -54,6 +57,26 @@ public class ProjectActivityMB {
 	}
 
 	public void init() {
+		
+		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		
+		// If the user is logged in
+		if( ! userSession.isEmpty() ) {
+			//curentEmp = fes.findItem((String) userSession.get("username"));
+		}
+		// Isn't logged in, redirect to login page
+		else {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(
+						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+						"/login.xhtml"
+					);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		//on recupere l' id de l'activité passé par l url 
 		String 	idActivityString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idActivity");
 	
@@ -105,6 +128,12 @@ public class ProjectActivityMB {
 		return fas.findItem(this.idActivity).getCharge();
 	}
 	
+	public String getActivityDescription(){
+		return fas.findItem(this.idActivity).getDescription();
+	}
+	public void setActivityDescription(String description){
+		this.activityDescription=description;
+	}
 	public int getChargeAAjouter(){
 		return this.chargeAAjouter;
 	}
