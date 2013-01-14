@@ -21,4 +21,5 @@ public interface FEmployeeServicesRemote {
 	    public void updateItem(Employee i) ;
 	    
 	    public Collection<Employee> findAllEmployee();
+	    
 }

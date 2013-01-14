@@ -3,27 +3,21 @@
 package managedBean;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-import javax.persistence.NoResultException;
-import javax.faces.FacesException;
 import javax.faces.model.SelectItem;
 
 import model.Employee;
 
+
 import remote.FActivityServicesRemote;
 import remote.FEmployeeServicesRemote;
-import remote.FProjectServicesRemote;
 
 
 
@@ -34,12 +28,14 @@ public class ProjectActivityMB {
 	// Properties ---------------------------------------------------------------------------------
 	
 	 @EJB
-	 private FActivityServicesRemote fas;
-	 private FProjectServicesRemote fps;
 	 private FEmployeeServicesRemote fes;
+	 @EJB
+	 private FActivityServicesRemote fas;
+	 
  
 	private int idActivity;
 	private int idEmployee;
+	private int newIdEmployee;
 	private int chargeAAjouter=0;
 	private int modif=0;
 	private String modifMode="false";
@@ -72,14 +68,23 @@ public class ProjectActivityMB {
 	   //TO DO verifier si l'utilisateur est chef de projet pour pouvoir modifier
 		
 	}
-		
+	
+	public int getNewIdEmployee(){
+		return this.newIdEmployee;
+	}
+	public void setNewIdEmployee(int id){
+		this.newIdEmployee=id;
+	}
+	
 	public void modifierEmployee(){
 		this.modifMode="true";
 		this.readMode="false";
 		
 	}
 	public void validerModificationEmployee(){
-		
+		this.idEmployee=this.newIdEmployee;
+		fas.modifierEmployee(this.idActivity,this.newIdEmployee);
+		this.annulerModificationEmployee();
 	}
 	public void annulerModificationEmployee(){
 		this.modifMode="false";
@@ -121,15 +126,10 @@ public class ProjectActivityMB {
 	
 	//construit une list de "select items" a partir de la liste des employés
     public List<SelectItem> getEmployeeOptions() {
-    	SelectItem s;
-    	//Iterator i=fes.findAllEmployee().iterator();
-    	
-		/*while(i.hasNext()) {
-			
-			s=new SelectItem(fes.findAllEmployee()[],e.getFirstname()+ " "+e.getLastname());
-			employeeOptions.add(s);
-		}*/
-		
+    	List<Employee> liste = new ArrayList<Employee>();
+    	for(Employee e : fes.findAllEmployee()){
+    		employeeOptions.add(new SelectItem(e.getIdemployee(), e.getFirstname()+" "+e.getLastname()));
+    	}
         return employeeOptions;
     }
 	

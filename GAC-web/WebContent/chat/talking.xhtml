@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				Conversation
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<!-- YOUR CODE STARTS HERE -->
+	    			<div class="alert alert-error">
+    					<button type="button" class="close" data-dismiss="alert">x</button>
+    					<h:messages id="messages" globalOnly="true" layout="table" styleClass="errorMessage" />
+					</div>
+	    			<f:event type="preRenderView" listener="#{talking.init}" />
+	    			
+	    			<ui:repeat var="mes" value="#{talking.listMessages}">
+						<div>
+							#{mes.content}
+						</div>					 
+				   	</ui:repeat>
+	    			<!-- AND ENDS HERE  -->
+        		</div>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

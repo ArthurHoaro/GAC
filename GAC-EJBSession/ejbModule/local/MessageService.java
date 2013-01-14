@@ -1,9 +1,12 @@
 package local;
 
+import java.util.ArrayList;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import model.Employee;
 import model.Message;
 
 /**
@@ -33,4 +36,20 @@ public class MessageService implements MessageServiceLocal {
         em.merge(i);
     }
 
+	@Override
+	public ArrayList<Message> getMessagesByIdConversation(Integer id) {
+		// TODO Auto-generated method stub
+		String str = "SELECT m FROM Message m WHERE conversation_idconversation = :idConvers ORDER BY send_time ASC";
+		ArrayList<Message> out;
+		try {
+			out = (ArrayList<Message>) em.createQuery(str).setParameter("idConvers", id).getResultList();
+		}
+		catch (Exception ex) {
+			out = null;
+		}
+		
+		return out;
+	}
+
+    
 }
