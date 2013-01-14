@@ -17,6 +17,4 @@ public interface FProjectServicesRemote {
 	    public void updateItem(Project i) ;
 	    
 	    public Collection<Project> findAllProject();
-	    
-	    public Collection<Project> findAllProject(String username);
 }
