@@ -1,3 +1,4 @@
+
 package model;
 
 // Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1

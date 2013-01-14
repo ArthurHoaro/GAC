@@ -11,6 +11,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.validator.HibernateValidator;
+
 import remote.FConversationServicesRemote;
 import remote.FEmployeeServicesRemote;
 import remote.FMessageServicesRemote;
@@ -59,6 +61,7 @@ public class Talking {
 			}
 		}
 		
+		
 		int error = 0;		
 		
 		try {
@@ -70,7 +73,7 @@ public class Talking {
     				Employee called = convers.getEmployeeByCalledIdemployee();
     				Employee caller = convers.getEmployeeByCallerIdemployee();
     				
-    				// If the caller is the curent employee then contact is the called employee
+    				// If the caller is the current employee then contact is the called employee
     				if( called.getIdemployee() == curentEmp.getIdemployee() ) {
     					contact = caller;
     				}
@@ -107,6 +110,7 @@ public class Talking {
 	}
 
 	// Getters/setters ----------------------------------------------------------------------------
+	
 	public ArrayList<Message> getListMessages() {
 		return listMessages;
 	}
@@ -114,6 +118,40 @@ public class Talking {
 
 	public void setListMessages(ArrayList<Message> listMessages) {
 		this.listMessages = listMessages;
+	}
+
+
+	public Employee getCurentEmp() {
+		return curentEmp;
+	}
+
+
+	public void setCurentEmp(Employee curentEmp) {
+		this.curentEmp = curentEmp;
+	}
+
+
+	public Employee getContact() {
+		return contact;
+	}
+
+
+	public void setContact(Employee contact) {
+		this.contact = contact;
+	}
+
+
+	public Conversation getConvers() {
+		return convers;
+	}
+
+
+	public void setConvers(Conversation convers) {
+		this.convers = convers;
+	}
+	
+	public String getFullName(Message mes)  {
+		return mes.getEmployee().getFirstname() + " " + mes.getEmployee().getLastname();
 	}
 	
 }
