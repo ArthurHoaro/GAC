@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <body>
+	    <ui:composition>
+		    <ul class="nav nav-tabs nav-stacked">
+		    	<li class="dropdown-submenu">
+		    		<a href="#">Les Projets</a>
+		    		<ul class="dropdown-menu">
+				      <!-- For each projet, 
+				      	<li>
+				      		<a tabindex="-1" href="#">Projet 1</a>
+				      	</li>
+				      -->
+						<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
+							<li>
+								<a tabindex="-1" href="#">#{project.name}</a>
+							</li>
+           				</a4j:repeat>
+				    </ul>
+		    	</li>
+		    	<li>
+		    		<a href="#">Profile</a>
+		    	</li>
+		    	<li>
+		    		<a href="#">Messages</a>
+		    	</li>
+			</ul>
+	    </ui:composition>
+    </body>
+</html>
