@@ -1,6 +1,6 @@
 package model;
 
-// Generated 20 déc. 2012 11:36:26 by Hibernate Tools 3.4.0.CR1
+// Generated 14 janv. 2013 14:20:50 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -24,6 +24,7 @@ public class Message implements java.io.Serializable {
 
 	private Integer idmessage;
 	private Conversation conversation;
+	private Employee employee;
 	private Integer idconv;
 	private String content;
 	private Date sendTime;
@@ -35,9 +36,10 @@ public class Message implements java.io.Serializable {
 		this.conversation = conversation;
 	}
 
-	public Message(Conversation conversation, Integer idconv, String content,
-			Date sendTime) {
+	public Message(Conversation conversation, Employee employee,
+			Integer idconv, String content, Date sendTime) {
 		this.conversation = conversation;
+		this.employee = employee;
 		this.idconv = idconv;
 		this.content = content;
 		this.sendTime = sendTime;
@@ -62,6 +64,16 @@ public class Message implements java.io.Serializable {
 
 	public void setConversation(Conversation conversation) {
 		this.conversation = conversation;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idsender")
+	public Employee getEmployee() {
+		return this.employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	@Column(name = "idconv")
