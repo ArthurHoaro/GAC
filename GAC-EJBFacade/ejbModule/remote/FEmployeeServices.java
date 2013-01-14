@@ -1,13 +1,16 @@
 package remote;
 
+
 import java.util.Collection;
+
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+
 import local.EmployeeServiceLocal;
 import model.Employee;
-import model.Project;
+
 
 /**
  * Session Bean implementation class FEmployeeServices
@@ -46,6 +49,7 @@ public class FEmployeeServices implements FEmployeeServicesRemote {
     	return employeeService.findAllEmployee();
     }
 
+    
 	@Override
 	public Employee findItem(String email) {
 		return employeeService.findItem(email);

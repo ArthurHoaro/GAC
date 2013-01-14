@@ -6,6 +6,7 @@
 			<attribute name="owner.project.facets" value="jst.jsf;jst.web"/>
 		</attributes>
 	</classpathentry>
+	
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="src" path="/GAC-EJBFacade"/>
@@ -16,4 +17,4 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
-</classpath>
+</classpath> 

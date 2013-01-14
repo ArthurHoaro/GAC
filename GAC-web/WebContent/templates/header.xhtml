@@ -26,7 +26,11 @@
 	                        <ui:fragment rendered="#{userProfile.loggedIn}">
 	                        	<li><a href="#" title="Relations">Logged In Links</a></li>
 	                        </ui:fragment>
-	                        <!--  END REGISTERED  --> 
+	                        <!--  END REGISTERED  -->
+	                        
+	                        <ui:fragment rendered="#{userProfile.loggedIn}">
+	                        	<li><a href="#" title="Messagerie instantanée">Messagerie instantanée</a></li>
+	                        </ui:fragment> 
 	                                               
 	                        <!--  ANONYMOUS   -->
 	                        <ui:fragment rendered="#{!userProfile.loggedIn}">

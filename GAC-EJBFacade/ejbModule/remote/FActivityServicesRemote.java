@@ -19,4 +19,6 @@ public interface FActivityServicesRemote {
 	    public String findItemProjectName(Integer id);
 	    
 	    public String findItemEmployeeName(Integer id);
+	    
+	    public void modifierEmployee(Integer id, Integer idEmployee);
 }

@@ -1,7 +1,10 @@
 package local;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,7 +32,7 @@ public class EmployeeService implements EmployeeServiceLocal {
     @Override
 	public void addItem(String email, String lastname, String firstname,
 			String password) {
-		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null);
+		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null,null);
 		this.addItem(emp);
 	}
 
@@ -64,4 +67,5 @@ public class EmployeeService implements EmployeeServiceLocal {
         return (Collection<Employee>) query.getResultList();
     }
 
+    
 }

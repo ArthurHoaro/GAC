@@ -22,4 +22,5 @@ public interface EmployeeServiceLocal {
 	    
 	    public Collection<Employee> findAllEmployee();
 	
+	    
 }

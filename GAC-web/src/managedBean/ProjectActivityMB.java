@@ -2,28 +2,24 @@
 
 package managedBean;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Map;
+
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-import javax.persistence.NoResultException;
-import javax.faces.FacesException;
 import javax.faces.model.SelectItem;
 
 import model.Employee;
 
+
 import remote.FActivityServicesRemote;
 import remote.FEmployeeServicesRemote;
-import remote.FProjectServicesRemote;
 
 
 
@@ -33,20 +29,25 @@ public class ProjectActivityMB {
 	
 	// Properties ---------------------------------------------------------------------------------
 	
+	
 	 @EJB
 	 private FActivityServicesRemote fas;
-	 private FProjectServicesRemote fps;
+	@EJB
 	 private FEmployeeServicesRemote fes;
- 
+
+	 
+	
 	private int idActivity;
 	private int idEmployee;
+	private int newIdEmployee;
 	private int chargeAAjouter=0;
 	private int modif=0;
+	private String activityDescription;
 	private String modifMode="false";
 	private String readMode="true";
 	private HtmlOutputText employeeNameOutputText=new HtmlOutputText();
 	private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
-	
+	private Employee curentEmp;
 	
 	// Actions ------------------------------------------------------------------------------------
 	
@@ -56,6 +57,26 @@ public class ProjectActivityMB {
 	}
 
 	public void init() {
+		
+		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+		
+		// If the user is logged in
+		if( ! userSession.isEmpty() ) {
+			//curentEmp = fes.findItem((String) userSession.get("username"));
+		}
+		// Isn't logged in, redirect to login page
+		else {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(
+						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+						"/login.xhtml"
+					);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		//on recupere l' id de l'activité passé par l url 
 		String 	idActivityString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idActivity");
 	
@@ -72,14 +93,23 @@ public class ProjectActivityMB {
 	   //TO DO verifier si l'utilisateur est chef de projet pour pouvoir modifier
 		
 	}
-		
+	
+	public int getNewIdEmployee(){
+		return this.newIdEmployee;
+	}
+	public void setNewIdEmployee(int id){
+		this.newIdEmployee=id;
+	}
+	
 	public void modifierEmployee(){
 		this.modifMode="true";
 		this.readMode="false";
 		
 	}
 	public void validerModificationEmployee(){
-		
+		this.idEmployee=this.newIdEmployee;
+		fas.modifierEmployee(this.idActivity,this.newIdEmployee);
+		this.annulerModificationEmployee();
 	}
 	public void annulerModificationEmployee(){
 		this.modifMode="false";
@@ -98,6 +128,12 @@ public class ProjectActivityMB {
 		return fas.findItem(this.idActivity).getCharge();
 	}
 	
+	public String getActivityDescription(){
+		return fas.findItem(this.idActivity).getDescription();
+	}
+	public void setActivityDescription(String description){
+		this.activityDescription=description;
+	}
 	public int getChargeAAjouter(){
 		return this.chargeAAjouter;
 	}
@@ -121,15 +157,10 @@ public class ProjectActivityMB {
 	
 	//construit une list de "select items" a partir de la liste des employés
     public List<SelectItem> getEmployeeOptions() {
-    	SelectItem s;
-    	//Iterator i=fes.findAllEmployee().iterator();
-    	
-		/*while(i.hasNext()) {
-			
-			s=new SelectItem(fes.findAllEmployee()[],e.getFirstname()+ " "+e.getLastname());
-			employeeOptions.add(s);
-		}*/
-		
+    	List<Employee> liste = new ArrayList<Employee>();
+    	for(Employee e : fes.findAllEmployee()){
+    		employeeOptions.add(new SelectItem(e.getIdemployee(), e.getFirstname()+" "+e.getLastname()));
+    	}
         return employeeOptions;
     }
 	
