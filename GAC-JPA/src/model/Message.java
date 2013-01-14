@@ -1,10 +1,7 @@
+
 package model;
 
-<<<<<<< HEAD
-// Generated 14 janv. 2013 16:54:08 by Hibernate Tools 3.4.0.CR1
-=======
-// Generated 14 janv. 2013 14:20:50 by Hibernate Tools 3.4.0.CR1
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
+// Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -29,10 +26,6 @@ public class Message implements java.io.Serializable {
 	private Integer idmessage;
 	private Conversation conversation;
 	private Employee employee;
-<<<<<<< HEAD
-=======
-	private Integer idconv;
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 	private String content;
 	private Date sendTime;
 
@@ -44,17 +37,9 @@ public class Message implements java.io.Serializable {
 	}
 
 	public Message(Conversation conversation, Employee employee,
-<<<<<<< HEAD
 			String content, Date sendTime) {
-=======
-			Integer idconv, String content, Date sendTime) {
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 		this.conversation = conversation;
 		this.employee = employee;
-<<<<<<< HEAD
-=======
-		this.idconv = idconv;
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 		this.content = content;
 		this.sendTime = sendTime;
 	}
@@ -80,26 +65,10 @@ public class Message implements java.io.Serializable {
 		this.conversation = conversation;
 	}
 
-<<<<<<< HEAD
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idsender")
 	public Employee getEmployee() {
 		return this.employee;
-=======
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "idsender")
-	public Employee getEmployee() {
-		return this.employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	@Column(name = "idconv")
-	public Integer getIdconv() {
-		return this.idconv;
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 	}
 
 	public void setEmployee(Employee employee) {

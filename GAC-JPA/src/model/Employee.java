@@ -1,10 +1,7 @@
+
 package model;
 
-<<<<<<< HEAD
-// Generated 14 janv. 2013 16:54:08 by Hibernate Tools 3.4.0.CR1
-=======
-// Generated 14 janv. 2013 14:20:50 by Hibernate Tools 3.4.0.CR1
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
+// Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;

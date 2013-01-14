@@ -32,11 +32,7 @@ public class EmployeeService implements EmployeeServiceLocal {
     @Override
 	public void addItem(String email, String lastname, String firstname,
 			String password) {
-<<<<<<< HEAD
 		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null,null);
-=======
-		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null, null);
->>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 		this.addItem(emp);
 	}
 
