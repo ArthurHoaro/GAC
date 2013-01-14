@@ -1,6 +1,6 @@
 package model;
 
-// Generated 20 déc. 2012 11:36:26 by Hibernate Tools 3.4.0.CR1
+// Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -38,6 +38,7 @@ public class Employee implements java.io.Serializable {
 	private Set<Project> projects = new HashSet<Project>(0);
 	private Set<Conversation> conversationsForCallerIdemployee = new HashSet<Conversation>(
 			0);
+	private Set<Message> messages = new HashSet<Message>(0);
 
 	public Employee() {
 	}
@@ -47,7 +48,8 @@ public class Employee implements java.io.Serializable {
 			Set<Activity> activities,
 			Set<Conversation> conversationsForCalledIdemployee,
 			Set<Project> projects,
-			Set<Conversation> conversationsForCallerIdemployee) {
+			Set<Conversation> conversationsForCallerIdemployee,
+			Set<Message> messages) {
 		this.email = email;
 		this.password = password;
 		this.firstname = firstname;
@@ -59,6 +61,7 @@ public class Employee implements java.io.Serializable {
 		this.conversationsForCalledIdemployee = conversationsForCalledIdemployee;
 		this.projects = projects;
 		this.conversationsForCallerIdemployee = conversationsForCallerIdemployee;
+		this.messages = messages;
 	}
 
 	@Id
@@ -172,6 +175,15 @@ public class Employee implements java.io.Serializable {
 	public void setConversationsForCallerIdemployee(
 			Set<Conversation> conversationsForCallerIdemployee) {
 		this.conversationsForCallerIdemployee = conversationsForCallerIdemployee;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+	public Set<Message> getMessages() {
+		return this.messages;
+	}
+
+	public void setMessages(Set<Message> messages) {
+		this.messages = messages;
 	}
 
 }

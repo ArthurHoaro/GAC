@@ -32,7 +32,7 @@ public class EmployeeService implements EmployeeServiceLocal {
     @Override
 	public void addItem(String email, String lastname, String firstname,
 			String password) {
-		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null);
+		Employee emp = new Employee(email, password, firstname, lastname, null, new Date(), null, null, null, null, null,null);
 		this.addItem(emp);
 	}
 

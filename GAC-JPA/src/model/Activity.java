@@ -1,13 +1,11 @@
 package model;
 
-// Generated 20 déc. 2012 11:36:26 by Hibernate Tools 3.4.0.CR1
+// Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,35 +20,43 @@ import javax.persistence.TemporalType;
 @Table(name = "activity")
 public class Activity implements java.io.Serializable {
 
-	private Integer idactivity;
+	private int idactivity;
 	private Employee employee;
 	private Project project;
 	private Integer charge;
 	private Date day;
+	private String description;
+	private int estTermine;
 
 	public Activity() {
 	}
 
-	public Activity(Employee employee, Project project) {
+	public Activity(int idactivity, Employee employee, Project project,
+			int estTermine) {
+		this.idactivity = idactivity;
 		this.employee = employee;
 		this.project = project;
+		this.estTermine = estTermine;
 	}
 
-	public Activity(Employee employee, Project project, Integer charge, Date day) {
+	public Activity(int idactivity, Employee employee, Project project,
+			Integer charge, Date day, String description, int estTermine) {
+		this.idactivity = idactivity;
 		this.employee = employee;
 		this.project = project;
 		this.charge = charge;
 		this.day = day;
+		this.description = description;
+		this.estTermine = estTermine;
 	}
 
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "idactivity", unique = true, nullable = false)
-	public Integer getIdactivity() {
+	public int getIdactivity() {
 		return this.idactivity;
 	}
 
-	public void setIdactivity(Integer idactivity) {
+	public void setIdactivity(int idactivity) {
 		this.idactivity = idactivity;
 	}
 
@@ -91,6 +97,24 @@ public class Activity implements java.io.Serializable {
 
 	public void setDay(Date day) {
 		this.day = day;
+	}
+
+	@Column(name = "description", length = 100)
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Column(name = "estTermine", nullable = false)
+	public int getEstTermine() {
+		return this.estTermine;
+	}
+
+	public void setEstTermine(int estTermine) {
+		this.estTermine = estTermine;
 	}
 
 }
