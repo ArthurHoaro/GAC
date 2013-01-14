@@ -13,4 +13,7 @@
       <context-root>GAC-web</context-root>
     </web>
   </module>
+  <module>
+    <ejb>GAC-COM.jar</ejb>
+  </module>
 </application>
