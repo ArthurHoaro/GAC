@@ -65,7 +65,8 @@ public class JMSApplicationClient {
             Message employee = new Message();
             employee.setContent("Premier message en base");
             
-            employee.setConversation(null);
+            employee.setConversation(new Conversation()
+            		);
             employee.setSendTime(new Date());
             
             objMsg.setObject(employee);
