@@ -18,11 +18,22 @@
 					</div>
 	    			<f:event type="preRenderView" listener="#{talking.init}" />
 	    			
-	    			<ui:repeat var="mes" value="#{talking.listMessages}">
-						<div>
-							#{mes.content}
-						</div>					 
-				   	</ui:repeat>
+	    			<div class="well">
+	    				<ui:repeat var="mes" value="#{talking.listMessages}">						
+							<p>
+								<span class="label label-info">#{talking.getFullName(mes)}</span> 
+								<small><em>
+									<h:outputText value="#{mes.sendTime}">
+  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+									</h:outputText>
+								</em></small><br />
+								#{mes.content}
+							</p>											 
+				   		</ui:repeat>
+			   		</div>
+			   		<div class="span12">
+			   			<textarea class="span11" placeholder="Répondre..."></textarea>
+			   		</div>
 	    			<!-- AND ENDS HERE  -->
         		</div>
     		</ui:define>
