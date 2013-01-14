@@ -11,6 +11,7 @@
 	<!--  SCRIPTS  -->
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/jquery.min.js" />
 	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap/js/bootstrap.min.js" />
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 	<!-- 	<h:outputScript name="bootstrap/js/bootstrap.min.js"></h:outputScript>	 -->		
 		
 	<!--  STYLESHEETS  -->
@@ -27,14 +28,28 @@
 		  <ui:include src="/templates/header.xhtml" />
 		</ui:insert>
 	    </div>
+	    
+	    <div class="container-fluid">
+	    
+	    	<div class="row-fluid">
+			    <div class="span2">
+			    	<div id="menu">
+						<ui:insert name="menu" >
+						  <ui:include src="/templates/menu.xhtml" />
+						</ui:insert>
+			    	</div>
+			    </div>
+			    <div class="span10">
+			    	<div id="content">
+					  	<ui:insert name="content" >
+					 	  <ui:include src="/templates/content.xhtml" />
+					   	</ui:insert>
+		    		</div>
+			    </div>
+			  </div>
+		 </div>
  
-	    <div id="content">
-	  	<ui:insert name="content" >
-	 	  <ui:include src="/templates/content.xhtml" />
-	   	</ui:insert>
-	    </div>
- 
-	    <div id="footer">
+	    <div id="footer" class="navbar-fixed-bottom">
 	    	<ui:insert name="footer" >
 	    	  <ui:include src="/templates/footer.xhtml" />
 	    	</ui:insert>

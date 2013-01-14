@@ -1,12 +1,22 @@
 package model;
 
+<<<<<<< HEAD
 // Generated 14 janv. 2013 16:54:08 by Hibernate Tools 3.4.0.CR1
+=======
+// Generated 14 janv. 2013 14:20:50 by Hibernate Tools 3.4.0.CR1
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 
 import java.util.Date;
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+<<<<<<< HEAD
 import javax.persistence.Id;
+=======
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,7 +30,11 @@ import javax.persistence.TemporalType;
 @Table(name = "activity")
 public class Activity implements java.io.Serializable {
 
+<<<<<<< HEAD
 	private int idactivity;
+=======
+	private ActivityId id;
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 	private Employee employee;
 	private Project project;
 	private Integer charge;
@@ -31,17 +45,29 @@ public class Activity implements java.io.Serializable {
 	public Activity() {
 	}
 
+<<<<<<< HEAD
 	public Activity(int idactivity, Employee employee, Project project,
 			int estTermine) {
 		this.idactivity = idactivity;
+=======
+	public Activity(ActivityId id, Employee employee, Project project,
+			int estTermine) {
+		this.id = id;
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 		this.employee = employee;
 		this.project = project;
 		this.estTermine = estTermine;
 	}
 
+<<<<<<< HEAD
 	public Activity(int idactivity, Employee employee, Project project,
 			Integer charge, Date day, String description, int estTermine) {
 		this.idactivity = idactivity;
+=======
+	public Activity(ActivityId id, Employee employee, Project project,
+			Integer charge, Date day, String description, int estTermine) {
+		this.id = id;
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 		this.employee = employee;
 		this.project = project;
 		this.charge = charge;
@@ -50,18 +76,33 @@ public class Activity implements java.io.Serializable {
 		this.estTermine = estTermine;
 	}
 
+<<<<<<< HEAD
 	@Id
 	@Column(name = "idactivity", unique = true, nullable = false)
 	public int getIdactivity() {
 		return this.idactivity;
+=======
+	@EmbeddedId
+	@AttributeOverrides({
+			@AttributeOverride(name = "idactivity", column = @Column(name = "idactivity", nullable = false)),
+			@AttributeOverride(name = "employeeIdemployee", column = @Column(name = "employee_idemployee", nullable = false)),
+			@AttributeOverride(name = "projectIdproject", column = @Column(name = "project_idproject", nullable = false)) })
+	public ActivityId getId() {
+		return this.id;
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 	}
 
+<<<<<<< HEAD
 	public void setIdactivity(int idactivity) {
 		this.idactivity = idactivity;
+=======
+	public void setId(ActivityId id) {
+		this.id = id;
+>>>>>>> branch 'master' of https://github.com/Meg4mi/GAC.git
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_idemployee", nullable = false)
+	@JoinColumn(name = "employee_idemployee", nullable = false, insertable = false, updatable = false)
 	public Employee getEmployee() {
 		return this.employee;
 	}
@@ -71,7 +112,7 @@ public class Activity implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_idproject", nullable = false)
+	@JoinColumn(name = "project_idproject", nullable = false, insertable = false, updatable = false)
 	public Project getProject() {
 		return this.project;
 	}
