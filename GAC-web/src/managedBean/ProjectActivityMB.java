@@ -27,10 +27,12 @@ public class ProjectActivityMB {
 	
 	// Properties ---------------------------------------------------------------------------------
 	
-	 @EJB
-	 private FEmployeeServicesRemote fes;
+	
 	 @EJB
 	 private FActivityServicesRemote fas;
+	@EJB
+	 private FEmployeeServicesRemote fes;
+
 	 
  
 	private int idActivity;

@@ -1,6 +1,7 @@
+
 package model;
 
-// Generated 14 janv. 2013 14:20:50 by Hibernate Tools 3.4.0.CR1
+// Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -25,7 +26,6 @@ public class Message implements java.io.Serializable {
 	private Integer idmessage;
 	private Conversation conversation;
 	private Employee employee;
-	private Integer idconv;
 	private String content;
 	private Date sendTime;
 
@@ -37,10 +37,9 @@ public class Message implements java.io.Serializable {
 	}
 
 	public Message(Conversation conversation, Employee employee,
-			Integer idconv, String content, Date sendTime) {
+			String content, Date sendTime) {
 		this.conversation = conversation;
 		this.employee = employee;
-		this.idconv = idconv;
 		this.content = content;
 		this.sendTime = sendTime;
 	}
@@ -66,7 +65,7 @@ public class Message implements java.io.Serializable {
 		this.conversation = conversation;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idsender")
 	public Employee getEmployee() {
 		return this.employee;
@@ -74,15 +73,6 @@ public class Message implements java.io.Serializable {
 
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
-	}
-
-	@Column(name = "idconv")
-	public Integer getIdconv() {
-		return this.idconv;
-	}
-
-	public void setIdconv(Integer idconv) {
-		this.idconv = idconv;
 	}
 
 	@Column(name = "content", length = 128)

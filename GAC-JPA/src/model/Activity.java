@@ -1,14 +1,13 @@
+
 package model;
 
-// Generated 14 janv. 2013 14:20:50 by Hibernate Tools 3.4.0.CR1
+// Generated 14 janv. 2013 16:36:44 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -22,7 +21,7 @@ import javax.persistence.TemporalType;
 @Table(name = "activity")
 public class Activity implements java.io.Serializable {
 
-	private ActivityId id;
+	private int idactivity;
 	private Employee employee;
 	private Project project;
 	private Integer charge;
@@ -33,17 +32,17 @@ public class Activity implements java.io.Serializable {
 	public Activity() {
 	}
 
-	public Activity(ActivityId id, Employee employee, Project project,
+	public Activity(int idactivity, Employee employee, Project project,
 			int estTermine) {
-		this.id = id;
+		this.idactivity = idactivity;
 		this.employee = employee;
 		this.project = project;
 		this.estTermine = estTermine;
 	}
 
-	public Activity(ActivityId id, Employee employee, Project project,
+	public Activity(int idactivity, Employee employee, Project project,
 			Integer charge, Date day, String description, int estTermine) {
-		this.id = id;
+		this.idactivity = idactivity;
 		this.employee = employee;
 		this.project = project;
 		this.charge = charge;
@@ -52,21 +51,18 @@ public class Activity implements java.io.Serializable {
 		this.estTermine = estTermine;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "idactivity", column = @Column(name = "idactivity", nullable = false)),
-			@AttributeOverride(name = "employeeIdemployee", column = @Column(name = "employee_idemployee", nullable = false)),
-			@AttributeOverride(name = "projectIdproject", column = @Column(name = "project_idproject", nullable = false)) })
-	public ActivityId getId() {
-		return this.id;
+	@Id
+	@Column(name = "idactivity", unique = true, nullable = false)
+	public int getIdactivity() {
+		return this.idactivity;
 	}
 
-	public void setId(ActivityId id) {
-		this.id = id;
+	public void setIdactivity(int idactivity) {
+		this.idactivity = idactivity;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_idemployee", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "employee_idemployee", nullable = false)
 	public Employee getEmployee() {
 		return this.employee;
 	}
@@ -76,7 +72,7 @@ public class Activity implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_idproject", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "project_idproject", nullable = false)
 	public Project getProject() {
 		return this.project;
 	}
