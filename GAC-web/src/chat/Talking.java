@@ -1,6 +1,7 @@
 package chat;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -16,8 +17,13 @@ import javax.jms.JMSException;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
+import javax.jms.QueueConnection;
+import javax.jms.QueueConnectionFactory;
+import javax.jms.QueueSender;
 import javax.jms.QueueSession;
 import javax.jms.Session;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.validator.HibernateValidator;
@@ -78,10 +84,11 @@ public class Talking {
 		int error = 0;		
 		
 		try {
+			sendMessage("test premier message en base");
     		String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
     		// If the conversation is defined
     		if( GET != null ) {
-    			convers = fcs.findItem(Integer.parseInt(GET));
+    			convers = fcs.findItem(Integer.parseInt(GET));    			
     			if( convers != null) {
     				Employee called = convers.getEmployeeByCalledIdemployee();
     				Employee caller = convers.getEmployeeByCallerIdemployee();
@@ -168,38 +175,33 @@ public class Talking {
 	}
 	
 	public void sendMessage(String content){
-		 TransportConfiguration transportConfiguration =
-                 new TransportConfiguration(
-         NettyConnectorFactory.class.getName());  
-
- ConnectionFactory factory = (ConnectionFactory)
-     HornetQJMSClient.createConnectionFactoryWithoutHA(
-         JMSFactoryType.CF,
-         transportConfiguration);
-
- //The queue name should match the jms-queue name in standalone.xml
- Queue queue = HornetQJMSClient.createQueue("testQueue");
- Connection connection;
- try {
-     connection = factory.createConnection();
-     Session session = connection.createSession(
-                 false,
-                 QueueSession.AUTO_ACKNOWLEDGE);
-     MessageProducer producer = session.createProducer(queue);
-     ObjectMessage objMsg = session.createObjectMessage();
-
-     Message msg = new Message();
-     msg.setContent(content);     
-     msg.setConversation(fcs.findItem(1)
-     		);
-     msg.setSendTime(new Date());
-     
-     objMsg.setObject(msg);
-     producer.send(objMsg);   
-     session.close();
- } catch (JMSException e) {
-     e.printStackTrace();
- }
+					
+		 final String QUEUE_LOOKUP = "queue/test";
+	        final String CONNECTION_FACTORY = "ConnectionFactory";	 
+	       
+	        try{
+	            Context context = new InitialContext();
+	            QueueConnectionFactory factory =
+	                (QueueConnectionFactory)context.lookup(CONNECTION_FACTORY);
+	            QueueConnection connection = factory.createQueueConnection();
+	            QueueSession session =
+	                connection.createQueueSession(false,
+	                    QueueSession.AUTO_ACKNOWLEDGE);
+	 
+	            Queue queue = (Queue)context.lookup(QUEUE_LOOKUP);
+	            QueueSender sender = session.createSender(queue); 	        
+	            ObjectMessage objMsg = session.createObjectMessage();
+	 
+	            Message msg = new Message();
+	            msg.setContent(content);	            
+	            msg.setConversation(fcs.findItem(1)
+	            );
+	            msg.setSendTime(new Date());
+	            objMsg.setObject(msg);
+	            sender.send(objMsg); 
+	            session.close();
+	        }
+	        catch(Exception e)
+	        	{e.printStackTrace();}
 	}
-	
 }
