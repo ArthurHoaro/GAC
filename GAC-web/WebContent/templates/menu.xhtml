@@ -7,29 +7,31 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
 	    <ui:composition>
-		    <ul class="nav nav-tabs nav-stacked">
-		    	<li class="dropdown-submenu">
-		    		<a href="#">Les Projets</a>
-		    		<ul class="dropdown-menu">
-				      <!-- For each projet, 
-				      	<li>
-				      		<a tabindex="-1" href="#">Projet 1</a>
-				      	</li>
-				      -->
-						<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
-							<li>
-								<a tabindex="-1" href="#">#{project.name}</a>
-							</li>
-           				</a4j:repeat>
-				    </ul>
-		    	</li>
-		    	<li>
-		    		<a href="#">Profile</a>
-		    	</li>
-		    	<li>
-		    		<a href="#">Messages</a>
-		    	</li>
-			</ul>
+	    	 <ui:fragment rendered="#{userProfile.loggedIn}">    
+			    <ul class="nav nav-tabs nav-stacked">
+			    	<li class="dropdown-submenu">
+			    		<a href="#">Les Projets</a>
+			    		<ul class="dropdown-menu">
+					      <!-- For each projet, 
+					      	<li>
+					      		<a tabindex="-1" href="#">Projet 1</a>
+					      	</li>
+					      -->
+							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
+								<li>
+									<a tabindex="-1" href="#">#{project.name}</a>
+								</li>
+	           				</a4j:repeat>
+					    </ul>
+			    	</li>
+			    	<li>
+			    		<a href="#">Profile</a>
+			    	</li>
+			    	<li>
+			    		<a href="#">Messages</a>
+			    	</li>
+				</ul>
+			</ui:fragment>
 	    </ui:composition>
     </body>
 </html>
