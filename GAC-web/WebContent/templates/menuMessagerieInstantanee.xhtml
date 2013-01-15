@@ -18,8 +18,15 @@
 					      	</li>
 					      -->
 							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
-								<li>
+								<li class="dropdown-submenu">
 									<a tabindex="-1" href="#">#{project.name}</a>
+									<ul class="dropdown-menu">
+										<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="emloyee" ajaxKeys="#{updateBean.updatedRow}">
+											<li>
+												<a tabindex="-1" href="#">#{emloyee.firstname}</a>
+											</li>
+										</a4j:repeat>
+									</ul>
 								</li>
 	           				</a4j:repeat>
 					    </ul>

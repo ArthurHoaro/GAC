@@ -57,7 +57,7 @@ public class Project implements java.io.Serializable {
 		this.idproject = idproject;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "manager_idemployee", nullable = false)
 	public Employee getEmployee() {
 		return this.employee;
@@ -94,7 +94,7 @@ public class Project implements java.io.Serializable {
 		this.description = description;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "project")
 	public Set<Activity> getActivities() {
 		return this.activities;
 	}
