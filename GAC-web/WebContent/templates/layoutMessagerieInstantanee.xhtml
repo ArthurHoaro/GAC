@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>		
+		<ui:insert name="title">Login</ui:insert>
+	</title>
+	<!--  SCRIPTS  -->
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/jquery.min.js" />
+	<script src="#{facesContext.externalContext.requestContextPath}/resources/bootstrap/js/bootstrap.min.js" />
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+	<!-- 	<h:outputScript name="bootstrap/js/bootstrap.min.js"></h:outputScript>	 -->		
+		
+	<!--  STYLESHEETS  -->
+ 	<link href="#{facesContext.externalContext.requestContextPath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" rel="stylesheet" type="text/css" />
+<!-- 	<h:outputStylesheet name="bootstrap/css/bootstrap.css"></h:outputStylesheet>		 -->
+<!-- 	<h:outputStylesheet name="css/style.css"></h:outputStylesheet> -->
+</h:head> 
+<h:body>
+    <div id="page">
+ 
+	    <div id="header">
+		<ui:insert name="header" >
+		  <ui:include src="/templates/header.xhtml" />
+		</ui:insert>
+	    </div>
+	    
+	    <div class="container-fluid">
+	    
+	    	<div class="row-fluid">
+			    <div class="span2">
+			    	<div id="menu">
+						<ui:insert name="menu" >
+						  <ui:include src="/templates/menuMessagerieInstantanee.xhtml" />
+						</ui:insert>
+			    	</div>
+			    </div>
+			    <div class="span10">
+			    	<div id="content">
+					  	<ui:insert name="content" >
+					 	  <ui:include src="/templates/content.xhtml" />
+					   	</ui:insert>
+		    		</div>
+			    </div>
+			  </div>
+		 </div>
+ 
+	    <div id="footer" class="navbar-fixed-bottom">
+	    	<ui:insert name="footer" >
+	    	  <ui:include src="/templates/footer.xhtml" />
+	    	</ui:insert>
+   	    </div>
+ 
+	</div>
+</h:body>
+</html>
