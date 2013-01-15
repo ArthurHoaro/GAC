@@ -33,7 +33,7 @@ public class Profile {
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();	
 		
 		// If the user is logged in
-		if( ! userSession.isEmpty() ) {
+		if( userSession.get("username") != null) {
 			currentEmp = fes.findItem((String) userSession.get("username"));
 		}
 		// Isn't logged in, redirect to login page

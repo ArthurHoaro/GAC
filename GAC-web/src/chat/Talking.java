@@ -67,7 +67,7 @@ public class Talking {
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();	
 		
 		// If the user is logged in
-		if( ! userSession.isEmpty() ) {
+		if( userSession.get("username") != null ) {
 			curentEmp = fes.findItem((String) userSession.get("username"));
 		}
 		// Isn't logged in, redirect to login page
