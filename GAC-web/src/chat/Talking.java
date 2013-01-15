@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.jms.Connection;
@@ -41,7 +42,7 @@ import model.Employee;
 import model.Message;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class Talking {
 
 	// Properties ---------------------------------------------------------------------------------
@@ -89,6 +90,8 @@ public class Talking {
 			
 			if( idConv != null ) {
 				convers = fcs.findItem(Integer.parseInt(idConv));  
+				return;
+				
 			}
 			else {
 				String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
@@ -106,7 +109,7 @@ public class Talking {
 				if( called.getIdemployee() == curentEmp.getIdemployee() ) {
 					contact = caller;
 				}
-				// The other way around
+				// The other way around 
 				else if ( caller.getIdemployee() == curentEmp.getIdemployee() ) {
 					contact = called;
 				}
@@ -138,7 +141,6 @@ public class Talking {
 	}
 	
 	public void sendMessage() {
-		this.init();
 		 if( textMessage != null ) {
 			 String content = textMessage;
 			 
@@ -175,9 +177,13 @@ public class Talking {
 	}
 	
 	public void testAdd() {
-		this.init();
-		this.listMessages.add(new Message(convers, curentEmp, "1234", new Date()));
+		//this.listMessages.add(new Message(convers, curentEmp, "1234", new Date()));
+		
+		this.listMessages.add(new Message(fcs.findItem(1), fes.findItem(1), "12345", new Date()));
+		listMessages.get(19).setIdmessage(20);
+		System.out.println("test");
 	}
+	
 	
 	// Getters/setters ----------------------------------------------------------------------------
 	
