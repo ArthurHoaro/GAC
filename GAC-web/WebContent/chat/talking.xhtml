@@ -19,19 +19,24 @@
 					</div>
 	    			<f:event type="preRenderView" listener="#{talking.init}" />
 	    			
-	    			<div class="well">
-	    				<a4j:repeat var="mes" value="#{talking.listMessages}" ajaxKeys="#{talking.updatedRow}">						
-							<p>
-								<span class="label label-info">#{talking.getFullName(mes)}</span> 
-								<small><em>
-									<h:outputText value="#{mes.sendTime}">
-  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
-									</h:outputText>
-								</em></small><br />
-								#{mes.content}
-							</p>											 
-				   		</a4j:repeat>
-			   		</div>
+		    			<h:panelGroup id="messagesList">
+		    				<a4j:repeat var="mes" value="#{talking.listMessages}">						
+								<p>
+									<span class="label label-info">#{talking.getFullName(mes)}</span> 
+									<small><em>
+										<h:outputText value="#{mes.sendTime}">
+	  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+										</h:outputText>
+									</em></small><br />
+									#{mes.content}
+								</p>											 
+					   		</a4j:repeat>
+				   		</h:panelGroup>
+			   		<h:form>
+				   		<a4j:commandLink action="#{talking.testAdd}" render="messagesList">
+				   		 	<h:outputText value="Filter List" />			   				
+		   				</a4j:commandLink>
+			   		</h:form>
 			   		<h:form id="messageForm">
 				   		<div class="span12">
 				   			<h:inputTextarea id="textMessage" value="#{talking.textMessage}" class="span11" placeholder="Répondre..." required="true" />
@@ -40,8 +45,8 @@
 				   		<div class="span2 offset5">
 				   			<a4j:commandButton value="Envoyer" action="#{talking.sendMessage}" styleClass="btn btn-large btn-primary"></a4j:commandButton>
 				   		</div>
-				   		<a4j:commandButton value="test" action="#{talking.testAdd}"></a4j:commandButton>
 			   		</h:form>
+			   		
 	    			<!-- AND ENDS HERE  -->
         		</div>
     		</ui:define>

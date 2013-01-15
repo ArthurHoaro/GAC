@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				Profil
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<!-- YOUR CODE STARTS HERE -->
+	    			<f:event type="preRenderView" listener="#{profile.init}" />
+	    			
+	    			<h1>#{profile.displayedEmp.firstname} #{profile.displayedEmp.lastname}</h1>
+	    			
+	    			<h2>Projets en cours</h2>
+	    			
+	    			<h2>Projets terminés</h2>
+	    			
+	    			<!-- AND ENDS HERE  -->
+        		</div>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

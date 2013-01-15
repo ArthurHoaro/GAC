@@ -67,7 +67,7 @@ public class Talking {
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();	
 		
 		// If the user is logged in
-		if( ! userSession.isEmpty() ) {
+		if( userSession.get("username") != null ) {
 			curentEmp = fes.findItem((String) userSession.get("username"));
 		}
 		// Isn't logged in, redirect to login page
@@ -90,6 +90,8 @@ public class Talking {
 			
 			if( idConv != null ) {
 				convers = fcs.findItem(Integer.parseInt(idConv));  
+				return;
+				
 			}
 			else {
 				String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
@@ -107,7 +109,7 @@ public class Talking {
 				if( called.getIdemployee() == curentEmp.getIdemployee() ) {
 					contact = caller;
 				}
-				// The other way around
+				// The other way around 
 				else if ( caller.getIdemployee() == curentEmp.getIdemployee() ) {
 					contact = called;
 				}
@@ -139,7 +141,6 @@ public class Talking {
 	}
 	
 	public void sendMessage() {
-		this.init();
 		 if( textMessage != null ) {
 			 String content = textMessage;
 			 
@@ -176,9 +177,13 @@ public class Talking {
 	}
 	
 	public void testAdd() {
-		this.init();
-		this.listMessages.add(new Message(convers, curentEmp, "1234", new Date()));
+		//this.listMessages.add(new Message(convers, curentEmp, "1234", new Date()));
+		
+		this.listMessages.add(new Message(fcs.findItem(1), fes.findItem(1), "12345", new Date()));
+		listMessages.get(19).setIdmessage(20);
+		System.out.println("test");
 	}
+	
 	
 	// Getters/setters ----------------------------------------------------------------------------
 	
