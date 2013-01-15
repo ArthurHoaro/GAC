@@ -10,6 +10,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.jms.Connection;
@@ -40,8 +41,8 @@ import model.Conversation;
 import model.Employee;
 import model.Message;
 
-@ManagedBean
-@RequestScoped
+@ManagedBean(name="talking")
+@SessionScoped
 public class Talking {
 
 	// Properties ---------------------------------------------------------------------------------

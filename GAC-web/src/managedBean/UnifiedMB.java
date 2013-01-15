@@ -7,8 +7,16 @@ import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import account.Login;
+import account.UserProfile;
+
+import chat.Talking;
 
 import model.Activity;
 import model.Employee;
@@ -19,8 +27,7 @@ import remote.FProjectServicesRemote;
 
 @ManagedBean
 @SessionScoped
-public class UnifiedMB {
-
+public class UnifiedMB {	
 	@EJB
 	private FProjectServicesRemote fps;
 	
@@ -36,8 +43,27 @@ public class UnifiedMB {
 		return fps.findAllProject();
 	}
 	
+	public Collection<Project> getConnectedUserProjectsName()
+	{
+		// On récupère l'user actuel
+		Talking currentTalking = (Talking) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("talking");
+		if(currentTalking != null && currentTalking.getCurentEmp() != null)
+		{
+			return fps.findAllProject(currentTalking.getCurentEmp().getEmail());
+		}
+		return null;
+	}
+	
 	public Collection<Employee> getEmployeessProject(Project project)
 	{
+		// On récupère le bean permettant de récupérer l'employé actuellement connecté
+		// TODO : Savoir comment récupérer un bean
+		//Employee employeeConnecte = talkingBean.getCurentEmp();
+		//loginBean.getPassword();
+		Talking currentTalking = (Talking) FacesContext.getCurrentInstance()
+                .getExternalContext().getSessionMap().get("talking");
+		
 		Collection<Employee> projectEmployees = new ArrayList<Employee>();
 		
 		// On rajoute le chef de projet en premier
@@ -48,7 +74,8 @@ public class UnifiedMB {
 		for(Activity act : activities)
 		{
 			// Si il existe déjà on ne l'ajoute pas
-			if(!projectEmployees.contains(act.getEmployee()))
+			// TODO: On ne s'ajoute pas soi-même
+			if(!projectEmployees.contains(act.getEmployee()) && act.getEmployee().getIdemployee() != currentTalking.getCurentEmp().getIdemployee())
 			{
 				projectEmployees.add(act.getEmployee());
 			}
