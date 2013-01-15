@@ -56,6 +56,15 @@ public class UnifiedMB {
 		return projectEmployees;
 	}
 	
+	public boolean isProjectManager(Project project, Employee employee)
+	{
+		if(project.getEmployee().getIdemployee().equals(employee.getIdemployee()))
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public String getName(){
 		return fps.findItem(1).getName();
 	}

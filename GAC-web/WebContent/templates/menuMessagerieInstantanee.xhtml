@@ -21,9 +21,14 @@
 								<li class="dropdown-submenu">
 									<a tabindex="-1" href="#">#{project.name}</a>
 									<ul class="dropdown-menu">
-										<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="emloyee" ajaxKeys="#{updateBean.updatedRow}">
+										<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
 											<li>
-												<a tabindex="-1" href="#">#{emloyee.firstname}</a>
+												<a tabindex="-1" href="#">
+													<ui:fragment rendered="#{unifiedMB.isProjectManager(project, employee)}">
+							                        	<i class="icon-star"></i>
+							                        </ui:fragment> 
+													#{employee.firstname}
+												</a>
 											</li>
 										</a4j:repeat>
 									</ul>
