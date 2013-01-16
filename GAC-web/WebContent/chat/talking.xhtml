@@ -3,9 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:a4j="http://richfaces.org/a4j">
     <h:body>
-    	<ui:composition template="/templates/layout.xhtml">
+    	<ui:composition template="/templates/layoutMessagerieInstantanee.xhtml">
    	 		<ui:define name="title">
 				Conversation
 			</ui:define> 
@@ -18,22 +19,34 @@
 					</div>
 	    			<f:event type="preRenderView" listener="#{talking.init}" />
 	    			
-	    			<div class="well">
-	    				<ui:repeat var="mes" value="#{talking.listMessages}">						
-							<p>
-								<span class="label label-info">#{talking.getFullName(mes)}</span> 
-								<small><em>
-									<h:outputText value="#{mes.sendTime}">
-  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
-									</h:outputText>
-								</em></small><br />
-								#{mes.content}
-							</p>											 
-				   		</ui:repeat>
-			   		</div>
-			   		<div class="span12">
-			   			<textarea class="span11" placeholder="Répondre..."></textarea>
-			   		</div>
+		    			<h:panelGroup id="messagesList">
+		    				<a4j:repeat var="mes" value="#{talking.listMessages}">						
+								<p>
+									<span class="label label-info">#{talking.getFullName(mes)}</span> 
+									<small><em>
+										<h:outputText value="#{mes.sendTime}">
+	  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+										</h:outputText>
+									</em></small><br />
+									#{mes.content}
+								</p>											 
+					   		</a4j:repeat>
+				   		</h:panelGroup>
+			   		<h:form>
+				   		<a4j:commandLink action="#{talking.testAdd}" render="messagesList">
+				   		 	<h:outputText value="Filter List" />			   				
+		   				</a4j:commandLink>
+			   		</h:form>
+			   		<h:form id="messageForm">
+				   		<div class="span12">
+				   			<h:inputTextarea id="textMessage" value="#{talking.textMessage}" class="span11" placeholder="Répondre..." required="true" />
+				   		</div>
+				   		<h:inputHidden value="#{talking.idConv}" id="idConv" />
+				   		<div class="span2 offset5">
+				   			<a4j:commandButton value="Envoyer" action="#{talking.sendMessage}" styleClass="btn btn-large btn-primary"></a4j:commandButton>
+				   		</div>
+			   		</h:form>
+			   		
 	    			<!-- AND ENDS HERE  -->
         		</div>
     		</ui:define>

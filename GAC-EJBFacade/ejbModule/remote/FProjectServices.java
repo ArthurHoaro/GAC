@@ -54,6 +54,5 @@ public class FProjectServices implements FProjectServicesRemote {
 				collec.remove(project);
 		}
     	return collec;
-    }
- 
+    } 
 }
