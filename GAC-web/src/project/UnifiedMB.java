@@ -1,14 +1,17 @@
 package project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,8 +29,8 @@ import remote.FEmployeeServicesRemote;
 import remote.FProjectServicesRemote;
 
 @ManagedBean
-@SessionScoped
-public class UnifiedMB {	
+@ViewScoped
+public class UnifiedMB implements Serializable {	
 	@EJB
 	private FProjectServicesRemote fps;
 	
@@ -45,29 +48,45 @@ public class UnifiedMB {
 	
 	public Collection<Project> getConnectedUserProjectsName()
 	{
+		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        
+		Employee emp = null;
+		
+        // If the user is logged in
+        if( userSession.get("username") != null) {
+        	emp = fes.findItem((String) userSession.get("username"));
+        }
+        
 		// On récupère l'user actuel
-		Talking currentTalking = (Talking) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("talking");
-		if(currentTalking != null && currentTalking.getCurentEmp() != null)
+		if(emp != null)
 		{
-			return fps.findAllProject(currentTalking.getCurentEmp().getEmail());
+			return fps.findAllProject(emp.getEmail());
 		}
 		return null;
 	}
 	
 	public Collection<Employee> getEmployeessProject(Project project)
 	{
+		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        
+		Employee emp = null;
+		
+        // If the user is logged in
+        if( userSession.get("username") != null) {
+        	emp = fes.findItem((String) userSession.get("username"));
+        }
+		
 		// On récupère le bean permettant de récupérer l'employé actuellement connecté
 		// TODO : Savoir comment récupérer un bean
 		//Employee employeeConnecte = talkingBean.getCurentEmp();
-		//loginBean.getPassword();
-		Talking currentTalking = (Talking) FacesContext.getCurrentInstance()
-                .getExternalContext().getSessionMap().get("talking");
-		
+		//loginBean.getPassword();		
 		Collection<Employee> projectEmployees = new ArrayList<Employee>();
 		
 		// On rajoute le chef de projet en premier
-		projectEmployees.add(project.getEmployee());
+		if(project.getEmployee().getIdemployee() != emp.getIdemployee())
+		{
+			projectEmployees.add(project.getEmployee());
+		}
 		
 		// Puis les employées de chaque activité
 		Set<Activity> activities = project.getActivities();
@@ -75,7 +94,7 @@ public class UnifiedMB {
 		{
 			// Si il existe déjà on ne l'ajoute pas
 			// TODO: On ne s'ajoute pas soi-même
-			if(!projectEmployees.contains(act.getEmployee()) && act.getEmployee().getIdemployee() != currentTalking.getCurentEmp().getIdemployee())
+			if(!projectEmployees.contains(act.getEmployee()) && emp != null && act.getEmployee().getIdemployee() != emp.getIdemployee())
 			{
 				projectEmployees.add(act.getEmployee());
 			}

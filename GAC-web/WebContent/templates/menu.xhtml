@@ -14,7 +14,7 @@
 			    		<ul class="dropdown-menu">
 			    			<a4j:repeat value="#{unifiedMB.connectedUserProjectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
 								<li>
-									<a tabindex="-1" href="#">#{project.name}</a>
+									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
 								</li>
 	           				</a4j:repeat>
 			    		</ul>
@@ -29,14 +29,14 @@
 					      -->
 							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
 								<li>
-									<a tabindex="-1" href="#">#{project.name}</a>
+									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
 								</li>
 	           				</a4j:repeat>
 					    </ul>
 			    	</li>
 			    	
 			    	<li>
-			    		<a href="#">Messages</a>
+			    		<a href="#{request.contextPath}/profile/profile.xhtml">Profil</a>
 			    	</li>
 				</ul>
 			</ui:fragment>
