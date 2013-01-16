@@ -36,6 +36,7 @@ public class ProjetMB {
 	 private ArrayList<Activity> myActivityList;
 	 private ArrayList<Activity> otherActivityList;
 	 private Employee curentEmp;
+	 private double avancement=0.0;
 	 
 
 	public ProjetMB() {
@@ -70,13 +71,19 @@ public class ProjetMB {
 			myActivityList=new ArrayList<Activity>();
 			otherActivityList=new ArrayList<Activity>();
 			for(Activity act : project.getActivities()){
-				if(act.getEmployee().equals(curentEmp))
+				if(curentEmp!=null && (act.getEmployee().getEmail().equals(curentEmp.getEmail())) )
 					myActivityList.add(act);
 				else
 					otherActivityList.add(act);
 			}
+			int termine=0;
+			for(Activity act:project.getActivities())
+				if(act.getEstTermine() == 1)
+					termine++;	
 			
-			
+			int total= project.getActivities().size();
+			avancement= (double)termine/total;
+			avancement= avancement*100;
 		}		
 		else
 			error=1;		
@@ -91,6 +98,10 @@ public class ProjetMB {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public int getAvancement(){
+		return (int) this.avancement;
 	}
 
 	public String getName(){
