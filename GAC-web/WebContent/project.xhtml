@@ -29,17 +29,9 @@
 			   		Mes activités
 			   		<div class="well">    				
 	    				<ui:repeat var="act" value="#{projetMB.myActiviyList}">
-	    					<span class="label label-info">	<h:outputText value="#{act.description}" /> </span>
-	    				</ui:repeat>
-			   		</div>
-			   		
-			   		Les autres activités
-			   		<div class="well">    				
-	    				<ui:repeat var="act" value="#{projetMB.otherActiviyList}">
-	    					<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
+	    						<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
 	    					<blockquote>
-	    						<ul class="unstyled">
-	    							<li>Description :  	<h:outputText value="#{act.description}" /></li>
+	    						<ul class="unstyled">	    							
 	    							<li>Charge : 		<h:outputText value="#{act.charge} Heures" /></li>
 	    							<li>	    								
 				    					Deadline : 		
@@ -50,6 +42,37 @@
 	    							<li>Status : 	    								        
 											 <h:outputText rendered="#{act.estTermine == 1}" value="Terminé"/>									       
 											 <h:outputText rendered="#{act.estTermine == 0}" value="Non Terminé"/>																	
+	    							</li>	    							
+	    						</ul>
+		    					
+		    					
+	    					</blockquote>
+	    					
+	    				</ui:repeat>
+			   		</div>
+			   		
+			   		Les autres activités
+			   		<div class="well">    				
+	    				<ui:repeat var="act" value="#{projetMB.otherActiviyList}">
+	    					<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
+	    					<blockquote>
+	    						<ul class="unstyled">	    						
+	    							<li>Charge : 		<h:outputText value="#{act.charge} Heures" /></li>
+	    							<li>	    								
+				    					Deadline : 		
+				    					<h:outputText value="#{act.day}" >
+				    						<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+				    					</h:outputText>
+	    							</li>
+	    							<li>Status : 	    								        
+											 <h:outputText rendered="#{act.estTermine == 1}" value="Terminé"/>									       
+											 <h:outputText rendered="#{act.estTermine == 0}" value="Non Terminé"/>																	
+	    							</li>
+	    							<li>Associée à : 
+	    								<a href=""> 	    								        
+											 <h:outputText value="#{act.employee.firstname} "/>									       
+											 <h:outputText value="#{act.employee.lastname}"/>		
+										 </a>															
 	    							</li>
 	    						</ul>
 		    					

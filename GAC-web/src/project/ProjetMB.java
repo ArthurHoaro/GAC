@@ -70,7 +70,7 @@ public class ProjetMB {
 			myActivityList=new ArrayList<Activity>();
 			otherActivityList=new ArrayList<Activity>();
 			for(Activity act : project.getActivities()){
-				if(act.getEmployee().equals(curentEmp))
+				if(curentEmp!=null && (act.getEmployee().getEmail().equals(curentEmp.getEmail())) )
 					myActivityList.add(act);
 				else
 					otherActivityList.add(act);

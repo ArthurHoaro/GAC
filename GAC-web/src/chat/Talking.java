@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EventListener;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -11,6 +12,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.jms.Connection;
@@ -27,6 +29,7 @@ import javax.jms.Session;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
+
 
 import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.api.jms.HornetQJMSClient;
@@ -57,9 +60,9 @@ public class Talking {
 	private Employee curentEmp;
 	private Employee contact;
 	private Conversation convers;
-	
 	private String textMessage;
 	private String idConv;
+	private HtmlInputTextarea textField;
 
 	// Actions ------------------------------------------------------------------------------------
 	
@@ -90,7 +93,7 @@ public class Talking {
 			
 			if( idConv != null ) {
 				convers = fcs.findItem(Integer.parseInt(idConv));  
-				return;
+				//return;
 				
 			}
 			else {
@@ -168,6 +171,8 @@ public class Talking {
 	            objMsg.setObject(msg);
 	            sender.send(objMsg); 
 	            session.close();
+	            connection.close();
+	            this.textField.setValue("");
 	           
 	        }
 	        catch(Exception e)
@@ -188,6 +193,7 @@ public class Talking {
 	// Getters/setters ----------------------------------------------------------------------------
 	
 	public ArrayList<Message> getListMessages() {
+		this.init();		
 		return listMessages;
 	}
 
@@ -233,7 +239,15 @@ public class Talking {
 	public String getTextMessage() {
 		return textMessage;
 	}
+	
+	public HtmlInputTextarea getTextField(){
+		return textField;
+	}
 
+	public void setTextField(HtmlInputTextarea t){
+		this.textField=t;
+	}
+	
 	public void setTextMessage(String textMessage) {
 		this.textMessage = textMessage;
 	}
@@ -246,6 +260,11 @@ public class Talking {
 		this.idConv = idConv;
 	}
 
+	
+	/**
+	 * Listener
+	 */	
+	
 	
 	
 	
