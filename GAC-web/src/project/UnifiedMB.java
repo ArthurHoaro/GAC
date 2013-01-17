@@ -59,6 +59,11 @@ public class UnifiedMB implements Serializable {
 		return fps.findAllProject();
 	}
 	
+	public Collection<Employee> getAllEmployees()
+	{
+		return fes.findAllEmployee();
+	}
+	
 	public Collection<Project> getConnectedUserProjectsName()
 	{
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();

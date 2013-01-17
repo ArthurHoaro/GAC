@@ -110,6 +110,22 @@
 			    	</li>
 			    	<li class="dropdown-submenu">
 			    		<a href="#{request.contextPath}/employees.xhtml">Tous les employés</a>
+			    		<ui:fragment rendered="#{unifiedMB.allEmployees.size() > 0}">
+			    			<ul class="dropdown-menu">
+				    			<a4j:repeat value="#{unifiedMB.allEmployees}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
+									<li>
+										<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+										<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
+										<a tabindex="-1" href="#{request.contextPath}/profile/profile.xhtml?user=#{employee.idemployee}">
+											#{employee.firstname}
+										</a>
+									</li>
+								</a4j:repeat>
+							</ul>
+			    		</ui:fragment>
+			    		<ui:fragment rendered="#{unifiedMB.allEmployees.size() == 0}">
+			    		</ui:fragment>
+			    		
 		    		</li>
 				</ul>
 			</ui:fragment>
