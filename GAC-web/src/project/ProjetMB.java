@@ -3,6 +3,7 @@ package project;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,8 +11,9 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
-
+import javax.swing.text.html.parser.Entity;
 import model.Activity;
 import model.Employee;
 import model.Project;
@@ -19,6 +21,7 @@ import model.Project;
 import remote.FEmployeeServices;
 import remote.FEmployeeServicesRemote;
 import remote.FProjectServicesRemote;
+
 
 
 @ManagedBean
@@ -36,9 +39,10 @@ public class ProjetMB {
 	 private ArrayList<Activity> myActivityList;
 	 private ArrayList<Activity> otherActivityList;
 	 private Employee curentEmp;
-	 private double avancement=0.0;
+	 private double avancement=0.0;	
+	 private boolean modifMode = false;
+	 private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
 	 
-
 	public ProjetMB() {
 		// TODO Auto-generated constructor stub
 	}
@@ -107,25 +111,61 @@ public class ProjetMB {
 	public String getName(){
 		return project.getName();
 	}
+	public void setName(String name){
+		project.setName(name);		
+	}
 
 	public String getDescription(){
 		return project.getDescription();
 	}
 	
+	public void setDescription(String desc){
+		project.setDescription(desc);		
+	}
+	
+	
 	public Integer getBudget(){
 		return project.getBudject();
+	}
+	
+	public void setBudget(Integer budget){
+		this.project.setBudject(budget);		
 	}
 	
 	public Employee getManager(){
 		return project.getEmployee();
 	}
 	
+	public void setManager(int idEmployee){
+		this.project.setEmployee(fes.findItem(idEmployee));
+	}
+	
+	public List<SelectItem> getEmployeeOptions() {
+    	List<Employee> liste = new ArrayList<Employee>();
+    	for(Employee e : fes.findAllEmployee()){
+    		employeeOptions.add(new SelectItem(e.getIdemployee(), e.getFirstname()+" "+e.getLastname()));
+    	}
+        return employeeOptions;
+    }
+	
 	public ArrayList<Activity> getMyActiviyList(){
 		return myActivityList;
 	}
 	public ArrayList<Activity> getOtherActiviyList(){
 		return otherActivityList;
+	}	
+	public void toggleModif(boolean boo){
+		this.modifMode =boo;	
 	}
 	
+	public boolean editable(){
+		boolean ret= false;
+		if(curentEmp!=null && curentEmp.getEmail().equals(this.project.getEmployee().getEmail()) && modifMode )
+			ret=true;
+		return ret;
+	}
+	
+	public void validerModification(){	fps.updateItem(project); toggleModif(false);	}
+	public void annulerModification(){toggleModif(false);}	
 	
 }
