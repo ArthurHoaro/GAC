@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Remote;
 
+import model.Employee;
 import model.Project;
 
 @Remote
@@ -18,5 +19,8 @@ public interface FProjectServicesRemote {
 	    
 	    public Collection<Project> findAllProject();
 	    
+	    public Boolean checkChefDeProjet(Project p, Employee e);
+
 	    public Collection<Project> findAllProject(String username);
+
 }

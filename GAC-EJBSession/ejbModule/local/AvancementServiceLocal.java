@@ -1,5 +1,7 @@
 package local;
 
+import java.util.Collection;
+
 import javax.ejb.Local;
 
 import model.Avancement;
@@ -15,5 +17,7 @@ public interface AvancementServiceLocal {
 
 	    public void updateItem(Avancement i);
 	    
-	
+	    public Collection<Avancement> getAvancementsByActivity(Integer id);
+	    
+	    public int getSumByActivity(Integer id);
 }

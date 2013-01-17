@@ -31,6 +31,7 @@ public class Conversation implements java.io.Serializable {
 	private Employee employeeByCalledIdemployee;
 	private Date dayTimeBegin;
 	private Date dayTimeEnd;
+	private Boolean status;
 	private Set<Message> messages = new HashSet<Message>(0);
 
 	public Conversation() {
@@ -63,7 +64,7 @@ public class Conversation implements java.io.Serializable {
 		this.idconversation = idconversation;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "caller_idemployee", nullable = false)
 	public Employee getEmployeeByCallerIdemployee() {
 		return this.employeeByCallerIdemployee;
@@ -74,7 +75,7 @@ public class Conversation implements java.io.Serializable {
 		this.employeeByCallerIdemployee = employeeByCallerIdemployee;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "called_idemployee", nullable = false)
 	public Employee getEmployeeByCalledIdemployee() {
 		return this.employeeByCalledIdemployee;
@@ -112,6 +113,15 @@ public class Conversation implements java.io.Serializable {
 
 	public void setMessages(Set<Message> messages) {
 		this.messages = messages;
+	}
+	
+	@Column(name = "status")
+	public Boolean getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

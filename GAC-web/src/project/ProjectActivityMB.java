@@ -3,7 +3,11 @@
 package project;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 import java.util.List;
@@ -15,11 +19,15 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import model.Activity;
+import model.Avancement;
 import model.Employee;
+import model.Project;
 
 
 import remote.FActivityServicesRemote;
 import remote.FEmployeeServicesRemote;
+import remote.FProjectServicesRemote;
 
 
 
@@ -34,6 +42,8 @@ public class ProjectActivityMB {
 	 private FActivityServicesRemote fas;
 	@EJB
 	 private FEmployeeServicesRemote fes;
+	@EJB
+	 private FProjectServicesRemote fps;
 
 	 
 	
@@ -41,10 +51,18 @@ public class ProjectActivityMB {
 	private int idEmployee;
 	private int newIdEmployee;
 	private int chargeAAjouter=0;
-	private int modif=0;
+	private Project project;
+	private Activity activity;
+	private Employee employee;
+	private boolean  modif=false;
+	private String statut;
 	private String activityDescription;
 	private String modifMode="false";
 	private String readMode="true";
+	private String afficherFormulaireAjout="false";
+	private String afficherBoutonModifier="false";
+	private String afficherBoutonEnleverHeures="false";
+	private String afficherBoutonTerminer="true";
 	private HtmlOutputText employeeNameOutputText=new HtmlOutputText();
 	private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
 	private Employee curentEmp;
@@ -52,7 +70,8 @@ public class ProjectActivityMB {
 	// Actions ------------------------------------------------------------------------------------
 	
 	public ProjectActivityMB() {
-		this.init();
+		this.idActivity=-1;
+
 
 	}
 
@@ -61,8 +80,8 @@ public class ProjectActivityMB {
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
 		
 		// If the user is logged in
-		if( ! userSession.isEmpty() ) {
-			//curentEmp = fes.findItem((String) userSession.get("username"));
+		if( userSession.get("username")!=null ) {
+			curentEmp = fes.findItem((String) userSession.get("username"));
 		}
 		// Isn't logged in, redirect to login page
 		else {
@@ -85,13 +104,25 @@ public class ProjectActivityMB {
 		
 		//on vï¿½rifie l id rï¿½cupï¿½rï¿½
 		if(idActivityString!= null && idActivityString!="") {
-			idActivity=Integer.parseInt(idActivityString);
-		} else {
-			idActivity=1;
+			this.idActivity=Integer.parseInt(idActivityString);
+			this.activity=fas.findItem(idActivity);
+			this.project=this.activity.getProject();
+		} else if(this.idActivity == -1) {
+			
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(
+						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+						"/activity-notfound.xhtml"
+					);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 
-	   //TO DO verifier si l'utilisateur est chef de projet pour pouvoir modifier
-		
+		this.updateAffichage();
+				
 	}
 	
 	public int getNewIdEmployee(){
@@ -102,21 +133,91 @@ public class ProjectActivityMB {
 	}
 	
 	public void modifierEmployee(){
-		this.modifMode="true";
-		this.readMode="false";
+		this.modif=true;
+		this.updateAffichage();
 		
 	}
+	
+	//fonction qui va mettre a jour l'affichage en fonction 
+	public void updateAffichage()
+	{
+		if(!this.modif)
+		{
+			this.modifMode="false";
+			this.readMode="true";
+			//on verifie si l'utilisateur est chef de projet
+			if(this.estChefDeProjet())
+			{
+				this.afficherBoutonModifier="true";
+				this.afficherBoutonEnleverHeures="true";
+			}
+			else 
+			{
+				this.afficherBoutonModifier="false";
+				this.afficherBoutonEnleverHeures="false";
+				
+			}
+			
+		} else {
+			
+			this.afficherBoutonModifier="false";
+			this.modifMode="true";
+			this.readMode="false";
+			//on verifie si l'utilisateur est chef de projet
+			if(this.estChefDeProjet())
+			{
+				this.afficherBoutonEnleverHeures="true";
+			}
+			else 
+			{
+				this.afficherBoutonEnleverHeures="false";
+			}
+			
+		}
+		
+		if(this.checkUserActivity() || this.estChefDeProjet())
+			this.afficherFormulaireAjout="true";
+		else 
+			this.afficherFormulaireAjout="false";
+		
+		if (this.activity.getEstTermine()==0)
+		{
+			this.statut="EN COURS";
+			this.afficherBoutonTerminer="true";
+		} else {
+			this.statut="FINIT";
+			this.afficherBoutonTerminer="false";
+		}
+	}
 	public void validerModificationEmployee(){
-		this.idEmployee=this.newIdEmployee;
 		fas.modifierEmployee(this.idActivity,this.newIdEmployee);
-		this.annulerModificationEmployee();
+		activity.setDescription(this.activityDescription);
+		fas.updateItem(activity);
+		
+		//on repasse en mode lecture
+		this.modif=false;
+		this.updateAffichage();
 	}
 	public void annulerModificationEmployee(){
-		this.modifMode="false";
-		this.readMode="true";
+		this.modif=false;
+		this.updateAffichage();
+	}
+	public void terminerActivity(){
+		activity.setEstTermine(1);
+		this.updateAffichage();
 	}
 	public void ajouterCharge(){
-		fas.ajouterCharge(this.idActivity, this.chargeAAjouter);
+		if(this.chargeAAjouter>0)
+			fas.ajouterCharge(this.idActivity, this.chargeAAjouter,this.curentEmp.getIdemployee());
+	}
+	public void enleverCharge(){
+		if(this.chargeAAjouter>0)
+		{
+			fas.ajouterCharge(this.idActivity, ((-1)*this.chargeAAjouter),this.curentEmp.getIdemployee());
+		}
+	}
+	public int getActivityCharge(){
+		return this.activity.getCharge();
 	}
 	public String getProjectName(){
 		return fas.findItemProjectName(this.idActivity);
@@ -124,9 +225,11 @@ public class ProjectActivityMB {
 	public String getEmployeeName(){
 		return fas.findItemEmployeeName(this.idActivity);
 	}
-	public int getActivityCharge(){
-		return fas.findItem(this.idActivity).getCharge();
+	public int getActivityNombreHeure(){
+		return fas.getNombreHeures(this.idActivity);
 	}
+
+
 	
 	public String getActivityDescription(){
 		return fas.findItem(this.idActivity).getDescription();
@@ -154,6 +257,25 @@ public class ProjectActivityMB {
 	public String getReadMode() {
 		return this.readMode;
 	}
+	public String getAfficherBoutonModifier() {
+		return this.afficherBoutonModifier;
+	}
+	public String getAfficherBoutonEnleverHeures() {
+		return this.afficherBoutonEnleverHeures;
+	}
+	public String getAfficherBoutonTerminer() {
+		return this.afficherBoutonTerminer;
+	}
+	public String getAfficherFormulaireAjout() {
+		return this.afficherFormulaireAjout;
+	}
+	public String getStatut() {
+		return this.statut;
+	}
+	
+	
+	
+	/*Recuperation de listes*/
 	
 	//construit une list de "select items" a partir de la liste des employï¿½s
     public List<SelectItem> getEmployeeOptions() {
@@ -163,5 +285,45 @@ public class ProjectActivityMB {
     	}
         return employeeOptions;
     }
+    
+	public Collection<Avancement> getListAvancement() {
+		return fas.getAllAvancementByActivity(this.idActivity);
+	}
+	
+	/*check si l'employé connecter est le chef de projet*/
+	public Boolean estChefDeProjet()
+	{
+		//return true;
+		return fps.checkChefDeProjet(this.activity.getProject(), this.curentEmp);
+	}
+	public Boolean checkUserActivity() {
+		if(this.curentEmp==this.activity.getEmployee())
+			return true;
+		else 
+			return false;
+	}
+	
+	/* Fonction pour recuper string pour le tableau*/
+	public String getNameFromEmployee(Integer id) {
+		return fes.getNameFromEmployee(id) ;
+	}
+	
+	public String getNombreHeuresString(int nombre)
+	{
+		if(nombre>0)
+		{
+			return "+"+nombre;
+		} else {
+			return ""+nombre;
+		}
+	}
+	
+	public String getDateString(Date date)
+	{
+		//	* Definition du format utilise pour les dates
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return dateFormat.format(date);
+	}
 	
 }
