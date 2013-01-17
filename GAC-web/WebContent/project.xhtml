@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jstl/core" >    
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+   	 		<f:event type="preRenderView" listener="#{projetMB.init}" />
+				Projet : <h:outputText value="#{projetMB.name}" /> 
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<!-- YOUR CODE STARTS HERE -->
+					Le projet	    		   				
+	    			<div class="well">    		
+		    			<ul>
+		    				<li>Nom du projet : <h:outputText value="#{projetMB.name}" /></li>
+		    				<li>Description : 	<h:outputText value="#{projetMB.description}" /></li>
+		    				<li>Manager du projet : <h:outputText value="#{projetMB.manager.firstname} " /> 
+	    											<h:outputText value="#{projetMB.manager.lastname}" />		    				
+	    					</li>
+		    				<li>Budget alloué : <h:outputText value="#{projetMB.budget} €" /></li>		    			
+		    			</ul>
+			   		</div>
+			   		
+			   		Mes activités
+			   		<div class="well">    				
+	    				<ui:repeat var="act" value="#{projetMB.myActiviyList}">
+	    						<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
+	    					<blockquote>
+	    						<ul class="unstyled">	    							
+	    							<li>Charge : 		<h:outputText value="#{act.charge} Heures" /></li>
+	    							<li>	    								
+				    					Deadline : 		
+				    					<h:outputText value="#{act.day}" >
+				    						<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+				    					</h:outputText>
+	    							</li>
+	    							<li>Status : 	    								        
+											 <h:outputText rendered="#{act.estTermine == 1}" value="Terminé"/>									       
+											 <h:outputText rendered="#{act.estTermine == 0}" value="Non Terminé"/>																	
+	    							</li>	    							
+	    						</ul>
+		    					
+		    					
+	    					</blockquote>
+	    					
+	    				</ui:repeat>
+			   		</div>
+			   		
+			   		Les autres activités
+			   		<div class="well">    				
+	    				<ui:repeat var="act" value="#{projetMB.otherActiviyList}">
+	    					<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
+	    					<blockquote>
+	    						<ul class="unstyled">	    						
+	    							<li>Charge : 		<h:outputText value="#{act.charge} Heures" /></li>
+	    							<li>	    								
+				    					Deadline : 		
+				    					<h:outputText value="#{act.day}" >
+				    						<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+				    					</h:outputText>
+	    							</li>
+	    							<li>Status : 	    								        
+											 <h:outputText rendered="#{act.estTermine == 1}" value="Terminé"/>									       
+											 <h:outputText rendered="#{act.estTermine == 0}" value="Non Terminé"/>																	
+	    							</li>
+	    							<li>Associée à : 
+	    								<a href=""> 	    								        
+											 <h:outputText value="#{act.employee.firstname} "/>									       
+											 <h:outputText value="#{act.employee.lastname}"/>		
+										 </a>															
+	    							</li>
+	    						</ul>
+		    					
+		    					
+	    					</blockquote>
+	    					
+	    				</ui:repeat>
+
+			   		</div>
+			   		
+			   		Avancement
+			   		<div class="well">    				
+	    				<div class="progress progress-striped active">
+  								<div class="bar" style="width: #{projetMB.avancement}%;"></div>
+						</div>
+			   		</div>
+	    		
+	    			<!-- AND ENDS HERE  -->
+        		</div>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
+

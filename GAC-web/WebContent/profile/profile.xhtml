@@ -5,14 +5,21 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
-    	<ui:composition template="/templates/layoutMessagerieInstantanee.xhtml">
+    	<ui:composition template="/templates/layout.xhtml">
    	 		<ui:define name="title">
-				Conversation introuvable
+				Profil
 			</ui:define> 
     		<ui:define name="content">
     			<div class="container">
 	    			<!-- YOUR CODE STARTS HERE -->
-	    			<p>Conversation introuvable</p>
+	    			<f:event type="preRenderView" listener="#{profile.init}" />
+	    			
+	    			<h1>#{profile.displayedEmp.firstname} #{profile.displayedEmp.lastname}</h1>
+	    			
+	    			<h2>Projets en cours</h2>
+	    			
+	    			<h2>Projets terminés</h2>
+	    			
 	    			<!-- AND ENDS HERE  -->
         		</div>
     		</ui:define>

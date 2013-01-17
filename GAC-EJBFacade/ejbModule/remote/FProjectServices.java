@@ -1,5 +1,6 @@
 package remote;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.ejb.EJB;
@@ -49,11 +50,13 @@ public class FProjectServices implements FProjectServicesRemote {
     {
     	Employee emp=employeeService.findItem(username);
     	Collection<Project> collec=  projectService.findAllProject();
+    	Collection<Project> collec2 = new ArrayList<Project>();
+    	collec2.addAll(collec);
     	for (Project project : collec) {
-			if(!project.getEmployee().equals(emp))
-				collec.remove(project);
+			if(!project.getEmployee().getIdemployee().equals(emp.getIdemployee()))
+				collec2.remove(project);
 		}
-    	return collec;
+    	return collec2;
     }
     
     public Boolean checkChefDeProjet(Project p, Employee e) {
@@ -62,5 +65,7 @@ public class FProjectServices implements FProjectServicesRemote {
     	else 
     		return false;
     }
- 
+
+
+
 }

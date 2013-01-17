@@ -1,6 +1,6 @@
 
 
-package managedBean;
+package project;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -95,13 +95,13 @@ public class ProjectActivityMB {
 			}
 		}
 		
-		//on recupere l' id de l'activité passé par l url 
+		//on recupere l' id de l'activitï¿½ passï¿½ par l url 
 		String 	idActivityString = (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idActivity");
 	
-		//on recupere l'id de l'employe connecté
+		//on recupere l'id de l'employe connectï¿½
 		idEmployee=1;
 		
-		//on vérifie l id récupéré
+		//on vï¿½rifie l id rï¿½cupï¿½rï¿½
 		if(idActivityString!= null && idActivityString!="") {
 			this.idActivity=Integer.parseInt(idActivityString);
 			this.activity=fas.findItem(idActivity);
@@ -267,7 +267,7 @@ public class ProjectActivityMB {
 	
 	/*Recuperation de listes*/
 	
-	//construit une list de "select items" a partir de la liste des employés
+	//construit une list de "select items" a partir de la liste des employï¿½s
     public List<SelectItem> getEmployeeOptions() {
     	List<Employee> liste = new ArrayList<Employee>();
     	for(Employee e : fes.findAllEmployee()){

@@ -10,7 +10,17 @@
 	    	 <ui:fragment rendered="#{userProfile.loggedIn}">    
 			    <ul class="nav nav-tabs nav-stacked">
 			    	<li class="dropdown-submenu">
-			    		<a href="#">Les Projets</a>
+			    		<a href="#">Mes projets</a>
+			    		<ul class="dropdown-menu">
+			    			<a4j:repeat value="#{unifiedMB.connectedUserProjectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
+								<li>
+									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
+								</li>
+	           				</a4j:repeat>
+			    		</ul>
+			    	</li>
+			    	<li class="dropdown-submenu">
+			    		<a href="#">Tous les Projets</a>
 			    		<ul class="dropdown-menu">
 					      <!-- For each projet, 
 					      	<li>
@@ -19,16 +29,14 @@
 					      -->
 							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
 								<li>
-									<a tabindex="-1" href="#">#{project.name}</a>
+									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
 								</li>
 	           				</a4j:repeat>
 					    </ul>
 			    	</li>
+			    	
 			    	<li>
-			    		<a href="#">Profile</a>
-			    	</li>
-			    	<li>
-			    		<a href="#">Messages</a>
+			    		<a href="#{request.contextPath}/profile/profile.xhtml">Profil</a>
 			    	</li>
 				</ul>
 			</ui:fragment>
