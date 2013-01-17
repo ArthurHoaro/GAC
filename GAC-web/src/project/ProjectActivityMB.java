@@ -283,8 +283,8 @@ public class ProjectActivityMB {
 	/*check si l'employé connecter est le chef de projet*/
 	public Boolean estChefDeProjet()
 	{
-		return true;
-		//return fps.checkChefDeProjet(this.activity.getProject(), this.curentEmp);
+		//return true;
+		return fps.checkChefDeProjet(this.activity.getProject(), this.curentEmp);
 	}
 	
 	/* Fonction pour recuper string pour le tableau*/
