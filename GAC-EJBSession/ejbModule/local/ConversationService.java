@@ -45,8 +45,7 @@ public class ConversationService implements ConversationServiceLocal {
 					"( caller_idemployee = :current OR caller_idemployee = :contact ) " +
 					"AND" +
 					"( called_idemployee = :current OR called_idemployee = :contact ) " +
-					"AND called_idemployee <> caller_idemployee " +
-					"AND status = 1";
+					"AND called_idemployee <> caller_idemployee";
 		
 		try {
 			out = (ArrayList<Conversation>) em.createQuery(str).setParameter("current", currentEmp.getIdemployee()).setParameter("contact", contact.getIdemployee()).getResultList();
@@ -66,8 +65,8 @@ public class ConversationService implements ConversationServiceLocal {
 		String str = "SELECT c " +
 				"FROM Conversation c " +
 				"WHERE " +
-					"caller_idemployee = :current OR called_idemployee = :current " +					
-					"AND status = 1";		
+				"caller_idemployee = :current OR called_idemployee = :current " +
+				"ORDER BY id DESC";		
 		try {
 			out = (ArrayList<Conversation>) em.createQuery(str).setParameter("current", currentEmp.getIdemployee()).getResultList();
 		}

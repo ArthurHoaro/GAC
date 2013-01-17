@@ -21,7 +21,7 @@ public class Employees {
 	@EJB
     private FEmployeeServicesRemote fes; 
     
-	private ArrayList<Employee> listEmployee;
+	private ArrayList<Employee> listEmployees;
 	private Employee currentEmp;
     
     // Actions ------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ public class Employees {
 		if( userSession.get("username") != null) {
 			currentEmp = fes.findItem((String) userSession.get("username"));
 			
-			listEmployee = (ArrayList<Employee>) fes.findAllEmployee();
+			listEmployees = (ArrayList<Employee>) fes.findAllEmployee();
 		}
 		// Isn't logged in, redirect to login page
 		else {
@@ -52,12 +52,12 @@ public class Employees {
 	// Getters/setters ----------------------------------------------------------------------------
     
     
-	public ArrayList<Employee> getListEmployee() {
-		return listEmployee;
+	public ArrayList<Employee> getListEmployees() {
+		return listEmployees;
 	}
 
-	public void setListEmployee(ArrayList<Employee> listEmployee) {
-		this.listEmployee = listEmployee;
+	public void setListEmployee(ArrayList<Employee> listEmployees) {
+		this.listEmployees = listEmployees;
 	}
 
 	public Employee getCurrentEmp() {
