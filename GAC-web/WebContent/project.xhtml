@@ -26,10 +26,17 @@
 		    			</ul>
 			   		</div>
 			   		
+			   		Avancement
+			   		<div class="well">    				
+	    				<div class="progress progress-striped active">
+  								<div class="bar" style="width: #{projetMB.avancement}%;"></div>
+						</div>
+			   		</div>
+			   		
 			   		Mes activités
 			   		<div class="well">    				
 	    				<ui:repeat var="act" value="#{projetMB.myActiviyList}">
-	    						<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
+	    						<a class="btn btn-small btn-primary" href="projectActivity.xhtml?idActivity=#{act.idactivity}"><h:outputText value="#{act.description}" /></a>
 	    					<blockquote>
 	    						<ul class="unstyled">	    							
 	    							<li>Charge : 		<h:outputText value="#{act.charge} Heures" /></li>
@@ -54,7 +61,7 @@
 			   		Les autres activités
 			   		<div class="well">    				
 	    				<ui:repeat var="act" value="#{projetMB.otherActiviyList}">
-	    					<span class="label label-info"><h:outputText value="#{act.description}" /> </span><br/>
+	    					<a class="btn btn-small btn-primary" href="projectActivity.xhtml?idActivity=#{act.idactivity}"><h:outputText value="#{act.description}" /></a> 
 	    					<blockquote>
 	    						<ul class="unstyled">	    						
 	    							<li>Charge : 		<h:outputText value="#{act.charge} Heures" /></li>
@@ -69,7 +76,7 @@
 											 <h:outputText rendered="#{act.estTermine == 0}" value="Non Terminé"/>																	
 	    							</li>
 	    							<li>Associée à : 
-	    								<a href=""> 	    								        
+	    								<a href="profile/profile.xhtml?user=#{act.employee.idemployee}"> 	    								        
 											 <h:outputText value="#{act.employee.firstname} "/>									       
 											 <h:outputText value="#{act.employee.lastname}"/>		
 										 </a>															
@@ -83,12 +90,7 @@
 
 			   		</div>
 			   		
-			   		Avancement
-			   		<div class="well">    				
-	    				<div class="progress progress-striped active">
-  								<div class="bar" style="width: #{projetMB.avancement}%;"></div>
-						</div>
-			   		</div>
+			   		
 	    		
 	    			<!-- AND ENDS HERE  -->
         		</div>
