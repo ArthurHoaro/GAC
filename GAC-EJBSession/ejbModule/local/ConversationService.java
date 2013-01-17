@@ -77,19 +77,4 @@ public class ConversationService implements ConversationServiceLocal {
 		return out;
 	}
 
-	@Override
-	public Conversation findItem(Employee contact, Employee currentEmp) {
-		String str = "SELECT c FROM Conversation c WHERE email = :contact";
-		Employee out;
-		try {
-			out = (Employee) em.createQuery(str).setParameter("email", email).getSingleResult();
-		}
-		catch (Exception ex) {
-			out = null;
-		}
-		
-		return out;
-		return null;
-	}
-
 }
