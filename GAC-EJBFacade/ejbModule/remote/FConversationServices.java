@@ -38,7 +38,8 @@ public class FConversationServices implements FConversationServicesRemote {
 
 	@Override
 	public int addItem(Employee currentEmp, Employee contact) throws Exception {
-		if( ! conversationService.conversExists(currentEmp, contact)) {
+		//if( ! conversationService.conversExists(currentEmp, contact)) {
+		if ( true ) {
 			Conversation newConv = new Conversation();
 			newConv.setEmployeeByCalledIdemployee(contact);
 			newConv.setEmployeeByCallerIdemployee(currentEmp);

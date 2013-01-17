@@ -1,5 +1,6 @@
 package project;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import account.Login;
+import account.Profile;
 import account.UserProfile;
 
 import chat.Talking;
@@ -25,6 +27,7 @@ import model.Activity;
 import model.Employee;
 import model.Project;
 
+import remote.FActivityServicesRemote;
 import remote.FEmployeeServicesRemote;
 import remote.FProjectServicesRemote;
 
@@ -37,8 +40,18 @@ public class UnifiedMB implements Serializable {
 	@EJB
 	private FEmployeeServicesRemote fes;
 	
+	@EJB
+	private FActivityServicesRemote fas;
+	
+	
 	public UnifiedMB() {
-		// TODO Auto-generated constructor stub
+		
+	}
+	
+	
+	public Collection<Activity> getActivitiesProject(Project project)
+	{
+		return fas.getAllActivitiesFromProject(project);
 	}
 	
 	public Collection<Project> getProjectsName()
@@ -63,6 +76,20 @@ public class UnifiedMB implements Serializable {
 			return fps.findAllProject(emp.getEmail());
 		}
 		return null;
+	}
+	
+	public Employee getCurrentEmployee()
+	{
+		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        
+		Employee emp = null;
+		
+        // If the user is logged in
+        if( userSession.get("username") != null) {
+        	emp = fes.findItem((String) userSession.get("username"));
+        }
+        
+        return emp;
 	}
 	
 	public Collection<Employee> getEmployeessProject(Project project)
@@ -104,9 +131,12 @@ public class UnifiedMB implements Serializable {
 	
 	public boolean isProjectManager(Project project, Employee employee)
 	{
-		if(project.getEmployee().getIdemployee().equals(employee.getIdemployee()))
+		if(employee != null)
 		{
-			return true;
+			if(project.getEmployee().getIdemployee().equals(employee.getIdemployee()))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

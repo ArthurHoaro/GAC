@@ -44,9 +44,9 @@ import model.Conversation;
 import model.Employee;
 import model.Message;
 
-@ManagedBean(name="listConvers")
+@ManagedBean(name="acceptChat")
 @RequestScoped
-public class ListConversation {
+public class AcceptChat {
 
 	// Properties ---------------------------------------------------------------------------------
 	@EJB
@@ -54,8 +54,8 @@ public class ListConversation {
 	@EJB
     private FEmployeeServicesRemote fes; 
 	
-	private Employee curentEmp;	
-	private ArrayList<Conversation> listConvers;
+	private Employee currentEmp;
+	private Conversation convers;
 	
 	// Actions ------------------------------------------------------------------------------------
 	
@@ -64,7 +64,7 @@ public class ListConversation {
 		
 		// If the user is logged in
 		if( userSession.get("username") != null ) {
-			curentEmp = fes.findItem((String) userSession.get("username"));
+			currentEmp = fes.findItem((String) userSession.get("username"));
 		}
 		// Isn't logged in, redirect to login page
 		else {
@@ -79,28 +79,69 @@ public class ListConversation {
 			}
 		}
 		
+		try {
+			String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("convers");
+			// If the contact is defined
+			if( GET != null ) {
+				convers = fcs.findItem(Integer.parseInt(GET));   
+			}
+			// Else : user not found
+			else throw new Exception();
 		
-		this.listConvers = fcs.findItem(curentEmp);
+			// If the current employee is allowed to accept
+			if( convers.getEmployeeByCalledIdemployee().getIdemployee() == currentEmp.getIdemployee() ) {
+				
+				if( convers.getDayTimeBegin() == null ) {
+					convers.setDayTimeBegin(new Date());
+				} 
+				else throw new Exception();
+				
+				fcs.updateItem(convers);
+				try {
+					FacesContext.getCurrentInstance().getExternalContext().redirect(
+							FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+							"/chat/talking.xhtml?conversation="+convers.getIdconversation()
+						);
+				} catch (IOException ex) {
+					// TODO Auto-generated catch block
+					ex.printStackTrace();
+				}
+			}
+			else throw new Exception();
+		}
+		catch( Exception e) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(
+						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+						"/chat/infos/talking-notfound.xhtml"
+					);
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+		}
 	}
-	
+
 	
 	// Getters/setters ----------------------------------------------------------------------------
-
+	
 	public Employee getCurentEmp() {
-		return curentEmp;
+		return currentEmp;
 	}
 
 	public void setCurentEmp(Employee curentEmp) {
-		this.curentEmp = curentEmp;
+		this.currentEmp = curentEmp;
 	}
 
-	public ArrayList<Conversation> getListConvers() {
-		return listConvers;
+	public Conversation getConvers() {
+		return convers;
 	}
 
-	public void setListConvers(ArrayList<Conversation> listConvers) {
-		this.listConvers = listConvers;
+	public void setConvers(Conversation convers) {
+		this.convers = convers;
 	}	
+	
+	
 	
 	
 	
