@@ -52,8 +52,5 @@ public class FConversationServices implements FConversationServicesRemote {
 	@Override
 	public ArrayList<Conversation> findItem(Employee currentEmp) {
 		return conversationService.findItem(currentEmp);
-	}
-
-	
- 
+	} 
 }
