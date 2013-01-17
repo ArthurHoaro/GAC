@@ -1,41 +1,39 @@
 package account;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-
-import model.Employee;
 
 import remote.FEmployeeServicesRemote;
 
+import model.Employee;
+
 @ManagedBean
 @RequestScoped
-public class Profile {
-
-	
+public class Employees {
 	// Properties ---------------------------------------------------------------------------------
-	
+
 	@EJB
     private FEmployeeServicesRemote fes; 
-	
-	private Employee displayedEmp;
+    
+	private ArrayList<Employee> listEmployee;
 	private Employee currentEmp;
+    
+    // Actions ------------------------------------------------------------------------------------
 
-	
-	// Actions ------------------------------------------------------------------------------------
-	
-	public void init() {		
-		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();	
-		
+	public void init() {
+		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+			
 		// If the user is logged in
 		if( userSession.get("username") != null) {
 			currentEmp = fes.findItem((String) userSession.get("username"));
+			
+			listEmployee = (ArrayList<Employee>) fes.findAllEmployee();
 		}
 		// Isn't logged in, redirect to login page
 		else {
@@ -49,45 +47,24 @@ public class Profile {
 				e.printStackTrace();
 			}
 		}
-		
-		String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("user");
-		// If the conversation is defined
-		if( GET != null ) {
-			this.displayedEmp = fes.findItem(Integer.parseInt(GET));   
-		}
-		
-		if( this.displayedEmp == null ) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect(
-						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
-						"/profile/infos/user-notfound.xhtml"
-					);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
-	
-	
+    
 	// Getters/setters ----------------------------------------------------------------------------
-	
-	public Employee getDisplayedEmp() {
-		return displayedEmp;
+    
+    
+	public ArrayList<Employee> getListEmployee() {
+		return listEmployee;
 	}
 
-
-	public void setDisplayedEmp(Employee displayedEmp) {
-		this.displayedEmp = displayedEmp;
+	public void setListEmployee(ArrayList<Employee> listEmployee) {
+		this.listEmployee = listEmployee;
 	}
-
 
 	public Employee getCurrentEmp() {
 		return currentEmp;
 	}
 
-
 	public void setCurrentEmp(Employee currentEmp) {
 		this.currentEmp = currentEmp;
-	}	
+	}
 }
