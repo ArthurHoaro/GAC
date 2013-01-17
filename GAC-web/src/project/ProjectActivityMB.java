@@ -184,6 +184,11 @@ public class ProjectActivityMB {
 		{
 			this.statut="EN COURS";
 			this.afficherBoutonTerminer="true";
+			if(this.checkUserActivity() || this.estChefDeProjet())
+				this.afficherBoutonTerminer="true";
+			else 
+				this.afficherBoutonTerminer="false";
+			
 		} else {
 			this.statut="FINIT";
 			this.afficherBoutonTerminer="false";
@@ -220,10 +225,18 @@ public class ProjectActivityMB {
 		return this.activity.getCharge();
 	}
 	public String getProjectName(){
-		return fas.findItemProjectName(this.idActivity);
+		return this.project.getName();
+	}
+	public int getProjectId() {
+		return this.project.getIdproject();
 	}
 	public String getEmployeeName(){
-		return fas.findItemEmployeeName(this.idActivity);
+		Employee e=this.project.getEmployee();
+		return e.getFirstname()+" "+e.getLastname();
+	}
+	public int getEmployeeId(){
+		Employee e=this.project.getEmployee();
+		return e.getIdemployee();
 	}
 	public int getActivityNombreHeure(){
 		return fas.getNombreHeures(this.idActivity);
@@ -272,6 +285,7 @@ public class ProjectActivityMB {
 	public String getStatut() {
 		return this.statut;
 	}
+
 	
 	
 	
@@ -297,7 +311,7 @@ public class ProjectActivityMB {
 		return fps.checkChefDeProjet(this.activity.getProject(), this.curentEmp);
 	}
 	public Boolean checkUserActivity() {
-		if(this.curentEmp==this.activity.getEmployee())
+		if(this.curentEmp.getIdemployee()==this.activity.getEmployee().getIdemployee())
 			return true;
 		else 
 			return false;

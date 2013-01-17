@@ -22,5 +22,12 @@ public interface FProjectServicesRemote {
 	    public Boolean checkChefDeProjet(Project p, Employee e);
 
 	    public Collection<Project> findAllProject(String username);
-
+	        
+	    public Collection<Project> getProjectEnCours(Employee employee);
+	    
+	    public Collection<Project> getProjectTermine(Employee employee);
+	    
+	    public Boolean estTermine(Project project);
+	    
+	    public int getNombreHeuresUtilisateurSurProjet(Employee e,Project project);
 }

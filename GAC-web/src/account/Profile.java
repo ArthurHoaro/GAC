@@ -1,6 +1,7 @@
 package account;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.ejb.EJB;
@@ -10,9 +11,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import model.Avancement;
 import model.Employee;
+import model.Project;
 
 import remote.FEmployeeServicesRemote;
+import remote.FProjectServicesRemote;
 
 @ManagedBean
 @RequestScoped
@@ -23,6 +27,9 @@ public class Profile {
 	
 	@EJB
     private FEmployeeServicesRemote fes; 
+	@EJB
+    private FProjectServicesRemote fps; 
+	
 	
 	private Employee displayedEmp;
 	private Employee currentEmp;
@@ -90,4 +97,20 @@ public class Profile {
 	public void setCurrentEmp(Employee currentEmp) {
 		this.currentEmp = currentEmp;
 	}	
+	
+	public Collection<Project>  getProjetEnCours() {
+		return fps.getProjectEnCours(this.displayedEmp);
+	}
+	
+	public Collection<Project>  getProjetTermine() {
+		return fps.getProjectTermine(this.displayedEmp);
+	}
+	
+	public String getManagerName(Project project) {
+		Employee employee=project.getEmployee();
+		return employee.getFirstname()+" "+employee.getLastname();
+	}
+	public int getSommeHeuresSurProjet(Project p) {
+		return fps.getNombreHeuresUtilisateurSurProjet(this.displayedEmp, p);
+	}
 }

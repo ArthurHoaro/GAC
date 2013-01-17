@@ -6,6 +6,8 @@ import javax.ejb.Remote;
 
 import model.Activity;
 import model.Avancement;
+import model.Employee;
+import model.Project;
 
 @Remote
 public interface FActivityServicesRemote {
@@ -18,7 +20,7 @@ public interface FActivityServicesRemote {
 	    public void updateItem(Activity i) ;
 	    
 	    public void ajouterCharge(Integer idActivity, Integer chargeAAjouter, Integer idEmployee);
-	    
+	    ;
 	    public String findItemProjectName(Integer id);
 	    
 	    public String findItemEmployeeName(Integer id);
@@ -28,4 +30,6 @@ public interface FActivityServicesRemote {
 	    public int getNombreHeures(Integer id);
 	    
 	    public Collection<Avancement> getAllAvancementByActivity(Integer id);
+
+	    
 }

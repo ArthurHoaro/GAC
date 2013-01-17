@@ -32,12 +32,17 @@
 			    			</div>
 							
 							<b>Project de l'activité : </b>
-								 <h:outputText value="#{projectActivityMB.projectName}"  /> 
-						
+								<a href="profile/profile.xhtml?user=#{projectActivityMB.projectId}">
+								 	<h:outputText value="#{projectActivityMB.projectName}"  /> 
+								</a>
 							<br /><b> Activité attribué à: </b>
 							
 							<!-- Read Mode -->
-								<h:outputText binding="#{projectActivityMB.employeeNameOutputText}" value="#{projectActivityMB.employeeName}" rendered="#{projectActivityMB.readMode}" />
+								<ui:fragment rendered="#{projectActivityMB.readMode}">
+									<a href="profile/profile.xhtml?user=#{projectActivityMB.employeeId}">
+										<h:outputText value="#{projectActivityMB.employeeName}"  />
+									</a>								
+								</ui:fragment>
 								<ui:fragment rendered="#{projectActivityMB.afficherBoutonModifier}">
 									<br/><br/>
 									<h:commandButton value="Modifier" action="#{projectActivityMB.modifierEmployee}" styleClass="btn" />

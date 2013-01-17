@@ -52,7 +52,7 @@ public class NewProjectMB {
 	private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
 	private int idEmployee;
 	private String description;
-	private int budgect=0;
+	private int budgect;
 	private String name;
 	private Project project;
 	private Employee curentEmp;
