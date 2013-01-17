@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+    
+    <h:body>
+
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				Creation d'une activité
+			</ui:define> 
+    		<ui:define name="content">
+    		<f:event type="preRenderView" listener="#{newProjectMB.init}" />
+    			<div class="well">
+	    			<h:form id="form">
+	                    		<legend>Création d'un projet </legend>
+	                   			<div class="form-horizontal">
+	
+									<div class="alert alert-error">
+	                            		<button type="button" class="close" data-dismiss="alert">x</button>
+	                					<h:message id="namemessage" for="name" styleClass="errorMessage" />
+	               					</div>
+			                        <div class="control-group">
+			                            <h:outputLabel for="name" value="Description" styleClass="control-label" />
+			                            <div class="controls">
+			                            	<h:inputText id="name" value="#{newProjectMB.name}" required="true" styleClass="textEntry" />
+			                            	
+			                            </div>
+			                        </div>
+									
+									<div class="alert alert-error">
+	                            		<button type="button" class="close" data-dismiss="alert">x</button>
+	                					<h:message id="descriptionmessage" for="description" styleClass="errorMessage" />
+	               					</div>
+			                        <div class="control-group">
+			                            <h:outputLabel for="description" value="Description" styleClass="control-label" />
+			                            <div class="controls">
+			                            	<h:inputText id="description" value="#{newProjectMB.description}" required="true" styleClass="textEntry" />
+			                            	
+			                            </div>
+			                        </div>
+			                        
+			                        <div class="alert alert-error">
+			                            		<button type="button" class="close" data-dismiss="alert">x</button>
+			                					<h:message id="budgectmessage" for="budgect" errorClass="errorMessage" />
+	                					</div>
+			                        <div class="control-group">
+			                        	
+			                            <h:outputLabel for="budgect" value="Budgect" styleClass="control-label" />
+			                            <div class="controls">
+			                            	<h:inputText id="budgect" value="#{newProjectMB.budgect}" required="true" styleClass="textEntry" />		                            	
+			                            </div>
+			                        </div>
+			                        
+			                        <br/><br/>
+									<h:commandButton value="Enregistrer" action="#{newProjectMB.createProject}" styleClass="btn" />
+			                     </div>
+					</h:form>
+				</div>
+    			
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
