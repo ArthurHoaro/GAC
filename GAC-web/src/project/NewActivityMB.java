@@ -107,6 +107,19 @@ public class NewActivityMB {
 			}
 
 		}
+		
+		//on verifie si l'utilisateur est le chef de projet
+		if(!this.checkChefDeProjet()) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(
+						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+						"/createActivityError.xhtml"
+					);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void createActivity(){
@@ -151,6 +164,9 @@ public class NewActivityMB {
         return employeeOptions;
     }
 
+    public Boolean checkChefDeProjet(){
+    	return this.fps.checkChefDeProjet(this.project, this.curentEmp);
+    }
 	public int getIdEmployee() {
 		return idEmployee;
 	}
@@ -177,6 +193,7 @@ public class NewActivityMB {
 	public String getProjectName() {
 		return this.project.getName();
 	}
+	
 
     
 	
