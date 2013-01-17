@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				Ouvrir une nouvelle conversation
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<!-- YOUR CODE STARTS HERE -->
+	    			<f:event type="preRenderView" listener="#{listConvers.init}" />
+	    			<table class="table">
+	    				<tr>
+	    					<td>#</td>
+	    					<td>Contact</td>
+	    					<td>Statut</td>
+	    				</tr>
+	    				<ui:repeat var="mes" value="#{listConvers.listConvers}">
+	    					<tr>
+	    						<td><a href="#{request.contextPath}/chat/talking.xhtml?conversation=#{mes.idconversation}">#{mes.idconversation}</a></td>
+	    						<td>
+		    						<ui:fragment rendered="#{mes.employeeByCalledIdemployee.idemployee == listConvers.curentEmp.idemployee}">
+										<a href="#{request.contextPath}/profile/profile.xhtml?user=#{mes.employeeByCallerIdemployee.idemployee}">
+	    									#{mes.employeeByCallerIdemployee.firstname} #{mes.employeeByCallerIdemployee.lastname}
+    									</a>
+	    							</ui:fragment>	    							
+	    							<ui:fragment rendered="#{mes.employeeByCallerIdemployee.idemployee == listConvers.curentEmp.idemployee}">
+	    								<a href="#{request.contextPath}/profile/profile.xhtml?user=#{mes.employeeByCalledIdemployee.idemployee}">
+	    									#{mes.employeeByCalledIdemployee.firstname} #{mes.employeeByCalledIdemployee.lastname}
+	    								</a>
+	    							</ui:fragment>
+    							</td>
+	    						<td>-</td>
+	    					</tr>
+	    				</ui:repeat>
+	    			</table>
+	    			<!-- AND ENDS HERE  -->
+        		</div>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>
