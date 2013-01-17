@@ -107,6 +107,19 @@ public class NewActivityMB {
 			}
 
 		}
+		
+		//on verifie si l'utilisateur est le chef de projet
+		if(!this.checkChefDeProjet()) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(
+						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
+						"/createActivityError.xhtml"
+					);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void createActivity(){
@@ -134,7 +147,12 @@ public class NewActivityMB {
 	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("empty"));
 		  
 		  	//redirection vers la page projet
-			//FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/activity-notfound.xhtml");
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/project.xhtml?project="+this.project.getIdproject());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	//construit une list de "select items" a partir de la liste des employés
@@ -146,6 +164,9 @@ public class NewActivityMB {
         return employeeOptions;
     }
 
+    public Boolean checkChefDeProjet(){
+    	return this.fps.checkChefDeProjet(this.project, this.curentEmp);
+    }
 	public int getIdEmployee() {
 		return idEmployee;
 	}
@@ -172,6 +193,7 @@ public class NewActivityMB {
 	public String getProjectName() {
 		return this.project.getName();
 	}
+	
 
     
 	

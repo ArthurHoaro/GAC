@@ -1,10 +1,13 @@
 package remote;
 
+import java.util.ArrayList;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import local.ConversationServiceLocal;
 import model.Conversation;
+import model.Employee;
 
 /**
  * Session Bean implementation class FConversationServices
@@ -32,5 +35,23 @@ public class FConversationServices implements FConversationServicesRemote {
     public void updateItem(Conversation i) {
     	conversationService.updateItem(i);
     }
- 
+
+	@Override
+	public int addItem(Employee currentEmp, Employee contact) throws Exception {
+		//if( ! conversationService.conversExists(currentEmp, contact)) {
+		if ( true ) {
+			Conversation newConv = new Conversation();
+			newConv.setEmployeeByCalledIdemployee(contact);
+			newConv.setEmployeeByCallerIdemployee(currentEmp);
+			newConv.setStatus(false);
+			return conversationService.addItem(newConv);
+		}
+		else
+			throw new Exception();
+	}
+
+	@Override
+	public ArrayList<Conversation> findItem(Employee currentEmp) {
+		return conversationService.findItem(currentEmp);
+	} 
 }

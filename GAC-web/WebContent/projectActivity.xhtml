@@ -67,11 +67,11 @@
     								<h:outputText value="#{projectActivityMB.activityCharge}" /> H
     							<br />Nombre d'heures passées sur le projet
 						 			<h:outputText value="#{projectActivityMB.activityNombreHeure}" /> H
-								<br /><br />Ajouter des heures sur le projet
+								<br /><br /><h:outputText value="Ajouter des heures sur le projet" rendered="#{projectActivityMB.afficherFormulaireAjout}" />
 									<h:outputText value="&#160;&#160;&#160;" />
-								    <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="span1" /> 	
+								    <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" rendered="#{projectActivityMB.afficherFormulaireAjout}" required="true" styleClass="span1" /> 	
 									<h:outputText value="&#160;&#160;&#160;" />
-									<h:commandButton value="+" action="#{projectActivityMB.ajouterCharge}" styleClass="btn btn-info" /> 
+									<h:commandButton value="+" action="#{projectActivityMB.ajouterCharge}" rendered="#{projectActivityMB.afficherFormulaireAjout}" styleClass="btn btn-info" /> 
 									<h:outputText value="&#160;" />
 									<h:commandButton value="-" action="#{projectActivityMB.enleverCharge}" rendered="#{projectActivityMB.afficherBoutonEnleverHeures}" styleClass="btn btn-danger" />
 							

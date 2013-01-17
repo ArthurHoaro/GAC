@@ -2,6 +2,7 @@ package chat;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EventListener;
@@ -45,8 +46,8 @@ import model.Employee;
 import model.Message;
 
 @ManagedBean(name="talking")
-@SessionScoped
-public class Talking {
+@ViewScoped
+public class Talking implements Serializable {
 
 	// Properties ---------------------------------------------------------------------------------
 	@EJB
@@ -90,19 +91,15 @@ public class Talking {
 		int error = 0;		
 		
 		try {
+			String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
 			
-			if( idConv != null ) {
-				convers = fcs.findItem(Integer.parseInt(idConv));  
-				//return;
-				
+			if( GET != null ) {
+				convers = fcs.findItem(Integer.parseInt(GET));			
 			}
-			else {
-				String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
-	    		// If the conversation is defined
-	    		if( GET != null ) {
-	    			convers = fcs.findItem(Integer.parseInt(GET));   
-	    		}
+			else if( idConv != null ) {
+				convers = fcs.findItem(Integer.parseInt(idConv));
 			}
+			else error = 3;
 			
 			if( convers != null) {
 				Employee called = convers.getEmployeeByCalledIdemployee();

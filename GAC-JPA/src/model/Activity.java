@@ -71,7 +71,7 @@ public class Activity implements java.io.Serializable {
 		this.employee = employee;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "project_idproject", nullable = false)
 	public Project getProject() {
 		return this.project;

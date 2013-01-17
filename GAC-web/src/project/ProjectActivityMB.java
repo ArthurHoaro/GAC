@@ -59,6 +59,7 @@ public class ProjectActivityMB {
 	private String activityDescription;
 	private String modifMode="false";
 	private String readMode="true";
+	private String afficherFormulaireAjout="false";
 	private String afficherBoutonModifier="false";
 	private String afficherBoutonEnleverHeures="false";
 	private String afficherBoutonTerminer="true";
@@ -154,6 +155,7 @@ public class ProjectActivityMB {
 			{
 				this.afficherBoutonModifier="false";
 				this.afficherBoutonEnleverHeures="false";
+				
 			}
 			
 		} else {
@@ -172,6 +174,11 @@ public class ProjectActivityMB {
 			}
 			
 		}
+		
+		if(this.checkUserActivity() || this.estChefDeProjet())
+			this.afficherFormulaireAjout="true";
+		else 
+			this.afficherFormulaireAjout="false";
 		
 		if (this.activity.getEstTermine()==0)
 		{
@@ -259,6 +266,9 @@ public class ProjectActivityMB {
 	public String getAfficherBoutonTerminer() {
 		return this.afficherBoutonTerminer;
 	}
+	public String getAfficherFormulaireAjout() {
+		return this.afficherFormulaireAjout;
+	}
 	public String getStatut() {
 		return this.statut;
 	}
@@ -283,8 +293,14 @@ public class ProjectActivityMB {
 	/*check si l'employé connecter est le chef de projet*/
 	public Boolean estChefDeProjet()
 	{
-		return true;
-		//return fps.checkChefDeProjet(this.activity.getProject(), this.curentEmp);
+		//return true;
+		return fps.checkChefDeProjet(this.activity.getProject(), this.curentEmp);
+	}
+	public Boolean checkUserActivity() {
+		if(this.curentEmp==this.activity.getEmployee())
+			return true;
+		else 
+			return false;
 	}
 	
 	/* Fonction pour recuper string pour le tableau*/

@@ -6,47 +6,110 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:a4j="http://richfaces.org/a4j">
     <h:body>
-    	<ui:composition template="/templates/layoutMessagerieInstantanee.xhtml">
+    	<ui:composition template="/templates/layout.xhtml">
    	 		<ui:define name="title">
 				Conversation
 			</ui:define> 
     		<ui:define name="content">
     			<div class="container">
 	    			<!-- YOUR CODE STARTS HERE -->
+	    			<f:event type="preRenderView" listener="#{talking.init}" />	
+	    			
 	    			<div class="alert alert-error">
     					<button type="button" class="close" data-dismiss="alert">x</button>
     					<h:messages id="messages" globalOnly="true" layout="table" styleClass="errorMessage" />
-					</div>			       
-					  
-	    			<f:event type="preRenderView" listener="#{talking.init}" />	
-			   		<h:form>
-			   		<a4j:poll id="poll" interval="500" render="messagesList" />
-			   			<h:panelGroup id="messagesList">
-		    				<a4j:repeat var="mes" value="#{talking.listMessages}">						
-								<p>
-									<span class="label label-info">#{talking.getFullName(mes)}</span> 
-									<small><em>
-										<h:outputText value="#{mes.sendTime}">
-	  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
-										</h:outputText>
-									</em></small><br />
-									#{mes.content}
-								</p>											 
-					   		</a4j:repeat>
-				   		</h:panelGroup>			   			
-				   		<a4j:commandLink action="#{talking.testAdd}" render="messagesList">
-				   		 	<h:outputText value="Filter List" />			   				
-		   				</a4j:commandLink>
-			   		</h:form>
-			   		<h:form id="messageForm">
-				   		<div class="span12">
-				   			<h:inputTextarea id="textMessage" binding="#{talking.textField}" value="#{talking.textMessage}" class="span11" placeholder="Répondre..." required="true" />
-				   		</div>
-				   		<h:inputHidden value="#{talking.idConv}" id="idConv" />
-				   		<div class="span2 offset5">
-				   			<a4j:commandButton value="Envoyer" action="#{talking.sendMessage}" render="messagesList,textMessage" styleClass="btn btn-large btn-primary"></a4j:commandButton>
-				   		</div>
-			   		</h:form>
+					</div>	
+					
+					<h1>
+						Conversation avec 
+						<ui:fragment rendered="#{talking.convers.employeeByCallerIdemployee.idemployee == talking.curentEmp.idemployee}">
+							#{talking.convers.employeeByCalledIdemployee.firstname} 
+							#{talking.convers.employeeByCalledIdemployee.lastname}
+						</ui:fragment>
+						<ui:fragment rendered="#{talking.convers.employeeByCalledIdemployee.idemployee == talking.curentEmp.idemployee}">
+							#{talking.convers.employeeByCallerIdemployee.firstname} 
+							#{talking.convers.employeeByCallerIdemployee.lastname}
+						</ui:fragment>
+					</h1>
+					
+					<ui:fragment rendered="#{(talking.convers.dayTimeBegin == null) and (talking.convers.dayTimeEnd == null) and (talking.convers.employeeByCallerIdemployee.idemployee == talking.curentEmp.idemployee)}">
+						<div class="alert alert-info">
+							<span class="errorMessage">Cette conversation est en attente de la réponse de votre correspondant.</span>
+						</div>			
+					</ui:fragment>
+					<ui:fragment rendered="#{talking.convers.dayTimeEnd != null}">
+						<div class="alert alert-info">
+							<span class="errorMessage">Cette conversation est terminée.</span>
+						</div>	
+					</ui:fragment>
+					<ui:fragment rendered="#{(talking.convers.dayTimeBegin == null) and (talking.convers.employeeByCalledIdemployee.idemployee == talking.curentEmp.idemployee)}">
+						<div class="alert alert-info">
+							<p class="errorMessage">
+								#{talking.convers.employeeByCallerIdemployee.firstname} 
+								#{talking.convers.employeeByCallerIdemployee.lastname}
+								a demandé l'ouverture d'une conversation.
+							</p>
+							<p>	
+								<a href="#{request.contextPath}/chat/accept.xhtml?convers=#{mes.idconversation}" class="btn btn-success">
+   									Accepter
+   								</a>		    							
+    							<a href="#{request.contextPath}/chat/close.xhtml?convers=#{mes.idconversation}" class="btn btn-danger">
+   									Refuser
+    							</a>
+   							</p>
+						</div>			
+					</ui:fragment>
+	    			
+	    			<ui:fragment rendered="#{talking.convers.dayTimeBegin != null}">
+			   			<p>
+							<span class="label">Service</span> 
+							La conversation a commencé le <h:outputText value="#{talking.convers.dayTimeBegin}">
+ 										<f:convertDateTime type="date" pattern="dd-MM-yyyy à HH:mm"/>
+								</h:outputText>.
+						</p>		
+				   		
+			   			<h:form>
+				   			<a4j:poll id="poll" interval="500" render="messagesList" />
+				   			<h:panelGroup id="messagesList">
+			    				<a4j:repeat var="mes" value="#{talking.listMessages}">						
+									<p>
+										<span class="label label-info">#{talking.getFullName(mes)}</span> 
+										<small><em>
+											<h:outputText value="#{mes.sendTime}">
+		  										<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+											</h:outputText>
+										</em></small><br />
+										#{mes.content}
+									</p>											 
+						   		</a4j:repeat>
+					   		</h:panelGroup>		
+				   		</h:form>
+				   		
+				   		<ui:fragment rendered="#{talking.convers.dayTimeEnd == null}">
+					   		<h:form id="messageForm">
+						   		<div class="span12">
+						   			<h:inputTextarea id="textMessage" binding="#{talking.textField}" value="#{talking.textMessage}" styleClass="span11 textareaMsg" placeholder="Répondre..." required="true" />
+						   		</div>
+						   		<h:inputHidden value="#{talking.idConv}" id="idConv" />
+						   		<div class="span2 offset5">
+						   			<a4j:commandButton value="Envoyer" action="#{talking.sendMessage}" render="messagesList,textMessage" styleClass="btn btn-large btn-primary"></a4j:commandButton>
+						   		</div>
+					   		</h:form>
+					   		<script type="text/javascript">
+ 								$(document).ready(function () {
+									$(".textareaMsg").attr("placeholder","Répondre...");
+								});
+							</script>
+				   		</ui:fragment>
+				   		<ui:fragment rendered="#{talking.convers.dayTimeEnd != null}">
+				   			<p>
+								<span class="label">Service</span> 
+								La conversation s'est terminée le <h:outputText value="#{talking.convers.dayTimeEnd}">
+  										<f:convertDateTime type="date" pattern="dd-MM-yyyy à HH:mm"/>
+									</h:outputText>.
+							</p>		
+				   		</ui:fragment>
+			   		</ui:fragment>
 			   		
 	    			<!-- AND ENDS HERE  -->
         		</div>
