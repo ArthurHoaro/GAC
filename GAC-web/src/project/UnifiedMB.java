@@ -25,6 +25,7 @@ import model.Activity;
 import model.Employee;
 import model.Project;
 
+import remote.FActivityServicesRemote;
 import remote.FEmployeeServicesRemote;
 import remote.FProjectServicesRemote;
 
@@ -37,8 +38,16 @@ public class UnifiedMB implements Serializable {
 	@EJB
 	private FEmployeeServicesRemote fes;
 	
+	@EJB
+	private FActivityServicesRemote fas;
+	
 	public UnifiedMB() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Collection<Activity> getActivitiesProject(Project project)
+	{
+		return fas.getAllActivitiesFromProject(project);
 	}
 	
 	public Collection<Project> getProjectsName()
@@ -104,9 +113,12 @@ public class UnifiedMB implements Serializable {
 	
 	public boolean isProjectManager(Project project, Employee employee)
 	{
-		if(project.getEmployee().getIdemployee().equals(employee.getIdemployee()))
+		if(employee != null)
 		{
-			return true;
+			if(project.getEmployee().getIdemployee().equals(employee.getIdemployee()))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

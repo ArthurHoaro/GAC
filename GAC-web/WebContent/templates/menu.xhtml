@@ -13,8 +13,19 @@
 			    		<a href="#">Mes projets</a>
 			    		<ul class="dropdown-menu">
 			    			<a4j:repeat value="#{unifiedMB.connectedUserProjectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
-								<li>
+								<li class="dropdown-submenu">
 									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
+									<ul class="dropdown-menu">
+										<a4j:repeat value="#{unifiedMB.getActivitiesProject(project)}" var="activity" ajaxKeys="#{updateBean.updatedRow}">
+											<li>
+												<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+												<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
+												<a tabindex="-1" href="#{request.contextPath}/projectActivity.xhtml?idActivity=#{activity.idactivity}">
+													#{activity.description}
+												</a>
+											</li>
+										</a4j:repeat>
+									</ul>
 								</li>
 	           				</a4j:repeat>
 			    		</ul>
@@ -28,8 +39,19 @@
 					      	</li>
 					      -->
 							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
-								<li>
+								<li class="dropdown-submenu">
 									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
+									<ul class="dropdown-menu">
+										<a4j:repeat value="#{unifiedMB.getActivitiesProject(project)}" var="activity" ajaxKeys="#{updateBean.updatedRow}">
+											<li>
+												<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+												<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
+												<a tabindex="-1" href="#{request.contextPath}/projectActivity.xhtml?idActivity=#{activity.idactivity}">
+													#{activity.description}
+												</a>
+											</li>
+										</a4j:repeat>
+									</ul>
 								</li>
 	           				</a4j:repeat>
 					    </ul>
