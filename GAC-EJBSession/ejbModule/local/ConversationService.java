@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import model.Conversation;
+import model.Employee;
 
 /**
  * Session Bean implementation class ConversationService
@@ -32,5 +33,20 @@ public class ConversationService implements ConversationServiceLocal {
     public void updateItem(Conversation i) {
         em.merge(i);
     }
+
+	@Override
+	public Conversation findItem(Employee contact, Employee currentEmp) {
+		String str = "SELECT c FROM Conversation c WHERE email = :contact";
+		Employee out;
+		try {
+			out = (Employee) em.createQuery(str).setParameter("email", email).getSingleResult();
+		}
+		catch (Exception ex) {
+			out = null;
+		}
+		
+		return out;
+		return null;
+	}
 
 }

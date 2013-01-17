@@ -5,6 +5,7 @@ import javax.ejb.Stateless;
 
 import local.ConversationServiceLocal;
 import model.Conversation;
+import model.Employee;
 
 /**
  * Session Bean implementation class FConversationServices
@@ -31,6 +32,10 @@ public class FConversationServices implements FConversationServicesRemote {
 
     public void updateItem(Conversation i) {
     	conversationService.updateItem(i);
+    }
+    
+    public Conversation findItem(Employee contact, Employee currentEmp) {
+    	return conversationService.findItem(contact, currentEmp);
     }
  
 }

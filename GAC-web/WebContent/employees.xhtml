@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+    	<ui:composition template="/templates/layout.xhtml">
+   	 		<ui:define name="title">
+				Liste des employés
+			</ui:define> 
+    		<ui:define name="content">
+    			<div class="container">
+	    			<!-- YOUR CODE STARTS HERE -->
+	    			<table class="table">
+	    				<f:event type="preRenderView" listener="#{employees.init}" />
+	    				<thead>
+	    					<td>#</td>
+	    					<td>Prénom</td>
+	    					<td>Nom</td>
+	    					<td>Email</td>
+	    					<td>Actions</td>
+	    				</thead>
+		    			<ui:repeat var="emp" value="#{employees.listEmployees}">
+		    				<tr>
+		    					<td><a href="#{request.contextPath}/profile/profile.xhtml?user=#{emp.idemployee}">#{emp.idemployee}</a></td>
+		    					<td>#{emp.firstname}</td>
+		    					<td>#{emp.lastname}</td>
+		    					<td>#{emp.email}</td>
+		    					<td><a href="#{request.contextPath}/chat/openconv.xhtml" title="Ouvrir une conversation"><i class="icon-envelope"></i></a></td>
+		    				</tr>
+		    			</ui:repeat>
+	    			</table>
+	    			<!-- AND ENDS HERE  -->
+        		</div>
+    		</ui:define>
+    	</ui:composition>
+    </h:body>
+</html>

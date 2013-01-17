@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
 
 import remote.FEmployeeServicesRemote;
 
-@ManagedBean
+@ManagedBean(name="userProfile")
 @SessionScoped
 public class UserProfile {
 	
