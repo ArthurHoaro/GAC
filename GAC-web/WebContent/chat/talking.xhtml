@@ -6,7 +6,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:a4j="http://richfaces.org/a4j">
     <h:body>
-    	<ui:composition template="/templates/layoutMessagerieInstantanee.xhtml">
+    	<ui:composition template="/templates/layout.xhtml">
    	 		<ui:define name="title">
 				Conversation
 			</ui:define> 
@@ -33,10 +33,7 @@
 									#{mes.content}
 								</p>											 
 					   		</a4j:repeat>
-				   		</h:panelGroup>			   			
-				   		<a4j:commandLink action="#{talking.testAdd}" render="messagesList">
-				   		 	<h:outputText value="Filter List" />			   				
-		   				</a4j:commandLink>
+				   		</h:panelGroup>		
 			   		</h:form>
 			   		<h:form id="messageForm">
 				   		<div class="span12">

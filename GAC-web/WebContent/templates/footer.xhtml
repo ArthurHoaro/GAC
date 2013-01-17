@@ -14,7 +14,12 @@
 	    	</div>
 	    <script type="text/javascript">
 	        $(document).ready(function () {
-	            $('.dropdown-toggle').dropdown();
+	            try { 
+		            $('.dropdown-toggle').dropdown();
+	            }
+	            catch ( e )
+	            { 
+	            }
 	        });
 	
 	        // Fix input element click problem @ http://mifsud.me/adding-dropdown-login-form-bootstraps-navbar/
