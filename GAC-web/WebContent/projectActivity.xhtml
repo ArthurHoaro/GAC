@@ -12,40 +12,92 @@
     #{projectActivityMB.init}
     	<ui:composition template="/templates/layout.xhtml">
    	 		<ui:define name="title">
-				<!-- SET YOUR PAGE TITLE HERE -->
+				<h:outputText value="#{projectActivityMB.activityDescription}" />
 			</ui:define> 
     		<ui:define name="content">
+    		<f:event type="preRenderView" listener="#{projectActivityMB.init}" />
     			<div class="container">
-    			
-    				<H2><h:outputText value="#{projectActivityMB.activityDescription}" /></H2>
-					Project de l'activité : <h:outputText value="#{projectActivityMB.projectName}" /> 
-
-					
-					<h:form id="modificationEmployeeFormulaire">
-						<br /> Activité attribué à: 
+    				<h:form id="modificationActivityFormulaire" >
+	    				<div class="well">
+	    		    			<div class="row-fluid">
+			        			<h2 class="span10">
+				    				<!-- Read Mode -->
+				    					<h:outputText value="#{projectActivityMB.activityDescription}"  rendered="#{projectActivityMB.readMode}"/>
+				    				<!--************-->
+				    				
+				    				<!-- Modif Mode -->
+				    					<h:inputText id="newDescription" value="#{projectActivityMB.activityDescription}" rendered="#{projectActivityMB.modifMode}" required="true" styleClass="textEntry" />
+				    				<!--************-->
+			    				</h2>
+			    			</div>
+							
+							<b>Project de l'activité : </b>
+								 <h:outputText value="#{projectActivityMB.projectName}"  /> 
 						
-						<!-- Read Mode -->
-						<h:outputText binding="#{projectActivityMB.employeeNameOutputText}" value="#{projectActivityMB.employeeName}" rendered="#{projectActivityMB.readMode}" />
-						<h:commandButton value="Modifier" action="#{projectActivityMB.modifierEmployee}" rendered="#{projectActivityMB.readMode}" />
-						
-						<!-- Modif Mode -->
-						
-						<rich:select value="#{projectActivityMB.newIdEmployee}" rendered="#{projectActivityMB.modifMode}">
-								<f:selectItems value="#{projectActivityMB.employeeOptions}" />
-           			 	</rich:select>
-						<h:commandButton value="Valider"  action="#{projectActivityMB.validerModificationEmployee}"  rendered="#{projectActivityMB.modifMode}" />
-						<h:commandButton value="Annuler"  action="#{projectActivityMB.annulerModificationEmployee}"  rendered="#{projectActivityMB.modifMode}" />
-					
+							<br /><b> Activité attribué à: </b>
+							
+							<!-- Read Mode -->
+								<h:outputText binding="#{projectActivityMB.employeeNameOutputText}" value="#{projectActivityMB.employeeName}" rendered="#{projectActivityMB.readMode}" />
+								<ui:fragment rendered="#{projectActivityMB.afficherBoutonModifier}">
+									<br/><br/>
+									<h:commandButton value="Modifier" action="#{projectActivityMB.modifierEmployee}" styleClass="btn" />
+								</ui:fragment>
+							<!--************-->		
+											
+							<!-- Modif Mode -->
+								<rich:select value="#{projectActivityMB.newIdEmployee}" rendered="#{projectActivityMB.modifMode}">
+										<f:selectItems value="#{projectActivityMB.employeeOptions}" />
+	           			 		</rich:select>
+		    					<br /><br />
+		    					<h:commandButton value="Valider"  action="#{projectActivityMB.validerModificationEmployee}"  styleClass="btn" rendered="#{projectActivityMB.modifMode}" />
+								<h:commandButton value="Annuler"  action="#{projectActivityMB.annulerModificationEmployee}"  styleClass="btn" rendered="#{projectActivityMB.modifMode}" />
+							<!--************-->
+							
+						</div>
 					</h:form>
-					
-					<br /> Charge de travail actuelle <h:outputText value="#{projectActivityMB.activityCharge}" /> H
-					
-					<h:form id="ajoutHeureFormulaire">
+					<div class="well">
+						<legend>Etat actuel</legend>
+						<h:form id="ajoutHeureFormulaire" class="form-horizontal">
 						
-						<br /> Ajouter des heures<h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" required="true" styleClass="textEntry" /> 
-						<h:commandButton value="Ajouter" action="#{projectActivityMB.ajouterCharge}" />
-					
-					</h:form>
+  							<div class="control-group">
+  								Statut:  
+    								<i><b><h:outputText value="#{projectActivityMB.statut}" /></b></i><h:outputText value="&#160;&#160;&#160;" />
+  									<h:commandButton value="Activité terminée" action="#{projectActivityMB.terminerActivity}" rendered="#{projectActivityMB.afficherBoutonTerminer}" styleClass="btn btn-mini btn-info" /> 
+    							<br /><br />Nombre d'heures prévues: 
+    								<h:outputText value="#{projectActivityMB.activityCharge}" /> H
+    							<br />Nombre d'heures passées sur le projet
+						 			<h:outputText value="#{projectActivityMB.activityNombreHeure}" /> H
+								<br /><br /><h:outputText value="Ajouter des heures sur le projet" rendered="#{projectActivityMB.afficherFormulaireAjout}" />
+									<h:outputText value="&#160;&#160;&#160;" />
+								    <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" rendered="#{projectActivityMB.afficherFormulaireAjout}" required="true" styleClass="span1" /> 	
+									<h:outputText value="&#160;&#160;&#160;" />
+									<h:commandButton value="+" action="#{projectActivityMB.ajouterCharge}" rendered="#{projectActivityMB.afficherFormulaireAjout}" styleClass="btn btn-info" /> 
+									<h:outputText value="&#160;" />
+									<h:commandButton value="-" action="#{projectActivityMB.enleverCharge}" rendered="#{projectActivityMB.afficherBoutonEnleverHeures}" styleClass="btn btn-danger" />
+							
+							</div>
+						</h:form>
+					</div>
+	
+	    			<div class="well">
+	    				<legend>Historique des actions sur le projet </legend>
+						<rich:dataTable value="#{projectActivityMB.listAvancement}" styleClass="table" var="av">
+							<rich:column>
+				                <f:facet name="header">Date</f:facet>
+				                	<h:outputText value="#{projectActivityMB.getDateString(av.dateEntry)}"/>
+				        	</rich:column>
+				        	<rich:column>
+				                <f:facet name="header">Nombre Heures</f:facet>
+				                	<h:outputText value="#{projectActivityMB.getNombreHeuresString(av.nbrHeures)}"/>
+				        	</rich:column>
+				        	<rich:column>
+				            <f:facet name="header">Employee</f:facet>
+				                	<h:outputText value="#{projectActivityMB.getNameFromEmployee(av.employeeIdemployee)}"/>
+				        	</rich:column>
+				        	
+							
+						</rich:dataTable>
+					</div>
         		</div>
     		</ui:define>
     	</ui:composition>

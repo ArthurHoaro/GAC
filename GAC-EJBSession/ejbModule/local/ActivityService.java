@@ -1,10 +1,16 @@
 package local;
 
+import java.util.Collection;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import model.Activity;
+import model.Avancement;
+import model.Employee;
+import model.Project;
 
 
 /**
@@ -33,12 +39,7 @@ public class ActivityService implements ActivityServiceLocal {
     public void updateItem(Activity i) {
         em.merge(i);
     }
-    
-    public void ajouterCharge(Integer id, Integer chargeAAjouter)
-    {
-    	Activity a=this.findItem(id);
-    	a.setCharge(a.getCharge()+chargeAAjouter);
-    	this.updateItem(a);
-    }
+
+
 
 }

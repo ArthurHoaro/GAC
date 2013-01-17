@@ -215,3 +215,10 @@ margin-left: 5px;
 #ButRegisterDD {
 	margin-left: 10px;
 }
+
+
+/*Customize progress bar */
+.progress  {
+	border:1px solid gray;
+}
+

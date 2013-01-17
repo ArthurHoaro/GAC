@@ -90,18 +90,13 @@ public class Talking {
 		int error = 0;		
 		
 		try {
+			String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
 			
-			if( idConv != null ) {
-				convers = fcs.findItem(Integer.parseInt(idConv));  
-				//return;
-				
+			if( GET != null ) {
+				convers = fcs.findItem(Integer.parseInt(GET));			
 			}
 			else {
-				String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("conversation");
-	    		// If the conversation is defined
-	    		if( GET != null ) {
-	    			convers = fcs.findItem(Integer.parseInt(GET));   
-	    		}
+				convers = fcs.findItem(Integer.parseInt(idConv));
 			}
 			
 			if( convers != null) {

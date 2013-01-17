@@ -1,5 +1,7 @@
 package local;
 
+import java.util.ArrayList;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,8 +20,9 @@ public class ConversationService implements ConversationServiceLocal {
      */
 	@PersistenceContext
     private EntityManager em;
-    public void addItem(Conversation i) {
+    public int addItem(Conversation i) {
         em.persist(i);
+        return i.getIdconversation();
     }
 
     public Conversation findItem(Integer id) {
@@ -33,6 +36,46 @@ public class ConversationService implements ConversationServiceLocal {
     public void updateItem(Conversation i) {
         em.merge(i);
     }
+	
+	public Boolean conversExists(Employee currentEmp, Employee contact) {
+		ArrayList<Conversation> out = new ArrayList<Conversation>();
+		String str = "SELECT c " +
+				"FROM Conversation c " +
+				"WHERE " +
+					"( caller_idemployee = :current OR caller_idemployee = :contact ) " +
+					"AND" +
+					"( called_idemployee = :current OR called_idemployee = :contact ) " +
+					"AND called_idemployee <> caller_idemployee " +
+					"AND status = 1";
+		
+		try {
+			out = (ArrayList<Conversation>) em.createQuery(str).setParameter("current", currentEmp.getIdemployee()).setParameter("contact", contact.getIdemployee()).getResultList();
+		}
+		catch (NullPointerException e) {
+			return false;
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();			
+		}
+		return !out.isEmpty();
+	}
+
+	@Override
+	public ArrayList<Conversation> findItem(Employee currentEmp) {
+		ArrayList<Conversation> out = new ArrayList<Conversation>();
+		String str = "SELECT c " +
+				"FROM Conversation c " +
+				"WHERE " +
+					"caller_idemployee = :current OR called_idemployee = :current " +					
+					"AND status = 1";		
+		try {
+			out = (ArrayList<Conversation>) em.createQuery(str).setParameter("current", currentEmp.getIdemployee()).getResultList();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();			
+		}
+		return out;
+	}
 
 	@Override
 	public Conversation findItem(Employee contact, Employee currentEmp) {

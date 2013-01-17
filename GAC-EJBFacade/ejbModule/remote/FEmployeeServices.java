@@ -49,6 +49,12 @@ public class FEmployeeServices implements FEmployeeServicesRemote {
     	return employeeService.findAllEmployee();
     }
 
+    public String getNameFromEmployee(Integer id) 
+    {
+    	Employee e=this.findItem(id);
+    	return e.getFirstname()+" "+e.getLastname();
+    	//return "hedi";
+    }
     
 	@Override
 	public Employee findItem(String email) {

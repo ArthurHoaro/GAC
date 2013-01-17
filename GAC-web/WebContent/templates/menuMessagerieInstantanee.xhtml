@@ -19,10 +19,12 @@
 					      -->
 							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
 								<li class="dropdown-submenu">
-									<a tabindex="-1" href="#">#{project.name}</a>
+									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
 									<ul class="dropdown-menu">
 										<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
 											<li>
+												<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+												<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
 												<a tabindex="-1" href="#">
 													<ui:fragment rendered="#{unifiedMB.isProjectManager(project, employee)}">
 							                        	<i class="icon-star"></i>
@@ -37,7 +39,7 @@
 					    </ul>
 			    	</li>
 			    	<li>
-			    		<a href="#">Profile</a>
+			    		<a href="#{request.contextPath}/profile/profile.xhtml">Profil</a>
 			    	</li>
 			    	<li>
 			    		<a href="#">Messages</a>
