@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -43,18 +44,48 @@ public class UnifiedMB implements Serializable {
 	@EJB
 	private FActivityServicesRemote fas;
 	
+	private Collection<Project> connectedUPN;
+	private Collection<Project> vAllProjects;
 	
 	public UnifiedMB() {
 		
 	}
 	
+	@PostConstruct
+	public void postConstruct(){
+		connectedUPN = getConnectedUserProjectsName();
+		vAllProjects = getAllProjects();
+	}
+	
+	public Collection<Project> getConnectedUPN()
+	{
+		return connectedUPN;
+	}
+	
+	public void setConnectedUPN(Collection<Project> _connectedUPN)
+	{
+		connectedUPN = _connectedUPN;
+	}
+	
+	public Collection<Project> getVAllProjects()
+	{
+		return vAllProjects;
+	}
+	
+	public void setVAllProjects(Collection<Project> _vAllProjects)
+	{
+		vAllProjects = _vAllProjects;
+	}
+	
 	
 	public Collection<Activity> getActivitiesProject(Project project)
 	{
-		return fas.getAllActivitiesFromProject(project);
+		Collection<Activity> ca = new ArrayList<Activity>();
+		ca.addAll(project.getActivities());
+		return ca;
 	}
 	
-	public Collection<Project> getProjectsName()
+	public Collection<Project> getAllProjects()
 	{
 		return fps.findAllProject();
 	}
