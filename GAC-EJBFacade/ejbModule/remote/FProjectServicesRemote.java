@@ -19,9 +19,8 @@ public interface FProjectServicesRemote {
 	    
 	    public Collection<Project> findAllProject();
 	    
-<<<<<<< HEAD
 	    public Boolean checkChefDeProjet(Project p, Employee e);
-=======
+
 	    public Collection<Project> findAllProject(String username);
->>>>>>> d15faca98ae2dec7c98b1fca086d1a3ff238d2e7
+
 }
