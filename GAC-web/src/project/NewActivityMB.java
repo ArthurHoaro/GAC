@@ -134,7 +134,12 @@ public class NewActivityMB {
 	        	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("empty"));
 		  
 		  	//redirection vers la page projet
-			//FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/activity-notfound.xhtml");
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/project.xhtml?project="+this.project.getIdproject());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	//construit une list de "select items" a partir de la liste des employés
