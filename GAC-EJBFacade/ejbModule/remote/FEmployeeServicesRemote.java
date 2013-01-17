@@ -22,4 +22,6 @@ public interface FEmployeeServicesRemote {
 	    
 	    public Collection<Employee> findAllEmployee();
 	    
+	    public String getNameFromEmployee(Integer id) ;
+	    
 }

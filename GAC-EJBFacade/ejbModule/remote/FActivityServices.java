@@ -1,11 +1,16 @@
 package remote;
 
+import java.util.Collection;
+import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import local.ActivityServiceLocal;
+import local.AvancementServiceLocal;
 import local.EmployeeServiceLocal;
 import model.Activity;
+import model.Avancement;
 import model.Employee;
 import model.Project;
 
@@ -22,6 +27,8 @@ public class FActivityServices implements FActivityServicesRemote {
     private ActivityServiceLocal activityService;
 	@EJB
 	private EmployeeServiceLocal employeeService;
+	@EJB
+	private AvancementServiceLocal avancementService;
 	
     public void addItem(Activity i) {
     	activityService.addItem(i);
@@ -38,9 +45,15 @@ public class FActivityServices implements FActivityServicesRemote {
     public void updateItem(Activity i) {
     	activityService.updateItem(i);
     }
-    public void ajouterCharge(Integer id, Integer chargeAAjouter)
+    public void ajouterCharge(Integer idActivity, Integer chargeAAjouter, Integer idEmployee)
     {
-    	activityService.ajouterCharge(id,chargeAAjouter);
+    	Avancement a=new Avancement();
+    	a.setNbrHeures(chargeAAjouter);
+    	a.setActivityIdactivity(idActivity);
+    	a.setEmployeeIdemployee(idEmployee);
+    	a.setDateEntry(new Date());
+    	avancementService.addItem(a);
+    	
     }
     public String findItemProjectName(Integer id)
     {
@@ -59,6 +72,15 @@ public class FActivityServices implements FActivityServicesRemote {
     	Employee e=employeeService.findItem(idEmployee);
     	a.setEmployee(e);
     	activityService.updateItem(a);
+    }
+    
+    public int getNombreHeures(Integer id) {
+    	return avancementService.getSumByActivity(id);
+    	
+    }
+    
+    public Collection<Avancement> getAllAvancementByActivity(Integer id) {
+    	return avancementService.getAvancementsByActivity(id);
     }
  
 }

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import model.Employee;
 import model.Project;
 
 /**
@@ -36,6 +37,8 @@ public class ProjectService implements ProjectServiceLocal {
     public void updateItem(Project i) {
         em.merge(i);
     }
+    
+  
     
     public Collection<Project> findAllProject() {
         Query query = em.createQuery("SELECT e FROM Project e");

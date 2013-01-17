@@ -14,7 +14,6 @@ public interface ActivityServiceLocal {
 	    public void deleteItem(Activity i);
 
 	    public void updateItem(Activity i);
-	    
-	    public void ajouterCharge(Integer id, Integer chargeAAjouter);
+;
 	
 }

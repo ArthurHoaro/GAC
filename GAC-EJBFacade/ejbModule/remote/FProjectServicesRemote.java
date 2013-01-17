@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import javax.ejb.Remote;
 
+import model.Employee;
 import model.Project;
 
 @Remote
@@ -17,4 +18,6 @@ public interface FProjectServicesRemote {
 	    public void updateItem(Project i) ;
 	    
 	    public Collection<Project> findAllProject();
+	    
+	    public Boolean checkChefDeProjet(Project p, Employee e);
 }

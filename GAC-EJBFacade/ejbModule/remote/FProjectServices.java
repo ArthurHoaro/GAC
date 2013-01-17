@@ -55,5 +55,12 @@ public class FProjectServices implements FProjectServicesRemote {
 		}
     	return collec;
     }
+    
+    public Boolean checkChefDeProjet(Project p, Employee e) {
+    	if(p.getEmployee()==e)
+    		return true;
+    	else 
+    		return false;
+    }
  
 }
