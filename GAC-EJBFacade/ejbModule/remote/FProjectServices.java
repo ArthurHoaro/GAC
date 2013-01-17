@@ -6,9 +6,11 @@ import java.util.Collection;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import local.AvancementServiceLocal;
 import local.EmployeeService;
 import local.EmployeeServiceLocal;
 import local.ProjectServiceLocal;
+import model.Activity;
 import model.Employee;
 import model.Project;
 
@@ -25,6 +27,9 @@ public class FProjectServices implements FProjectServicesRemote {
     private ProjectServiceLocal projectService;
 	@EJB
 	private EmployeeServiceLocal employeeService;
+	@EJB
+	private AvancementServiceLocal avancementService;
+	
     public void addItem(Project i) {
     	projectService.addItem(i);
     }
@@ -60,12 +65,63 @@ public class FProjectServices implements FProjectServicesRemote {
     }
     
     public Boolean checkChefDeProjet(Project p, Employee e) {
-    	if(p.getEmployee()==e)
+    	if(p.getEmployee().getIdemployee()==e.getIdemployee())
     		return true;
     	else 
     		return false;
     }
-
+    
+    public Collection<Project> getProjectTermine(Employee employee)
+    {
+    	Collection<Project> collec = new ArrayList<Project>();
+    	for (Project p : this.findAllProject(employee.getEmail())) {
+			if(this.estTermine(p))
+				collec.add(p);
+		}
+    	return collec;
+    }
+    public Collection<Project> getProjectEnCours(Employee employee)
+    {
+    	Collection<Project> collec = new ArrayList<Project>();
+    	for (Project p : this.findAllProject(employee.getEmail())) {
+			if(!this.estTermine(p))
+				collec.add(p);
+		}
+    	return collec;
+    }
+    public Boolean estTermine(Project project)
+    {
+    	Collection<Activity> collec =project.getActivities();
+    	for(Activity a: collec)
+    	{
+    		if(a.getEstTermine()==0)
+    		{
+    			return false;
+    		}
+    	}
+    	if(collec.size()==0)
+    		return false;
+    	
+    	return true;
+    }
+    public int getNombreHeuresUtilisateurSurProjet(Employee e,Project project)
+    {
+    	Collection<Activity> collec =project.getActivities();
+    	if(collec.size()==0)
+    		return 0;
+    	
+    	int somme=0;
+    	for(Activity a: collec)
+    	{
+    		if(a.getEmployee().getIdemployee()==e.getIdemployee())
+    		{
+    			somme=somme+this.avancementService.getSumByActivity(a.getIdactivity());
+    		}
+    	}
+    	return somme;
+	
+    }
+    
 
 
 }

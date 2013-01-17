@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:rich="http://richfaces.org/rich">
     <h:body>
     	<ui:composition template="/templates/layout.xhtml">
    	 		<ui:define name="title">
@@ -15,10 +16,49 @@
 	    			<f:event type="preRenderView" listener="#{profile.init}" />
 	    			
 	    			<h1>#{profile.displayedEmp.firstname} #{profile.displayedEmp.lastname}</h1>
+	    			<div  class="well">
+	    				<h2>Projets en cours</h2>
+	    				<rich:dataTable value="#{profile.projetEnCours}" styleClass="table" var="proj">
+							<rich:column>
+				                <f:facet name="header">Nom</f:facet>
+				                	<a href="../project.xhtml?project=#{proj.idproject}" >
+				                		<h:outputText value="#{proj.name}"/>
+				                	</a>
+				        	</rich:column>
+				        	<rich:column>
+				                <f:facet name="header">Nombre d'heures effectuées sur le projet</f:facet>
+				                	<h:outputText value="#{profile.getSommeHeuresSurProjet(proj)}"/> H
+				        	</rich:column>
+				        	<rich:column>
+				                <f:facet name="header">Chef De Projet</f:facet>
+				                	<a href="profile.xhtml?user=#{proj.employee.idemployee}" >
+				                		<h:outputText value="#{profile.getManagerName(proj)}"/>
+				                	</a>
+				        	</rich:column>
+						</rich:dataTable>
+					</div>
+	    			<div class="well">
+	    				<h2>Projets terminés</h2>
 	    			
-	    			<h2>Projets en cours</h2>
-	    			
-	    			<h2>Projets terminés</h2>
+	    				<rich:dataTable value="#{profile.projetTermine}" styleClass="table" var="proj">
+							<rich:column>
+				                <f:facet name="header">Nom</f:facet>
+				                	<a href="../project.xhtml?project=#{proj.idproject}" >
+				                		<h:outputText value="#{proj.name}"/>
+				                	</a>
+				        	</rich:column>
+				        	<rich:column>
+				                <f:facet name="header">Nombre d'heures effectuées sur le projet</f:facet>
+				                	<h:outputText value="#{profile.getSommeHeuresSurProjet(proj)}"/> H
+				        	</rich:column>
+				        	<rich:column>
+				                <f:facet name="header">Chef De Projet</f:facet>
+				                	<a href="profile.xhtml?user=#{proj.employee.idemployee}" >
+				                		<h:outputText value="#{profile.getManagerName(proj)}"/>
+				                	</a>
+				        	</rich:column>
+						</rich:dataTable>
+					</div>
 	    			
 	    			<!-- AND ENDS HERE  -->
         		</div>
