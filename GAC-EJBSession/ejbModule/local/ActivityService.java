@@ -40,6 +40,9 @@ public class ActivityService implements ActivityServiceLocal {
         em.merge(i);
     }
 
-
+    public Collection<Activity> findAllActivities() {
+        Query query = em.createQuery("SELECT e FROM Activity e");
+        return (Collection<Activity>) query.getResultList();
+    }
 
 }

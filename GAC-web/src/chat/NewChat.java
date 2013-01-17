@@ -106,7 +106,7 @@ public class NewChat {
 			try {
 				FacesContext.getCurrentInstance().getExternalContext().redirect(
 						FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + 
-						"/chat/talking.xhtml?conversation=" + newId
+						"/chat/convers.xhtml"
 					);
 			} catch (IOException ex) {
 				// TODO Auto-generated catch block

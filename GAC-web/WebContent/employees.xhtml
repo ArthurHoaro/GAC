@@ -27,7 +27,7 @@
 		    					<td>#{emp.firstname}</td>
 		    					<td>#{emp.lastname}</td>
 		    					<td>#{emp.email}</td>
-		    					<td><a href="#{request.contextPath}/chat/openconv.xhtml" title="Ouvrir une conversation"><i class="icon-envelope"></i></a></td>
+		    					<td><a href="#{request.contextPath}/chat/new.xhtml?contact=#{emp.idemployee}" title="Ouvrir une nouvelle conversation"><i class="icon-envelope"></i></a></td>
 		    				</tr>
 		    			</ui:repeat>
 	    			</table>

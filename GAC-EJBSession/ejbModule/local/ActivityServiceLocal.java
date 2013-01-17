@@ -1,5 +1,7 @@
 package local;
 
+import java.util.Collection;
+
 import javax.ejb.Local;
 
 import model.Activity;
@@ -14,6 +16,8 @@ public interface ActivityServiceLocal {
 	    public void deleteItem(Activity i);
 
 	    public void updateItem(Activity i);
+	    
+	    public Collection<Activity> findAllActivities();
 ;
 	
 }

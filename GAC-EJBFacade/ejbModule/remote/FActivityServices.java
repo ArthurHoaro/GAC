@@ -1,5 +1,6 @@
 package remote;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -82,5 +83,20 @@ public class FActivityServices implements FActivityServicesRemote {
     public Collection<Avancement> getAllAvancementByActivity(Integer id) {
     	return avancementService.getAvancementsByActivity(id);
     }
- 
+    
+    public Collection<Activity> getAllActivitiesFromProject(Project project)
+    {
+    	Collection<Activity> allActivities = activityService.findAllActivities();
+    	Collection<Activity> projectActivities = new ArrayList<Activity>();
+    	
+    	for(Activity activity : allActivities)
+    	{
+    		if(activity.getProject().getIdproject().equals(project.getIdproject()))
+    		{
+    			projectActivities.add(activity);
+    		}
+    	}
+    	
+    	return projectActivities;
+    }
 }

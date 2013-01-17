@@ -7,8 +7,66 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <body>
 	    <ui:composition>
-	    	 <ui:fragment rendered="#{userProfile.loggedIn}">    
+	    	 <ui:fragment rendered="#{userProfile.loggedIn}">
+	    	 	<div class="btn-toolbar">
+		    	 	<div class="btn-group">
+			    	 	<a href="#" class="btn btn-success dropdown-toggle">
+			    			Création
+			    			<span class="caret"></span>
+			    		</a> 
+			    		<ul class="dropdown-menu">
+			    			<li>
+			    				<a href="#{request.contextPath}/newProject.xhtml">Créer un nouveau projet</a>
+			    			</li>
+			    			<li>
+			    				<a href="#{request.contextPath}/newActivity.xhtml">Créer une nouvelle activité</a>
+			    			</li>
+			    		</ul>
+			    	</div>
+		    	</div>    
 			    <ul class="nav nav-tabs nav-stacked">
+			    	<li class="dropdown-submenu">
+			    		<a href="#">Mes projets</a>
+			    		<ul class="dropdown-menu">
+			    			<ui:fragment rendered="#{unifiedMB.connectedUserProjectsName.size() > 0}">
+				    			<a4j:repeat value="#{unifiedMB.connectedUserProjectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
+									<li class="dropdown-submenu">
+										<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
+										<ul class="dropdown-menu">
+											<ui:fragment rendered="#{unifiedMB.getEmployeessProject(project).size() > 0}">
+												<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
+													<li>
+														<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+														<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
+														<a tabindex="-1" href="#{request.contextPath}/profile/profile.xhtml?user=#{employee.idemployee}">
+															<ui:fragment rendered="#{unifiedMB.isProjectManager(project, employee)}">
+									                        	<i class="icon-star"></i>
+									                        </ui:fragment> 
+															#{employee.firstname}
+														</a>
+													</li>
+												</a4j:repeat>
+											</ui:fragment>
+											<ui:fragment rendered="#{unifiedMB.getEmployeessProject(project).size() == 0}">
+												<li>
+													<a tabindex="-1" href="#">
+														Aucun autre employé que vous n'existe sur ce projet
+													</a>
+												</li>
+											</ui:fragment>
+										</ul>
+									</li>
+		           				</a4j:repeat>
+	           				</ui:fragment>
+	           				<ui:fragment rendered="#{unifiedMB.connectedUserProjectsName.size() == 0}">
+								<li>
+									<a tabindex="-1" href="#">
+										Vous n'appartenez à aucun projet
+									</a>
+								</li>
+							</ui:fragment>
+			    		</ul>
+			    	</li>
 			    	<li class="dropdown-submenu">
 			    		<a href="#">Les Projets</a>
 			    		<ul class="dropdown-menu">
@@ -17,33 +75,74 @@
 					      		<a tabindex="-1" href="#">Projet 1</a>
 					      	</li>
 					      -->
-							<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
-								<li class="dropdown-submenu">
-									<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
-									<ul class="dropdown-menu">
-										<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
-											<li>
-												<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
-												<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
-												<a tabindex="-1" href="#">
-													<ui:fragment rendered="#{unifiedMB.isProjectManager(project, employee)}">
-							                        	<i class="icon-star"></i>
-							                        </ui:fragment> 
-													#{employee.firstname}
-												</a>
-											</li>
-										</a4j:repeat>
-									</ul>
+					      <ui:fragment rendered="#{unifiedMB.projectsName.size() > 0}">
+								<a4j:repeat value="#{unifiedMB.projectsName}" var="project" ajaxKeys="#{updateBean.updatedRow}">
+									<li class="dropdown-submenu">
+										<a tabindex="-1" href="#{request.contextPath}/project.xhtml?project=#{project.idproject}">#{project.name}</a>
+										<ul class="dropdown-menu">
+											<ui:fragment rendered="#{unifiedMB.getEmployeessProject(project).size() > 0}">
+												<a4j:repeat value="#{unifiedMB.getEmployeessProject(project)}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
+													<li>
+														<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+														<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
+														<a tabindex="-1" href="#{request.contextPath}/profile/profile.xhtml?user=#{employee.idemployee}">
+															<ui:fragment rendered="#{unifiedMB.isProjectManager(project, employee)}">
+									                        	<i class="icon-star"></i>
+									                        </ui:fragment> 
+															#{employee.firstname}
+														</a>
+													</li>
+												</a4j:repeat>
+											</ui:fragment>
+											<ui:fragment rendered="#{unifiedMB.getEmployeessProject(project).size() == 0}">
+												<li>
+													<a tabindex="-1" href="#">
+														Aucun autre employé que vous n'existe sur ce projet
+													</a>
+												</li>
+											</ui:fragment>
+										</ul>
+									</li>
+		           				</a4j:repeat>
+	           				</ui:fragment>
+	           				<ui:fragment rendered="#{unifiedMB.projectsName.size() == 0}">
+								<li>
+									<a tabindex="-1" href="#">
+										Aucun projet n'existe
+									</a>
 								</li>
-	           				</a4j:repeat>
+							</ui:fragment>
 					    </ul>
 			    	</li>
-			    	<li>
-			    		<a href="#{request.contextPath}/profile/profile.xhtml">Profil</a>
-			    	</li>
+			    	
+			    	<ui:fragment rendered="#{unifiedMB.currentEmployee != null}">
+				    	<li>
+				    		<a href="#{request.contextPath}/profile/profile.xhtml?user=#{unifiedMB.currentEmployee.idemployee}">Profil</a>
+				    	</li>
+			    	</ui:fragment>	
+				    	
 			    	<li>
 			    		<a href="#">Messages</a>
 			    	</li>
+			    	<li class="dropdown-submenu">
+			    		<a href="#{request.contextPath}/employees.xhtml">Tous les employés</a>
+			    		<ui:fragment rendered="#{unifiedMB.allEmployees.size() > 0}">
+			    			<ul class="dropdown-menu">
+				    			<a4j:repeat value="#{unifiedMB.allEmployees}" var="employee" ajaxKeys="#{updateBean.updatedRow}">
+									<li>
+										<!-- #{request.contextPath}/chat/talking.xhtml?conversation=1 -->
+										<!-- On recupere le lien vers la conversation si elle existe, sinon on la créée entre les deux personnes -->
+										<a tabindex="-1" href="#{request.contextPath}/profile/profile.xhtml?user=#{employee.idemployee}">
+											#{employee.firstname}
+										</a>
+									</li>
+								</a4j:repeat>
+							</ul>
+			    		</ui:fragment>
+			    		<ui:fragment rendered="#{unifiedMB.allEmployees.size() == 0}">
+			    		</ui:fragment>
+			    		
+		    		</li>
 				</ul>
 			</ui:fragment>
 	    </ui:composition>
