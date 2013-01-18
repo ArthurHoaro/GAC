@@ -10,6 +10,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import model.Employee;
+
 import remote.FEmployeeServicesRemote;
 
 @ManagedBean(name="userProfile")
@@ -25,6 +27,15 @@ public class UserProfile {
 	private String test;
 	private String firstname;
 	private String lastname;	
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public void init() {		
 		Map<String, Object> userSession = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
@@ -32,8 +43,10 @@ public class UserProfile {
 		if( ! userSession.isEmpty() ) {
 			this.username = (String) userSession.get("username");
 			this.isLoggedIn = true;
-			this.firstname = fes.findItem(username).getFirstname();
-			this.lastname = fes.findItem(username).getLastname();
+			Employee current = fes.findItem(username);
+			this.firstname = current.getFirstname();
+			this.lastname = current.getLastname();
+			this.id = current.getIdemployee();
 		}
 		else 
 			this.isLoggedIn = false;

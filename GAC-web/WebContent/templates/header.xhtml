@@ -11,7 +11,7 @@
 		    <div class="navbar navbar-inverse navbar-fixed-top">
         		<div class="navbar-inner">
 		            <div class="container">
-		                <a class="brand" href="#">GAC</a>
+		                <a class="brand" href="#{request.contextPath}/profile/profile.xhtml?user=#{userProfile.id}">GAC</a>
 		                
 		                
 		                <ul class="nav">		                
@@ -19,22 +19,22 @@
 		                    ** LINKS - NAVBAR
 		                    **************************************************************-->
 	                        <!-- COMMON -->
-	                        <li><a href="#{request.contextPath}/index.xhtml" title="Home">Home</a></li>
+	                        <li><a href="#{request.contextPath}/profile/profile.xhtml?user=#{userProfile.id}" title="Home">Accueil</a></li>
 	                        <!--  END COMMON  -->
 	                        
 	                        <!--  REGISTERED   -->
 	                        <ui:fragment rendered="#{userProfile.loggedIn}">
-	                        	<li><a href="#" title="Relations">Logged In Links</a></li>
+	                        	
 	                        </ui:fragment>
 	                        <!--  END REGISTERED  -->
 	                        
 	                        <ui:fragment rendered="#{userProfile.loggedIn}">
-	                        	<li><a href="#{request.contextPath}/chat/convers.xhtml" title="Messagerie instantanée">Messagerie instantanée</a></li>
+	                        	
 	                        </ui:fragment> 
 	                                               
 	                        <!--  ANONYMOUS   -->
 	                        <ui:fragment rendered="#{!userProfile.loggedIn}">
-	                        	<li><a href="#" title="Relations">Anonymous Links</a></li>
+	                        	
                         	</ui:fragment>
 	                        <!--  END ANONYMOUS  -->                        
 	                        <!--*********************************************************
@@ -53,6 +53,13 @@
 								</a>  						
 							</div>
 						</ui:fragment>
+						<ui:fragment rendered="#{userProfile.loggedIn}">
+								<div class="pull-right">
+									<a id="ButLoginDD" class="btn btn-small btn-danger" href="#{request.contextPath}/logout.xhtml">
+		   								Déconnexion
+		   							</a>
+		   						</div>
+							</ui:fragment>	
                      	<div class="btn-group pull-right">
                      		<ui:fragment rendered="#{userProfile.loggedIn}">
 								<a id="ButLoginDD" class="btn btn-small btn-primary" href="#">
@@ -65,8 +72,6 @@
    									Se connecter
    								</a>
 							</ui:fragment>
-								
-							
                                 
                             <button class="btn btn-small btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"/></button>
                             <ul class="dropdown-menu">
@@ -113,6 +118,7 @@
 						        		</h:form>
 					        		</li>
 								</ui:fragment>
+								
                                	<ui:fragment rendered="#{userProfile.loggedIn}">	
    									<h:form>
    										<li>
@@ -126,8 +132,11 @@
 									</h:form>
 								</ui:fragment>
                                 
-							</ul>						
+								</ul>
+							
+												
 						</div>
+						
 						
                        <!--**************************************************************
                         ** END LOGIN FROM - NAVBAR

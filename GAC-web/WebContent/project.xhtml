@@ -18,7 +18,7 @@
 	    			<!-- YOUR CODE STARTS HERE -->
 					   		   				
 	    			<h:form id="formP">	
-	    			<div class="span8">Le projet </div> 
+	    			<div class="span8"><h1>Description du projet</h1></div> 
 	    			<ui:fragment rendered="#{!projetMB.modifModeOn}">   			
 	    				<h:commandButton styleClass="btn span2 offset8" action="#{projetMB.toggleModif(true)}" 
 	    						value="Edit"  rendered="#{projetMB.curEmpManager}"/>
@@ -27,7 +27,7 @@
 							<a href="newActivity.xhtml?idProject=#{projetMB.projectId}" class="btn">Ajouter Activité</a> 	
 						</ui:fragment>
 						<br/>    			
-	    			<div class="well"> 	    				
+	    			<div class="well" style="margin-top:70px;"> 	    				
 		    			<ul>
 		    				<li>Nom du projet : <h:outputText value="#{projetMB.name}" rendered="#{!projetMB.editable()}" />		    									
 		    									<h:inputText value="#{projetMB.name}" rendered="#{projetMB.editable()}"/>
@@ -51,14 +51,14 @@
 			   		
 			   		</h:form>   
 			   		
-			   		Avancement
+			   		<h1>Avancement</h1>
 			   		<div class="well">    				
 	    				<div class="progress progress-striped active">
   								<div class="bar" style="width: #{projetMB.avancement}%;"></div>
 						</div>
 			   		</div>
 			   		
-			   		Mes activités
+			   		<h1>Mes activités</h1>
 			   		<div class="well">    				
 	    				<ui:repeat var="act" value="#{projetMB.myActiviyList}">
 	    						<a class="btn btn-small btn-primary" href="projectActivity.xhtml?idActivity=#{act.idactivity}"><h:outputText value="#{act.description}" /></a>
@@ -68,7 +68,7 @@
 	    							<li>	    								
 				    					Deadline : 		
 				    					<h:outputText value="#{act.day}" >
-				    						<f:convertDateTime type="date" pattern="dd-MM-yyyy HH:mm"/>
+				    						<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm"/>
 				    					</h:outputText>
 	    							</li>
 	    							<li>Status : 	    								        
@@ -83,7 +83,7 @@
 	    				</ui:repeat>
 			   		</div>
 			   		
-			   		Les autres activités
+			   		<h1>Les autres activités du projet</h1>
 			   		<div class="well">    				
 	    				<ui:repeat var="act" value="#{projetMB.otherActiviyList}">
 	    					<a class="btn btn-small btn-primary" href="projectActivity.xhtml?idActivity=#{act.idactivity}"><h:outputText value="#{act.description}" /></a> 

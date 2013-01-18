@@ -190,7 +190,7 @@ public class ProjectActivityMB {
 				this.afficherBoutonTerminer="false";
 			
 		} else {
-			this.statut="FINIT";
+			this.statut="TerminÃ©e";
 			this.afficherBoutonTerminer="false";
 		}
 	}
@@ -304,7 +304,7 @@ public class ProjectActivityMB {
 		return fas.getAllAvancementByActivity(this.idActivity);
 	}
 	
-	/*check si l'employé connecter est le chef de projet*/
+	/*check si l'employï¿½ connecter est le chef de projet*/
 	public Boolean estChefDeProjet()
 	{
 		//return true;

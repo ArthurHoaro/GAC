@@ -68,7 +68,7 @@
 			    		</ul>
 			    	</li>
 			    	<li class="dropdown-submenu">
-			    		<a href="#">Les Projets</a>
+			    		<a href="#">Tous les Projets</a>
 			    		<ul class="dropdown-menu">
 					      <!-- For each projet, 
 					      	<li>
@@ -121,9 +121,7 @@
 				    	</li>
 			    	</ui:fragment>	
 				    	
-			    	<li>
-			    		<a href="#">Messages</a>
-			    	</li>
+			    	
 			    	<li class="dropdown-submenu">
 			    		<a href="#{request.contextPath}/employees.xhtml">Tous les employés</a>
 			    		<ui:fragment rendered="#{unifiedMB.VAllEmployees.size() > 0}">
@@ -141,7 +139,7 @@
 			    		</ui:fragment>
 			    		<ui:fragment rendered="#{unifiedMB.VAllEmployees.size() == 0}">
 			    		</ui:fragment>
-			    		
+			    		<li><a href="#{request.contextPath}/chat/convers.xhtml" title="Messagerie instantanée">Messagerie</a></li>
 		    		</li>
 				</ul>
 			</ui:fragment>
