@@ -31,11 +31,11 @@
 			    				</h2>
 			    			</div>
 							
-							<b>Project de l'activité : </b>
+							<b>Projet associé : </b>
 								<a href="profile/profile.xhtml?user=#{projectActivityMB.projectId}">
 								 	<h:outputText value="#{projectActivityMB.projectName}"  /> 
 								</a>
-							<br /><b> Activité attribué à: </b>
+							<br /><b> Activité attribuée à: </b>
 							
 							<!-- Read Mode -->
 								<ui:fragment rendered="#{projectActivityMB.readMode}">
@@ -68,10 +68,10 @@
   								Statut:  
     								<i><b><h:outputText value="#{projectActivityMB.statut}" /></b></i><h:outputText value="&#160;&#160;&#160;" />
   									<h:commandButton value="Activité terminée" action="#{projectActivityMB.terminerActivity}" rendered="#{projectActivityMB.afficherBoutonTerminer}" styleClass="btn btn-mini btn-info" /> 
-    							<br /><br />Nombre d'heures prévues: 
-    								<h:outputText value="#{projectActivityMB.activityCharge}" /> H
+    							<br /><br />Nombre d'heures estimées : 
+    								<h:outputText value="#{projectActivityMB.activityCharge}" /> h
     							<br />Nombre d'heures passées sur le projet
-						 			<h:outputText value="#{projectActivityMB.activityNombreHeure}" /> H
+						 			<h:outputText value="#{projectActivityMB.activityNombreHeure}" /> h
 								<br /><br /><h:outputText value="Ajouter des heures sur le projet" rendered="#{projectActivityMB.afficherFormulaireAjout}" />
 									<h:outputText value="&#160;&#160;&#160;" />
 								    <h:inputText id="chargeAAjouter" value="#{projectActivityMB.chargeAAjouter}" rendered="#{projectActivityMB.afficherFormulaireAjout}" required="true" styleClass="span1" /> 	
