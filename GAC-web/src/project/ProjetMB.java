@@ -179,4 +179,9 @@ public class ProjetMB {
 	public void annulation(){
 		toggleModif(false);
 	}
+	
+	public boolean getModifModeOn(){
+		return modifMode;
+		
+	}
 }

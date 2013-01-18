@@ -18,10 +18,15 @@
 	    			<!-- YOUR CODE STARTS HERE -->
 					   		   				
 	    			<h:form id="formP">	
-	    			<div class="span8">Le projet </div>    			
-	    			<h:commandButton styleClass="btn span2 offset8" action="#{projetMB.toggleModif(true)}" 
-	    						value="Edit"  rendered="#{projetMB.curEmpManager}"/>	    						
-	    						<a href="newActivity.xhtml?idProject=#{projetMB.projectId}" class="btn">Ajouter Activité</a> 	    			
+	    			<div class="span8">Le projet </div> 
+	    			<ui:fragment rendered="#{!projetMB.modifModeOn}">   			
+	    				<h:commandButton styleClass="btn span2 offset8" action="#{projetMB.toggleModif(true)}" 
+	    						value="Edit"  rendered="#{projetMB.curEmpManager}"/>
+	    						</ui:fragment>
+						<ui:fragment rendered="#{projetMB.curEmpManager}">	    						
+							<a href="newActivity.xhtml?idProject=#{projetMB.projectId}" class="btn">Ajouter Activité</a> 	
+						</ui:fragment>
+						<br/>    			
 	    			<div class="well"> 	    				
 		    			<ul>
 		    				<li>Nom du projet : <h:outputText value="#{projetMB.name}" rendered="#{!projetMB.editable()}" />		    									
@@ -31,11 +36,8 @@
 		    									<h:inputText value="#{projetMB.description}" rendered="#{projetMB.editable()}"/>		    									
 		    									
 		    				</li>
-		    				<li>Manager du projet : <h:outputText value="#{projetMB.manager.firstname} " rendered="#{!projetMB.editable()}"/> 
-	    											<h:outputText value="#{projetMB.manager.lastname}" rendered="#{!projetMB.editable()}"/>
-	    											<rich:select value="#{projetMB.manager}" defaultLabel="#{projetMB.manager.firstname} #{projetMB.manager.lastname}" rendered="#{projetMB.editable()}">
-														<f:selectItems value="#{projetMB.employeeOptions}" />
-					           			 			</rich:select>		    				
+		    				<li>Manager du projet : <h:outputText value="#{projetMB.manager.firstname} " /> 
+	    											<h:outputText value="#{projetMB.manager.lastname}" />	    										    				
 	    					</li>
 		    				<li>Budget alloué : <h:outputText value="#{projetMB.budget} €" rendered="#{!projetMB.editable()}"/>
 	    										<h:inputText value="#{projetMB.budget}" rendered="#{projetMB.editable()}"/>
