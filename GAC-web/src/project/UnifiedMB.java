@@ -46,6 +46,7 @@ public class UnifiedMB implements Serializable {
 	
 	private Collection<Project> connectedUPN;
 	private Collection<Project> vAllProjects;
+	private Collection<Employee> vAllEmployees;
 	
 	public UnifiedMB() {
 		
@@ -55,6 +56,7 @@ public class UnifiedMB implements Serializable {
 	public void postConstruct(){
 		connectedUPN = getConnectedUserProjectsName();
 		vAllProjects = getAllProjects();
+		vAllEmployees = getAllEmployees();
 	}
 	
 	public Collection<Project> getConnectedUPN()
@@ -65,6 +67,16 @@ public class UnifiedMB implements Serializable {
 	public void setConnectedUPN(Collection<Project> _connectedUPN)
 	{
 		connectedUPN = _connectedUPN;
+	}
+	
+	public Collection<Employee> getVAllEmployees()
+	{
+		return vAllEmployees;
+	}
+	
+	public void setVAllEmployees(Collection<Employee> _vAllEmployees)
+	{
+		vAllEmployees = _vAllEmployees;
 	}
 	
 	public Collection<Project> getVAllProjects()
