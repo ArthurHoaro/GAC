@@ -36,6 +36,7 @@ public class ProjetMB {
 	 private double avancement=0.0;	
 	 private boolean modifMode = false;
 	 private List<SelectItem> employeeOptions = new ArrayList<SelectItem>();
+	 private int heuretotalprojet=0;
 	 
 	public ProjetMB() {
 		// TODO Auto-generated constructor stub
@@ -83,6 +84,7 @@ public class ProjetMB {
 			int total= project.getActivities().size();
 			avancement= (double)termine/total;
 			avancement= avancement*100;
+			
 		}		
 		else
 			error=1;		
@@ -102,6 +104,8 @@ public class ProjetMB {
 	public int getAvancement(){
 		return (int) this.avancement;
 	}
+	
+	
 
 	public String getName(){
 		return project.getName();
@@ -135,13 +139,30 @@ public class ProjetMB {
 		this.project.setEmployee(e);
 	}
 	
-	public List<SelectItem> getEmployeeOptions() {
-    	List<Employee> liste = new ArrayList<Employee>();
-    	for(Employee e : fes.findAllEmployee()){
-    		employeeOptions.add(new SelectItem(e, e.getFirstname()+" "+e.getLastname()));
-    	}
-        return employeeOptions;
+	public ArrayList<Employee> getEmployeeOptions() {
+		
+    	ArrayList<Employee> list= new ArrayList<>();
+    	for(Activity ac: project.getActivities())
+    		if(!list.contains(ac.getEmployee()))
+    			list.add(ac.getEmployee());
+        return list;
     }
+	
+	
+	public String calculTotaHeure(){
+		String out=new String();
+		for (Employee  emp: getEmployeeOptions()) {
+			this.heuretotalprojet+= fps.getNombreHeuresUtilisateurSurProjet(emp, project);
+			out+=emp.getEmail()+","+getPercentagePerEmployee(emp)+";";
+		}
+		return out;
+	}
+	
+	public int getPercentagePerEmployee(Employee e){
+		int heureparEmplo=fps.getNombreHeuresUtilisateurSurProjet(e, project);
+		return (int) ((double)heureparEmplo/this.heuretotalprojet)*100;
+	}
+
 	
 	public ArrayList<Activity> getMyActiviyList(){
 		return myActivityList;

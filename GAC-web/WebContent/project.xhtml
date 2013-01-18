@@ -56,6 +56,10 @@
 	    				<div class="progress progress-striped active">
   								<div class="bar" style="width: #{projetMB.avancement}%;"></div>
 						</div>
+						
+						<div id="piechart">
+						
+						</div>
 			   		</div>
 			   		
 			   		Mes activités
@@ -116,6 +120,61 @@
 			   		</div>
 			   		
 			   		
+			   		
+			   		<script type="text/javascript">
+			   		
+			   		$(function () {
+			   		    var chart;
+			   		    $(document).ready(function() {
+			   		        chart = new Highcharts.Chart({
+			   		            chart: {
+			   		                renderTo: 'piechart',
+			   		                plotBackgroundColor: null,
+			   		                plotBorderWidth: null,
+			   		                plotShadow: false
+			   		            },
+			   		            title: {
+			   		                text: 'Répartition des heures travaillées'
+			   		            },
+			   		            tooltip: {
+			   		        	    pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+			   		            	percentageDecimals: 1
+			   		            },
+			   		            plotOptions: {
+			   		                pie: {
+			   		                    allowPointSelect: true,
+			   		                    cursor: 'pointer',
+			   		                    dataLabels: {
+			   		                        enabled: true,
+			   		                        color: '#000000',
+			   		                        connectorColor: '#000000',			   		                     	
+			   		                        formatter: function() {
+			   		                            return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+			   		                        }
+			   		                    }
+			   		                }
+			   		            },
+			   		            series: [{
+			   		                type: 'pie',
+			   		                name: 'repartition',
+			   		                data: [
+			   		                    ['Guillaume Renoult',   45.0],
+			   		                    ['Hedi Tarchouni',       26.8],
+			   		                    {
+			   		                        name: 'Arthur Hoareau',
+			   		                        y: 12.8,
+			   		                        sliced: true,
+			   		                        selected: true
+			   		                    },
+			   		                    ['Remi Marenco',    8.5]
+			   		                    
+			   		                ]
+			   		            }]
+			   		        });
+			   		    });
+			   		    
+			   		});
+			   		</script>
 	    		
 	    			<!-- AND ENDS HERE  -->
         		</div>
