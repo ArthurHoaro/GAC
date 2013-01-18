@@ -2,23 +2,18 @@ package project;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.parser.Entity;
 import model.Activity;
 import model.Employee;
 import model.Project;
 
-import remote.FEmployeeServices;
 import remote.FEmployeeServicesRemote;
 import remote.FProjectServicesRemote;
 
@@ -32,8 +27,7 @@ public class ProjetMB {
 	 @EJB
 	 private FProjectServicesRemote fps;
 	 @EJB
-	 private FEmployeeServicesRemote fes;
-	 
+	 private FEmployeeServicesRemote fes;	 
 	 
 	 private Project project;
 	 private ArrayList<Activity> myActivityList;
@@ -68,10 +62,11 @@ public class ProjetMB {
 		
 		
 		String GET = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("project");
-		// If the conversation is defined
+		// If project id defined
 		int error=0;
-		if( GET != null ) {
-			project = fps.findItem(Integer.parseInt(GET));		
+		if(GET != null || project!=null ) {
+			if(project == null)
+				project = fps.findItem(Integer.parseInt(GET));		
 			myActivityList=new ArrayList<Activity>();
 			otherActivityList=new ArrayList<Activity>();
 			for(Activity act : project.getActivities()){
@@ -136,14 +131,14 @@ public class ProjetMB {
 		return project.getEmployee();
 	}
 	
-	public void setManager(int idEmployee){
-		this.project.setEmployee(fes.findItem(idEmployee));
+	public void setManager(Employee e){
+		this.project.setEmployee(e);
 	}
 	
 	public List<SelectItem> getEmployeeOptions() {
     	List<Employee> liste = new ArrayList<Employee>();
     	for(Employee e : fes.findAllEmployee()){
-    		employeeOptions.add(new SelectItem(e.getIdemployee(), e.getFirstname()+" "+e.getLastname()));
+    		employeeOptions.add(new SelectItem(e, e.getFirstname()+" "+e.getLastname()));
     	}
         return employeeOptions;
     }
@@ -158,14 +153,30 @@ public class ProjetMB {
 		this.modifMode =boo;	
 	}
 	
-	public boolean editable(){
-		boolean ret= false;
-		if(curentEmp!=null && curentEmp.getEmail().equals(this.project.getEmployee().getEmail()) && modifMode )
+	public boolean isCurEmpManager(){
+		boolean ret=false;
+		if(curentEmp!=null && curentEmp.getEmail().equals(this.project.getEmployee().getEmail()))
 			ret=true;
 		return ret;
 	}
 	
-	public void validerModification(){	fps.updateItem(project); toggleModif(false);	}
-	public void annulerModification(){toggleModif(false);}	
+	public int getProjectId(){
+		return project.getIdproject();
+	}
 	
+	public boolean editable(){
+		boolean ret= false;
+		if(isCurEmpManager() && modifMode )
+			ret=true;
+		return ret;
+	}
+	
+	public void validerModification(){	
+		fps.updateItem(project); toggleModif(false);
+		
+	}
+
+	public void annulation(){
+		toggleModif(false);
+	}
 }

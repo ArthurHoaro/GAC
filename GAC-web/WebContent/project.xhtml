@@ -18,31 +18,34 @@
 	    			<!-- YOUR CODE STARTS HERE -->
 					   		   				
 	    			<h:form id="formP">	
-	    			Le projet <a4j:commandButton styleClass="btn span1 offset11" action="#{projetMB.toggleModif(true)}" value="Edit" render="formP"/>    
-	    			<div class="row-fluid">
+	    			<div class="span8">Le projet </div>    			
+	    			<h:commandButton styleClass="btn span2 offset8" action="#{projetMB.toggleModif(true)}" 
+	    						value="Edit"  rendered="#{projetMB.curEmpManager}"/>	    						
+	    						<a href="newActivity.xhtml?idProject=#{projetMB.projectId}" class="btn">Ajouter Activité</a> 	    			
 	    			<div class="well"> 	    				
 		    			<ul>
 		    				<li>Nom du projet : <h:outputText value="#{projetMB.name}" rendered="#{!projetMB.editable()}" />		    									
 		    									<h:inputText value="#{projetMB.name}" rendered="#{projetMB.editable()}"/>
 		    				</li>
 		    				<li>Description : 	<h:outputText value="#{projetMB.description}" rendered="#{!projetMB.editable()}"/>
-		    									<h:inputText value="#{projetMB.description}" rendered="#{projetMB.editable()}"/>
+		    									<h:inputText value="#{projetMB.description}" rendered="#{projetMB.editable()}"/>		    									
 		    									
-		    									<rich:select value="#{projetMB.manager}" rendered="#{projetMB.editable()}">
-														<f:selectItems value="#{projetMB.employeeOptions}" />
-					           			 		</rich:select>
 		    				</li>
-		    				<li>Manager du projet : <h:outputText value="#{projetMB.manager.firstname} " /> 
-	    											<h:outputText value="#{projetMB.manager.lastname}" />		    				
+		    				<li>Manager du projet : <h:outputText value="#{projetMB.manager.firstname} " rendered="#{!projetMB.editable()}"/> 
+	    											<h:outputText value="#{projetMB.manager.lastname}" rendered="#{!projetMB.editable()}"/>
+	    											<rich:select value="#{projetMB.manager}" defaultLabel="#{projetMB.manager.firstname} #{projetMB.manager.lastname}" rendered="#{projetMB.editable()}">
+														<f:selectItems value="#{projetMB.employeeOptions}" />
+					           			 			</rich:select>		    				
 	    					</li>
 		    				<li>Budget alloué : <h:outputText value="#{projetMB.budget} €" rendered="#{!projetMB.editable()}"/>
 	    										<h:inputText value="#{projetMB.budget}" rendered="#{projetMB.editable()}"/>
 		    				</li>		    			
 		    			</ul>
-		    			</div>
-		    			<h:commandButton value="Valider"  action="#{projetMB.validerModification()}"  styleClass="btn btn-success span2 offset1" rendered="#{projetMB.editable()}" />
-						<h:commandButton value="Annuler"  action="#{projetMB.annulerModification()}"  styleClass="btn btn-danger span2 offset3" rendered="#{projetMB.editable()}" />
-		    			</div>
+		    			
+		    			<h:commandButton value="Valider" action="#{projetMB.validerModification}"  styleClass="btn btn-success span2 offset1" rendered="#{projetMB.editable()}" />
+						<h:commandButton value="Annuler" action="#{projetMB.annulation}"  styleClass="btn btn-danger span2 offset10" rendered="#{projetMB.editable()}" />
+						</div>
+		    			
 			   		
 			   		</h:form>   
 			   		
