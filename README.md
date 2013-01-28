@@ -9,9 +9,10 @@ Features :
 - Create/Edit a project
 - Create/Edit activities binded to a project.
 - Create collaborators.
+- Full AJAX chatting between collaborators (build on the middleware HornetQ for JBoss).
 - Affect collaborators to an activity.
 - Log the time spend on an activity.
-- Full AJAX chatting between collaborators (build on the middleware HornetQ for JBoss).
+- Display project progression according to activities.
 
 Note: The GUI is in French.
 
